@@ -2,5 +2,9 @@
 
 This is a simple tic-tac-toe game.
 
-All of the estimated tasks are stored in estimated.adoc file.
+Demo contains boards representations as a standard console output.
 
+To run:
+
+- build project by Maven
+- run jar generated in target directory `java -jar [path] [absolute number greater than 2 (dimensions of board)]`
