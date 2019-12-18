@@ -1,3 +1,6 @@
-= Dear Programmer!
+= OX Game
 
-This is simple Maven generated Java application project. To run this project you should use JDK 11 and Maven 3.5.3.
+This is a simple tic-tac-toe game.
+
+All of the estimated tasks are stored in estimated.adoc file.
+

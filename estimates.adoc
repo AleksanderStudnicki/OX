@@ -1,5 +1,17 @@
-= Estimates for DATE:
+= Estimates for 18.12.2019:
 
 == Optimistic:
+
+- First master commit with some code
+- Simple ability to game
+
 == Realistic:
+
+- Packages
+- Demo of boards representation on demo branch
+- Few classes written with a little help from TDD
+
 == Pessimistic:
+
+- Few classes written without TDD, maybe with some tests
+- Branches structure (master, development, demo, review)
