@@ -3,17 +3,21 @@ package app.studnicki.ox;
 public class Score {
     public int value;
 
+    static final int WIN = 3;
+    static final int DRAW = 1;
+    static final int LIMIT = 6;
+
     public void addWin() {
-        if (value + 3 > 6) {
+        if (value + WIN > LIMIT) {
             throw new VerifyError();
         }
-        value += 3;
+        value += WIN;
     }
 
     public void addDraw() {
-        if (value + 1 > 6) {
+        if (value + DRAW > LIMIT) {
             throw new VerifyError();
         }
-        value += 1;
+        value += DRAW;
     }
 }
