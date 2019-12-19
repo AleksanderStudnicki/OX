@@ -9,20 +9,20 @@
     <version>0.1</version>
     <name>OX Game</name>
     <description>Project of simple tic-tac-toe game written in Java 11</description>
-  
+
     <properties>
-             <!-- https://maven.apache.org/general.html#encoding-warning -->
+        <!-- https://maven.apache.org/general.html#encoding-warning -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-             <!-- https://maven.apache.org/general.html#special-characters-site -->
+        <!-- https://maven.apache.org/general.html#special-characters-site -->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.java.version>11</project.java.version>
         <maven.compiler.source>${project.java.version}</maven.compiler.source>
         <maven.compiler.target>${project.java.version}</maven.compiler.target>
-      <!-- see source for the plugins to verify if those can be skipped, they should IIRC -->
+        <!-- see source for the plugins to verify if those can be skipped, they should IIRC -->
         <maven.compiler.encoding>${project.build.sourceEncoding}</maven.compiler.encoding>
         <maven.resources.encoding>${project.build.sourceEncoding}</maven.resources.encoding>
         <version.maven>3.5.3</version.maven>
-      <!-- plugin versions should go here, so below they can be omitted -->
+        <!-- plugin versions should go here, so below they can be omitted -->
         <version.plugin.maven.enforcer>3.0.0-M2</version.plugin.maven.enforcer>
         <version.plugin.maven.jar>3.1.0</version.plugin.maven.jar>
         <version.plugin.maven.compiler>3.8.0</version.plugin.maven.compiler>
@@ -30,13 +30,13 @@
     </properties>
 
     <dependencies>
-      <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-      <dependency>
-          <groupId>org.testng</groupId>
-          <artifactId>testng</artifactId>
-          <version>7.0.0</version>
-          <scope>test</scope>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.0.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -54,7 +54,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                <!-- helps with plugin versions, so you are more up-to-date -->
+                                    <!-- helps with plugin versions, so you are more up-to-date -->
                                     <version>${version.maven}</version>
                                 </requireMavenVersion>
                             </rules>
@@ -80,7 +80,7 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
-            </plugin>                 
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -89,7 +89,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-<!-- if diff enconding than UTF8 is needed: https://maven.apache.org/plugins/maven-resources-plugin/examples/encoding.html -->
+                <!-- if diff enconding than UTF8 is needed: https://maven.apache.org/plugins/maven-resources-plugin/examples/encoding.html -->
                 <version>${version.plugin.maven.resources}</version>
             </plugin>
         </plugins>
