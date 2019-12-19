@@ -2,7 +2,7 @@ package app.studnicki.ox.ui;
 
 public class UserInterfaceFactory {
 
-    public static UserInterface Console(){
-        return new ConsoleUserInterface();
-    }
+  public static UserInterface console() {
+    return new ConsoleUserInterface();
+  }
 }
