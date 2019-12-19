@@ -4,4 +4,6 @@ public interface UserInterface {
   void welcome();
 
   int menu();
+
+  int changeLanguage();
 }

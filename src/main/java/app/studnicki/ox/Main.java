@@ -8,6 +8,11 @@ public class Main {
     UserInterface ui = UserInterfaceFactory.console();
 
     ui.welcome();
-    ui.menu();
+
+    int choice = ui.menu();
+
+    if (choice == 2) {
+      ui.changeLanguage();
+    }
   }
 }
