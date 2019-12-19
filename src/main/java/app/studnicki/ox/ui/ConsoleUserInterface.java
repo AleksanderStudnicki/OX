@@ -29,7 +29,13 @@ class ConsoleUserInterface implements UserInterface {
   @Override
   public int changeLanguage() {
     showChooseLanguageMenu();
-    return 0;
+    try {
+      int n = new Scanner(System.in).nextInt();
+      return n;
+    } catch (InputMismatchException ex) {
+      System.err.println(rb.getString("wrongMenuInput"));
+      return changeLanguage();
+    }
   }
 
   private void clearScreen() {
