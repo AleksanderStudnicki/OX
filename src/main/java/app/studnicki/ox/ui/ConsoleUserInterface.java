@@ -1,11 +1,11 @@
 package app.studnicki.ox.ui;
+
 import app.studnicki.ox.config.Config;
 
 import java.util.ResourceBundle;
 
-class ConsoleUserInterface implements UserInterface{
-
-    ResourceBundle rb = Config.getInstance().getRb();
+class ConsoleUserInterface implements UserInterface {
+    private ResourceBundle rb = Config.getInstance().getRb();
 
     @Override
     public void welcome() {
@@ -14,7 +14,7 @@ class ConsoleUserInterface implements UserInterface{
         System.out.println(rb.getString("welcome"));
     }
 
-    private void clearScreen(){
+    private void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
