@@ -3,6 +3,7 @@ package app.studnicki.ox;
 //STATIC
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 //NON STATIC
 
@@ -25,4 +26,31 @@ public class ScoreTest {
 
         assertEquals(score.value, 3);
     }
+
+    public void addedDrawToScoreShouldSetAValueToOne() {
+        Score score = new Score();
+
+        score.addDraw();
+
+        assertEquals(score.value, 1);
+    }
+
+    @Test(expectedExceptions = VerifyError.class)
+    public void shouldThrowExceptionWhenValueIsHigherThanSixByAddingWins() {
+        Score score = new Score();
+
+        score.addWin();
+        score.addWin();
+        score.addWin();
+    }
+
+    @Test(expectedExceptions = VerifyError.class)
+    public void shouldThrowExceptionWhenValueIsHigherThanSixByAddingDraws() {
+        Score score = new Score();
+
+        score.addWin();
+        score.addWin();
+        score.addDraw();
+    }
+
 }
