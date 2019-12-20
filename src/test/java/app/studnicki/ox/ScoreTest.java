@@ -6,6 +6,7 @@ import static org.testng.Assert.assertEquals;
 
 //NON STATIC
 
+import app.studnicki.ox.game.Score;
 import org.testng.annotations.Test;
 
 

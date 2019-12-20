@@ -1,4 +1,8 @@
 package app.studnicki.ox.game.gamestate;
 
-public class BoardSizeInit {
+class BoardSizeInit implements GameState {
+  @Override
+  public GameState run() {
+    return new WinningRuleInit();
+  }
 }

@@ -1,12 +1,16 @@
 package app.studnicki.ox.ui;
 
-import app.studnicki.ox.config.Config;
+import static java.lang.System.err;
+import static java.lang.System.in;
+import static java.lang.System.out;
 
+//
+
+import app.studnicki.ox.config.Config;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-import static java.lang.System.*;
 
 class ConsoleUserInterface implements UserInterface {
   private ResourceBundle rb = Config.getInstance().getRb();
@@ -36,6 +40,16 @@ class ConsoleUserInterface implements UserInterface {
       System.err.println(rb.getString("wrongMenuInput"));
       return changeLanguage();
     }
+  }
+
+  @Override
+  public void playersHeader() {
+
+  }
+
+  @Override
+  public void showBoard() {
+
   }
 
   private void clearScreen() {

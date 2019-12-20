@@ -1,4 +1,8 @@
 package app.studnicki.ox.game.gamestate;
 
-public class WinningRuleInit {
+class WinningRuleInit implements GameState {
+  @Override
+  public GameState run() {
+    return null;
+  }
 }

@@ -6,4 +6,8 @@ public interface UserInterface {
   int menu();
 
   int changeLanguage();
+
+  void playersHeader();
+
+  void showBoard();
 }

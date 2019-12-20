@@ -1,4 +1,17 @@
 package app.studnicki.ox.game.gamestate;
 
-public class PlayersInitState {
+import app.studnicki.ox.ui.UserInterface;
+
+public class PlayersInitState implements GameState {
+
+  UserInterface ui;
+
+  public PlayersInitState(UserInterface userInterface) {
+    ui = userInterface;
+  }
+
+  @Override
+  public GameState run() {
+    return new BoardSizeInit();
+  }
 }

@@ -1,4 +1,4 @@
-package app.studnicki.ox;
+package app.studnicki.ox.game;
 
 public class Score {
   public int value;
