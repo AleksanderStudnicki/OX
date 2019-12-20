@@ -1,5 +1,5 @@
 package app.studnicki.ox;
 
-public enum Field {
+public enum Sign {
   O, X, EMPTY
 }

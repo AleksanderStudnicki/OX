@@ -1,13 +1,14 @@
 package app.studnicki.ox.game.gamestate;
 
+import app.studnicki.ox.game.Game;
 import app.studnicki.ox.ui.UserInterface;
 
 public class PlayersInitState implements GameState {
 
-  UserInterface ui;
+  Game game;
 
-  public PlayersInitState(UserInterface userInterface) {
-    ui = userInterface;
+  public PlayersInitState(Game game) {
+    this.game = game;
   }
 
   @Override

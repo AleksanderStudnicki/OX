@@ -1,13 +1,17 @@
 package app.studnicki.ox.game;
 
+import app.studnicki.ox.Sign;
+
 public class Player {
 
   private final Score score;
   private final String name;
+  private final Sign sign;
 
-  Player(String name) {
+  Player(PlayerBuilder builder) {
     score = new Score();
-    this.name = name;
+    name = builder.name;
+    sign = builder.sign;
   }
 
   void addWin() {
