@@ -32,10 +32,15 @@ public class GameBuilder {
 
   GameBuilder firstPlayerSign(Sign sign) {
     firstPlayerBuilder.sign(sign);
-    return this;
+
+    if (sign == Sign.O) {
+      return secondPlayerSign(Sign.X);
+    } else {
+      return secondPlayerSign(Sign.O);
+    }
   }
 
-  GameBuilder secondPlayerSign(Sign sign) {
+  private GameBuilder secondPlayerSign(Sign sign) {
     secondPlayerBuilder.sign(sign);
     return this;
   }

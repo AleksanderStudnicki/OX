@@ -55,4 +55,14 @@ public class ScoreTest {
     score.addDraw();
   }
 
+  public void scoreWithValueEqualsFiveShouldReturnStringFiveOnToString() {
+    Score score = new Score();
+
+    score.addWin();
+    score.addDraw();
+    score.addDraw();
+
+    assertEquals(score.toString(), "5");
+  }
+
 }

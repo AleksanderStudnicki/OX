@@ -1,6 +1,8 @@
 package app.studnicki.ox;
 
 import app.studnicki.ox.config.Config;
+import app.studnicki.ox.game.Game;
+import app.studnicki.ox.game.GameBuilder;
 import app.studnicki.ox.ui.UserInterface;
 import app.studnicki.ox.ui.UserInterfaceFactory;
 
@@ -27,6 +29,10 @@ public class Main {
           case 0:
             break;
         }
+      } else if (choice == 1) {
+        GameBuilder gameBuilder = new GameBuilder();
+
+
       }
 
     }

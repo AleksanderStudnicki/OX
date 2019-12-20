@@ -1,7 +1,6 @@
 package app.studnicki.ox.game;
 
 import app.studnicki.ox.game.gamestate.GameState;
-import app.studnicki.ox.game.gamestate.GameStateFactory;
 import app.studnicki.ox.ui.UserInterface;
 
 public class Game {
@@ -25,4 +24,5 @@ public class Game {
       gameState = gameState.run();
     }
   }
+
 }
