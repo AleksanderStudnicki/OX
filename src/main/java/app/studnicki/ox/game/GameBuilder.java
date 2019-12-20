@@ -15,22 +15,22 @@ public class GameBuilder {
   WinningRule winningRule;
   UserInterface userInterface;
 
-  GameBuilder winningRule(WinningRule winningRule) {
+  public GameBuilder winningRule(WinningRule winningRule) {
     this.winningRule = winningRule;
     return this;
   }
 
-  GameBuilder firstPlayerName(String name) {
+  public GameBuilder firstPlayerName(String name) {
     firstPlayerBuilder.name(name);
     return this;
   }
 
-  GameBuilder secondPlayerName(String name) {
+  public GameBuilder secondPlayerName(String name) {
     secondPlayerBuilder.name(name);
     return this;
   }
 
-  GameBuilder firstPlayerSign(Sign sign) {
+  public GameBuilder firstPlayerSign(Sign sign) {
     firstPlayerBuilder.sign(sign);
 
     if (sign == Sign.O) {
@@ -45,12 +45,12 @@ public class GameBuilder {
     return this;
   }
 
-  GameBuilder userInterface(UserInterface userInterface) {
+  public GameBuilder userInterface(UserInterface userInterface) {
     this.userInterface = userInterface;
     return this;
   }
 
-  Game build() {
+  public Game build() {
     firstPlayer = firstPlayerBuilder.build();
     secondPlayer = secondPlayerBuilder.build();
     return new Game(this);

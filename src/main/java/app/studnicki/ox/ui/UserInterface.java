@@ -1,5 +1,7 @@
 package app.studnicki.ox.ui;
 
+import app.studnicki.ox.Sign;
+
 public interface UserInterface {
   void welcome();
 
@@ -10,4 +12,10 @@ public interface UserInterface {
   void playersHeader();
 
   void showBoard();
+
+  String typeFirstName();
+
+  String typeSecondName();
+
+  Sign typeSignOfFirstPlayer();
 }

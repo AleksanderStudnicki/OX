@@ -6,7 +6,9 @@ import static java.lang.System.out;
 
 //
 
+import app.studnicki.ox.Sign;
 import app.studnicki.ox.config.Config;
+
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -49,6 +51,39 @@ class ConsoleUserInterface implements UserInterface {
   @Override
   public void showBoard() {
 
+  }
+
+  @Override
+  public String typeFirstName() {
+    clearScreen();
+    out.println(rb.getString("firstPlayerName"));
+    return new Scanner(in).nextLine();
+  }
+
+  @Override
+  public String typeSecondName() {
+    clearScreen();
+    out.println(rb.getString("secondPlayerName"));
+    return new Scanner(in).nextLine();
+  }
+
+  @Override
+  public Sign typeSignOfFirstPlayer() {
+    clearScreen();
+
+    out.println(rb.getString("signOfFirstPlayer"));
+
+    String line = new Scanner(in).nextLine();
+
+    if (!line.equals("O") && !line.equals("X")) {
+      return typeSignOfFirstPlayer();
+    }
+
+    if (line.equals("X")) {
+      return Sign.X;
+    } else {
+      return Sign.O;
+    }
   }
 
   private void clearScreen() {
