@@ -20,9 +20,6 @@ public class Player {
 
   @Override
   public String toString() {
-    return "Player{"
-        + "score=" + score
-        + ", name='" + name + '\''
-        + '}';
+    return name + ": " + score;
   }
 }

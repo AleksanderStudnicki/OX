@@ -34,8 +34,7 @@ class ConsoleUserInterface implements UserInterface {
   public int changeLanguage() {
     showChooseLanguageMenu();
     try {
-      int n = new Scanner(System.in).nextInt();
-      return n;
+      return new Scanner(System.in).nextInt();
     } catch (InputMismatchException ex) {
       System.err.println(rb.getString("wrongMenuInput"));
       return changeLanguage();
@@ -67,8 +66,7 @@ class ConsoleUserInterface implements UserInterface {
 
   private int readInt() {
     try {
-      int n = new Scanner(in).nextInt();
-      return n;
+      return new Scanner(in).nextInt();
     } catch (InputMismatchException ex) {
       err.println(rb.getString("wrongMenuInput"));
       return readInt();
