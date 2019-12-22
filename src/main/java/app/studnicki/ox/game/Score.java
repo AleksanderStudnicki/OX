@@ -1,11 +1,10 @@
 package app.studnicki.ox.game;
 
 public class Score {
-  public int value;
-
   private static final int WIN = 3;
   private static final int DRAW = 1;
   private static final int LIMIT = 6;
+  public int value;
 
   public void addWin() {
     add(WIN);

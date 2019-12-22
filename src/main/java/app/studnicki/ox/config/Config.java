@@ -8,11 +8,11 @@ public class Config {
   private Locale locale = Locale.forLanguageTag("en");
   private ResourceBundle rb = ResourceBundle.getBundle("Message", locale);
 
-  private static class ConfigHolder {
-    private static Config INSTANCE = new Config();
+  private Config() {
   }
 
-  private Config() {
+  public static Config getInstance() {
+    return ConfigHolder.INSTANCE;
   }
 
   public void changeLanguage(String code) {
@@ -20,11 +20,11 @@ public class Config {
     rb = ResourceBundle.getBundle("Message", locale);
   }
 
-  public static Config getInstance() {
-    return ConfigHolder.INSTANCE;
-  }
-
   public ResourceBundle getRb() {
     return rb;
+  }
+
+  private static class ConfigHolder {
+    private static Config INSTANCE = new Config();
   }
 }

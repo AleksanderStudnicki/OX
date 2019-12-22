@@ -1,7 +1,6 @@
 package app.studnicki.ox.ui;
 
 import app.studnicki.ox.Sign;
-import app.studnicki.ox.game.Board;
 import app.studnicki.ox.game.Player;
 
 public interface UserInterface {
@@ -13,7 +12,7 @@ public interface UserInterface {
 
   void playersHeader(Player firstPlayer, Player secondPlayer);
 
-  void showBoard(Board board);
+  void showBoard(Sign[][] board);
 
   String typeFirstName();
 
@@ -21,4 +20,7 @@ public interface UserInterface {
 
   Sign typeSignOfFirstPlayer();
 
+  int typeWinningRule(int limit);
+
+  int typeDimension();
 }

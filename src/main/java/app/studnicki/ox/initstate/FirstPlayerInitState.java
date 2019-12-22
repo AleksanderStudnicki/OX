@@ -5,10 +5,18 @@ import app.studnicki.ox.ui.UserInterface;
 
 class FirstPlayerInitState implements InitState {
 
+  GameBuilder gameBuilder;
+  UserInterface userInterface;
+
+  FirstPlayerInitState(GameBuilder gameBuilder, UserInterface userInterface) {
+    this.gameBuilder = gameBuilder;
+    this.userInterface = userInterface;
+  }
+
   @Override
-  public InitState run(GameBuilder gameBuilder, UserInterface userInterface) {
+  public InitState run() {
     String name = userInterface.typeFirstName();
     gameBuilder.firstPlayerName(name);
-    return new FirstPlayerSignInit().run(gameBuilder, userInterface);
+    return new FirstPlayerSignInit(gameBuilder, userInterface);
   }
 }

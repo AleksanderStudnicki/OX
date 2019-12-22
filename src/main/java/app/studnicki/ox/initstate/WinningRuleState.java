@@ -3,20 +3,22 @@ package app.studnicki.ox.initstate;
 import app.studnicki.ox.game.GameBuilder;
 import app.studnicki.ox.ui.UserInterface;
 
-class SecondPlayerInitState implements InitState {
+public class WinningRuleState implements InitState {
 
   GameBuilder gameBuilder;
   UserInterface userInterface;
+  int limit;
 
-  SecondPlayerInitState(GameBuilder gameBuilder, UserInterface userInterface) {
+  WinningRuleState(GameBuilder gameBuilder, UserInterface userInterface, int limit) {
     this.gameBuilder = gameBuilder;
     this.userInterface = userInterface;
+    this.limit = limit;
   }
 
   @Override
   public InitState run() {
-    String name = userInterface.typeSecondName();
-    gameBuilder.secondPlayerName(name);
-    return new DimensionsState(gameBuilder, userInterface);
+    int winningRule = userInterface.typeWinningRule(limit);
+    gameBuilder.winningRule(winningRule);
+    return null;
   }
 }

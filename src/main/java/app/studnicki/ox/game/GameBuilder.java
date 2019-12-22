@@ -9,13 +9,13 @@ public class GameBuilder {
   private final PlayerBuilder firstPlayerBuilder = new PlayerBuilder();
   private final PlayerBuilder secondPlayerBuilder = new PlayerBuilder();
 
-  Sign secondSign;
   Player firstPlayer;
   Player secondPlayer;
-  WinningRule winningRule;
+  int winningRule;
   UserInterface userInterface;
+  int dimension;
 
-  public GameBuilder winningRule(WinningRule winningRule) {
+  public GameBuilder winningRule(int winningRule) {
     this.winningRule = winningRule;
     return this;
   }
@@ -50,9 +50,15 @@ public class GameBuilder {
     return this;
   }
 
+  public GameBuilder dimension(int dimension) {
+    this.dimension = dimension;
+    return this;
+  }
+
   public Game build() {
     firstPlayer = firstPlayerBuilder.build();
     secondPlayer = secondPlayerBuilder.build();
+
     return new Game(this);
   }
 }

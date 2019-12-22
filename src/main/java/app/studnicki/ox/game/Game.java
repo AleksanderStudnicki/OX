@@ -8,7 +8,8 @@ public class Game {
   private final UserInterface userInterface;
   private final Player firstPlayer;
   private final Player secondPlayer;
-  private final WinningRule winningRule;
+  private final int winningRule;
+  private final int dimension;
 
   private GameState gameState;
 
@@ -17,12 +18,12 @@ public class Game {
     firstPlayer = builder.firstPlayer;
     secondPlayer = builder.secondPlayer;
     winningRule = builder.winningRule;
+    dimension = builder.dimension;
   }
 
-  void play() {
-    while (gameState != null) {
-      gameState = gameState.run();
-    }
+  public void play() {
+    Round round = new Round(userInterface, firstPlayer, secondPlayer, dimension, winningRule);
+    round.play();
   }
 
 }

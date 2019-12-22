@@ -2,11 +2,8 @@ package app.studnicki.ox.ui;
 
 import app.studnicki.ox.Sign;
 import app.studnicki.ox.config.Config;
-import app.studnicki.ox.game.Board;
 import app.studnicki.ox.game.Player;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -51,11 +48,6 @@ class ConsoleUserInterface implements UserInterface {
   }
 
   @Override
-  public void showBoard(Board board) {
-    showBoard(board.matrix);
-  }
-
-  @Override
   public String typeFirstName() {
     clearScreen();
     out.println(rb.getString("firstPlayerName"));
@@ -85,6 +77,42 @@ class ConsoleUserInterface implements UserInterface {
       return Sign.X;
     } else {
       return Sign.O;
+    }
+  }
+
+  @Override
+  public int typeWinningRule(int limit) {
+    clearScreen();
+    out.println(rb.getString("winningRuleQuestion"));
+    try {
+      int n = new Scanner(System.in).nextInt();
+      if (n < 3 || n > limit) {
+        out.println(rb.getString("wrongRule"));
+        return typeWinningRule(limit);
+      } else {
+        return n;
+      }
+    } catch (InputMismatchException ex) {
+      err.println(rb.getString("wrongMenuInput"));
+      return typeWinningRule(limit);
+    }
+  }
+
+  @Override
+  public int typeDimension() {
+    clearScreen();
+    out.println(rb.getString("boardDimensions"));
+    try {
+      int n = new Scanner(System.in).nextInt();
+      if (n < 3) {
+        out.println(rb.getString("wrongDimensions"));
+        return typeDimension();
+      } else {
+        return n;
+      }
+    } catch (InputMismatchException ex) {
+      err.println(rb.getString("wrongMenuInput"));
+      return typeDimension();
     }
   }
 
@@ -123,7 +151,8 @@ class ConsoleUserInterface implements UserInterface {
     out.println(rb.getString("changeLanguageMenu"));
   }
 
-  private void showBoard(Sign[][] board) {
+  @Override
+  public void showBoard(Sign[][] board) {
     showBoardHeader(board.length);
     showSeparationLine(board.length);
     IntStream.range(0, board.length)

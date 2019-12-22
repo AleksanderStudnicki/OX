@@ -5,10 +5,19 @@ import app.studnicki.ox.game.GameBuilder;
 import app.studnicki.ox.ui.UserInterface;
 
 class FirstPlayerSignInit implements InitState {
+
+  GameBuilder gameBuilder;
+  UserInterface userInterface;
+
+  FirstPlayerSignInit(GameBuilder gameBuilder, UserInterface userInterface) {
+    this.gameBuilder = gameBuilder;
+    this.userInterface = userInterface;
+  }
+
   @Override
-  public InitState run(GameBuilder gameBuilder, UserInterface userInterface) {
+  public InitState run() {
     Sign sign = userInterface.typeSignOfFirstPlayer();
     gameBuilder.firstPlayerSign(sign);
-    return new SecondPlayerInitState().run(gameBuilder, userInterface);
+    return new SecondPlayerInitState(gameBuilder, userInterface);
   }
 }
