@@ -17,7 +17,16 @@ public class Round {
   Player firstPlayer;
   Player secondPlayer;
 
+  int winningRule;
+
   Round(UserInterface userInterface, Player firstPlayer, Player secondPlayer, int dimension, int winningRule) {
+    this.userInterface = userInterface;
+
+    this.firstPlayer = firstPlayer;
+    this.secondPlayer = secondPlayer;
+
+    this.winningRule = winningRule;
+
     board = new Sign[dimension][dimension];
     initBoard(board);
   }

@@ -7,7 +7,7 @@ import app.studnicki.ox.initstate.InitState;
 import app.studnicki.ox.initstate.InitStateFactory;
 import app.studnicki.ox.ui.UserInterface;
 
-public class Menu {
+class Menu {
 
   private final UserInterface ui;
   private boolean exit;
@@ -16,7 +16,7 @@ public class Menu {
     this.ui = ui;
   }
 
-  public void run() {
+  void run() {
     while (!exit) {
       ui.welcome();
 

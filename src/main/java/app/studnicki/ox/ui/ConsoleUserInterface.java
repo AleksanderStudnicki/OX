@@ -44,6 +44,7 @@ class ConsoleUserInterface implements UserInterface {
 
   @Override
   public void playersHeader(Player firstPlayer, Player secondPlayer) {
+    clearScreen();
     out.printf("Player #1 - %s  |  Player #2 - %s%n", firstPlayer, secondPlayer);
   }
 
@@ -153,6 +154,7 @@ class ConsoleUserInterface implements UserInterface {
 
   @Override
   public void showBoard(Sign[][] board) {
+    out.println();
     showBoardHeader(board.length);
     showSeparationLine(board.length);
     IntStream.range(0, board.length)

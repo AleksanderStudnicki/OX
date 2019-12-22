@@ -56,8 +56,8 @@ public class GameBuilder {
   }
 
   public Game build() {
-    firstPlayer = firstPlayerBuilder.build();
-    secondPlayer = secondPlayerBuilder.build();
+    this.firstPlayer = firstPlayerBuilder.build();
+    this.secondPlayer = secondPlayerBuilder.build();
 
     return new Game(this);
   }

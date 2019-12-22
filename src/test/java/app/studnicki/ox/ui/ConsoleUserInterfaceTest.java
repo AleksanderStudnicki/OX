@@ -32,6 +32,6 @@ public class ConsoleUserInterfaceTest {
     ui.playersHeader(pb.build(), pb2.build());
 
     //then
-    Assert.assertEquals(os.toString(), "Player #1 - Aleksander: 0  |  Player #2 - Czesio: 0\n");
+    Assert.assertEquals(os.toString(), "\u001B[H\u001B[2JPlayer #1 - Aleksander: 0  |  Player #2 - Czesio: 0\n");
   }
 }
