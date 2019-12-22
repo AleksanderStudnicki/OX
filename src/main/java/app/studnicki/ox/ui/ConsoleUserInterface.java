@@ -1,20 +1,19 @@
 package app.studnicki.ox.ui;
 
-import static java.lang.System.err;
-import static java.lang.System.in;
-import static java.lang.System.out;
-
-//
-
 import app.studnicki.ox.Sign;
 import app.studnicki.ox.config.Config;
 import app.studnicki.ox.game.Board;
+import app.studnicki.ox.game.Player;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import static java.lang.System.*;
 
 
 class ConsoleUserInterface implements UserInterface {
@@ -47,8 +46,8 @@ class ConsoleUserInterface implements UserInterface {
   }
 
   @Override
-  public void playersHeader() {
-
+  public void playersHeader(Player firstPlayer, Player secondPlayer) {
+    out.printf("Player #1 - %s  |  Player #2 - %s%n", firstPlayer, secondPlayer);
   }
 
   @Override
@@ -124,33 +123,33 @@ class ConsoleUserInterface implements UserInterface {
     out.println(rb.getString("changeLanguageMenu"));
   }
 
-  private void showBoard(Sign[][] board){
+  private void showBoard(Sign[][] board) {
     showBoardHeader(board.length);
     showSeparationLine(board.length);
     IntStream.range(0, board.length)
-            .forEach(i -> {
-              Sign[] arr = board[i];
-              showLine(i, arr);
-              showSeparationLine(arr.length);
-            });
+        .forEach(i -> {
+          Sign[] arr = board[i];
+          showLine(i, arr);
+          showSeparationLine(arr.length);
+        });
   }
 
-  private void showLine(int n, Sign[] arr){
+  private void showLine(int n, Sign[] arr) {
     out.printf("%d |", n);
     Stream.of(arr).forEach(s -> out.printf(" %s |", s));
     out.println();
   }
 
-  private void showSeparationLine(int n){
+  private void showSeparationLine(int n) {
     out.print("  -");
     IntStream.range(0, n).forEach(i -> out.print("----"));
     out.println();
   }
 
-  private void showBoardHeader(int n){
+  private void showBoardHeader(int n) {
     out.print("   ");
     IntStream.range(0, n)
-            .forEach(i -> out.printf(" %d  ", i));
+        .forEach(i -> out.printf(" %d  ", i));
     out.println();
   }
 }

@@ -7,17 +7,17 @@ public class PlayerBuilder {
   String name;
   Sign sign;
 
-  PlayerBuilder name(String name) {
+  public PlayerBuilder name(String name) {
     this.name = name;
     return this;
   }
 
-  PlayerBuilder sign(Sign sign) {
+  public PlayerBuilder sign(Sign sign) {
     this.sign = sign;
     return this;
   }
 
-  Player build() {
+  public Player build() {
     return new Player(this);
   }
 
