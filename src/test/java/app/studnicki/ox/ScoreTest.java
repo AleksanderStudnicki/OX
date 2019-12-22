@@ -1,67 +1,76 @@
 package app.studnicki.ox;
 
-//STATIC
-
-import static org.testng.Assert.assertEquals;
-
-//NON STATIC
-
 import app.studnicki.ox.game.Score;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 
 @Test
 public class ScoreTest {
 
-  /**
-   * Score class has addWin() method that adds 3 to value of the score
-   * after each win by a player.
-   * So after the first win, when player had 0 points at the beginning,
-   * it should return 3 as a value of the score.
-   * (win - 3 points, draw - 1 point, lose - 0 points)
-   */
-
   public void addedWinToScoreShouldSetAValueToThree() {
+    //given
     Score score = new Score();
 
+    //when
     score.addWin();
 
+    //then
     assertEquals(score.value, 3);
   }
 
   public void addedDrawToScoreShouldSetAValueToOne() {
+    //given
     Score score = new Score();
 
+
+    //when
     score.addDraw();
 
+
+    //then
     assertEquals(score.value, 1);
   }
 
   @Test(expectedExceptions = VerifyError.class)
   public void shouldThrowExceptionWhenValueIsHigherThanSixByAddingWins() {
+    //given
     Score score = new Score();
 
+    //when
     score.addWin();
     score.addWin();
     score.addWin();
+
+    //then (expectedExceptions above)
   }
 
   @Test(expectedExceptions = VerifyError.class)
   public void shouldThrowExceptionWhenValueIsHigherThanSixByAddingDraws() {
+    //given
     Score score = new Score();
 
+
+    //when
     score.addWin();
     score.addWin();
     score.addDraw();
+
+    //then (expectedExceptions above)
   }
 
   public void scoreWithValueEqualsFiveShouldReturnStringFiveOnToString() {
+    //given
     Score score = new Score();
 
+
+    //when
     score.addWin();
     score.addDraw();
     score.addDraw();
 
+    //then
     assertEquals(score.toString(), "5");
   }
 
