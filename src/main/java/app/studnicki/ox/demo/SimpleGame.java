@@ -10,7 +10,33 @@ import java.util.stream.Stream;
 public class SimpleGame {
 
   public static void main(String[] args) {
+
     int n = 3;
+    int winningRule = 3;
+
+    if (args.length >= 2) {
+      try {
+        int dim = Integer.parseInt(args[0]);
+        int wr = Integer.parseInt(args[1]);
+
+        if (dim >= 3) {
+          n = dim;
+        } else {
+          n = 3;
+        }
+        if (wr <= dim && wr >= 3) {
+          winningRule = wr;
+        } else {
+          winningRule = 3;
+        }
+      } catch (NumberFormatException ex) {
+        System.err.println("Not valid arguments!");
+      }
+    } else {
+      n = 3;
+      winningRule = 3;
+    }
+
 
     Map<Coordinates, Sign> board = new HashMap<>();
     Sign[][] bVis = new Sign[n][n];
@@ -18,7 +44,6 @@ public class SimpleGame {
     initBoard(bVis);
     showBoard(bVis);
 
-    int winningRule = 3;
 
     int steps = 0;
 
@@ -37,19 +62,19 @@ public class SimpleGame {
       showBoard(bVis);
       steps++;
 
-      if(checkHorizontally(coordinates, board, Sign.NAUGHT, winningRule) == winningRule){
+      if (checkHorizontally(coordinates, board, Sign.NAUGHT, winningRule) == winningRule) {
         System.out.println("PLAYER 1 WIN");
         break;
       }
-      if(checkVertically(coordinates, board, Sign.NAUGHT, winningRule) == winningRule){
+      if (checkVertically(coordinates, board, Sign.NAUGHT, winningRule) == winningRule) {
         System.out.println("PLAYER 1 WIN");
         break;
       }
-      if(checkDiagonallyUp(coordinates, board, Sign.NAUGHT, winningRule) == winningRule){
+      if (checkDiagonallyUp(coordinates, board, Sign.NAUGHT, winningRule) == winningRule) {
         System.out.println("PLAYER 1 WIN");
         break;
       }
-      if(checkDiagonallyDown(coordinates, board, Sign.NAUGHT, winningRule) == winningRule){
+      if (checkDiagonallyDown(coordinates, board, Sign.NAUGHT, winningRule) == winningRule) {
         System.out.println("PLAYER 1 WIN");
         break;
       }
@@ -68,19 +93,19 @@ public class SimpleGame {
       showBoard(bVis);
       steps++;
 
-      if(checkHorizontally(coordinates, board, Sign.CROSS, winningRule) == winningRule){
+      if (checkHorizontally(coordinates, board, Sign.CROSS, winningRule) == winningRule) {
         System.out.println("PLAYER 2 WIN");
         break;
       }
-      if(checkVertically(coordinates, board, Sign.CROSS, winningRule) == winningRule){
+      if (checkVertically(coordinates, board, Sign.CROSS, winningRule) == winningRule) {
         System.out.println("PLAYER 2 WIN");
         break;
       }
-      if(checkDiagonallyUp(coordinates, board, Sign.CROSS, winningRule) == winningRule){
+      if (checkDiagonallyUp(coordinates, board, Sign.CROSS, winningRule) == winningRule) {
         System.out.println("PLAYER 2 WIN");
         break;
       }
-      if(checkDiagonallyDown(coordinates, board, Sign.CROSS, winningRule) == winningRule){
+      if (checkDiagonallyDown(coordinates, board, Sign.CROSS, winningRule) == winningRule) {
         System.out.println("PLAYER 2 WIN");
         break;
       }
@@ -97,7 +122,7 @@ public class SimpleGame {
         Sign s = board.get(c);
         if (s == sign) {
           counter++;
-          if(counter == winningRule){
+          if (counter == winningRule) {
             return counter;
           }
         } else {
@@ -114,7 +139,7 @@ public class SimpleGame {
         Sign s = board.get(c);
         if (s == sign) {
           counter++;
-          if(counter == winningRule){
+          if (counter == winningRule) {
             return counter;
           }
         } else {
@@ -138,7 +163,7 @@ public class SimpleGame {
         Sign s = board.get(c);
         if (s == sign) {
           counter++;
-          if(counter == winningRule){
+          if (counter == winningRule) {
             return counter;
           }
         } else {
@@ -155,7 +180,7 @@ public class SimpleGame {
         Sign s = board.get(c);
         if (s == sign) {
           counter++;
-          if(counter == winningRule){
+          if (counter == winningRule) {
             return counter;
           }
         } else {
@@ -179,7 +204,7 @@ public class SimpleGame {
         Sign s = board.get(c);
         if (s == sign) {
           counter++;
-          if(counter == winningRule){
+          if (counter == winningRule) {
             return counter;
           }
         } else {
@@ -196,7 +221,7 @@ public class SimpleGame {
         Sign s = board.get(c);
         if (s == sign) {
           counter++;
-          if(counter == winningRule){
+          if (counter == winningRule) {
             return counter;
           }
         } else {
@@ -220,7 +245,7 @@ public class SimpleGame {
         Sign s = board.get(c);
         if (s == sign) {
           counter++;
-          if(counter == winningRule){
+          if (counter == winningRule) {
             return counter;
           }
         } else {
@@ -237,7 +262,7 @@ public class SimpleGame {
         Sign s = board.get(c);
         if (s == sign) {
           counter++;
-          if(counter == winningRule){
+          if (counter == winningRule) {
             return counter;
           }
         } else {
@@ -269,6 +294,7 @@ public class SimpleGame {
   }
 
   private static void showBoard(Sign[][] board) {
+    System.out.print("\033[H\033[2J");
     showBoardHeader(board.length);
     showSeparationLine(board.length);
     IntStream.range(0, board.length)

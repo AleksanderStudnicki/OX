@@ -71,7 +71,7 @@
                         <index>true</index>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>app.studnicki.ox.demo.BoardsDemo</mainClass>
+                            <mainClass>app.studnicki.ox.demo.SimpleGame</mainClass>
                         </manifest>
                         <manifestEntries>
                             <mode>development</mode>
