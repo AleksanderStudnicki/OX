@@ -4,3 +4,4 @@ This is a simple tic-tac-toe game.
 
 All of the estimated tasks are stored in estimated.adoc file.
 
+image::crc.png[]
