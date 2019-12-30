@@ -9,5 +9,10 @@ public interface UserInterface extends PropertyChangeListener {
    */
   void welcome();
 
+  /**
+   * Should print/show game board, based on implementation.
+   * @param n     amount of field on one row
+   * @param board filled fields in board represented as a map
+   */
   void board(int n, Map<Integer, Sign> board);
 }

@@ -30,7 +30,7 @@ public class ConsoleUserInterface implements UserInterface {
   /**
    * Prints board to a console output print stream.
    *
-   * @param n     amount of field on one line
+   * @param n     amount of field on one row
    * @param board filled fields in board represented as a map
    */
   @Override
