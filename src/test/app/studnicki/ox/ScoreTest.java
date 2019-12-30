@@ -17,4 +17,26 @@ public class ScoreTest {
     //then
     assertEquals(score.value, 0);
   }
+
+  public void valueAfterAdditionOfWinShouldBeEqualsThree() {
+    //given
+    Score score = new Score();
+
+    //when
+    score.addWin();
+
+    //then
+    assertEquals(score.value, 3);
+  }
+
+  public void valueAfterAdditionOfDrawShouldBeEqualsOne() {
+    //given
+    Score score = new Score();
+
+    //when
+    score.addDraw();
+
+    //then
+    assertEquals(score.value, 1);
+  }
 }
