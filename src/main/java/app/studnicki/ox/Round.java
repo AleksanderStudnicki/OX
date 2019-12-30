@@ -12,6 +12,7 @@ public class Round {
 
   /**
    * Constructor
+   *
    * @param dimension Integer value that defines game board size (square: dimension x dimension)
    *                  and range of id fields (0..(dimension^2 - 1)).
    */
@@ -25,10 +26,14 @@ public class Round {
 
   /**
    * Fill the field of game board with O or X value (Sign enum).
+   *
    * @param id   Id of field within within range: 0..(dimension^2 - 1).
    * @param sign Naught or cross from Sign enum.
    */
   public void setField(int id, Sign sign) {
+    if (sign == null) {
+      throw new NullPointerException("Sign cannot be null!");
+    }
     if (id >= limit || id < 0) {
       throw new IndexOutOfBoundsException("Id of field does not belong to the board range!");
     }
@@ -37,5 +42,4 @@ public class Round {
     }
     board.put(id, sign);
   }
-
 }
