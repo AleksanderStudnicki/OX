@@ -13,8 +13,8 @@ class Round {
   /**
    * Constructor
    *
-   * @param dimension Integer value that defines game board size (square: dimension x dimension)
-   *                  and range of id fields (0..(dimension^2 - 1)).
+   * @param dimension Integer value that defines game board size
+   *                  (square: dimension x dimension)and range of id fields (0..(dimension^2 - 1)).
    */
   Round(int dimension) {
     if (dimension < MININUM_DIMENSION) {
