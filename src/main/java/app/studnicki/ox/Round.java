@@ -13,15 +13,15 @@ class Round {
   Map<Integer, Sign> board = new HashMap<>();
 
   /**
-   * Constructor
+   * Constructor.
    *
    * @param dimension Integer value that defines game board size
    *                  (square: dimension x dimension)and range of id fields (0..(dimension^2 - 1)).
    */
   Round(int dimension) {
-    if (dimension < Config.INSTANCE.MINIMUM_DIMENSION) {
+    if (dimension < Config.MINIMUM_DIMENSION) {
       throw new IllegalArgumentException("Board dimension cannot be lesser than "
-          + Config.INSTANCE.MINIMUM_DIMENSION + "!");
+          + Config.MINIMUM_DIMENSION + "!");
     }
     this.dimension = dimension;
     limit = dimension * dimension;

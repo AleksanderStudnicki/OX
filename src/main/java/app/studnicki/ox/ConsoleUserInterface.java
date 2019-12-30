@@ -82,7 +82,7 @@ class ConsoleUserInterface implements UserInterface {
   }
 
   /**
-   * Prints a message as an error
+   * Prints a message as an error.
    * @param content Content of error message
    */
   @Override

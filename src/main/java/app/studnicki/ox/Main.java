@@ -2,9 +2,10 @@ package app.studnicki.ox;
 
 class Main {
   /**
-   * Simple game: just filling the board with naught sign. Board dimension can be customized by args.
-   * Error handling is provided.
-   * @param args simple main arguments (the first can be treated as a board dimension if is parsable to integer)
+   * Simple game: just filling the board with naught sign.
+   * Board dimension can be customized by args. Error handling is provided.
+   * @param args simple main arguments
+   *             (the first can be treated as a board dimension if is parsable to integer)
    */
   public static void main(String[] args) {
     ConsoleUserInterface ui = new ConsoleUserInterface(System.in);
