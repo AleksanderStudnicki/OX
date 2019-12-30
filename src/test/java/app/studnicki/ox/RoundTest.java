@@ -17,8 +17,8 @@ public class RoundTest {
     assertEquals(round.dimension, 3);
   }
 
-  @Test(expectedExceptions = IndexOutOfBoundsException.class)
-  public void shouldThrowIndexOutOfBoundsExceptionWhenFieldIdIsGreaterThanLimit() {
+  @Test(expectedExceptions = NotInBoardRangeException.class)
+  public void shouldThrowNotInBoardRangeExceptionWhenFieldIdIsGreaterThanLimit() {
     //given
     Round round = new Round(3);
 
@@ -29,8 +29,8 @@ public class RoundTest {
     //exception above method declaration
   }
 
-  @Test(expectedExceptions = IndexOutOfBoundsException.class)
-  public void shouldThrowIndexOutOfBoundsExceptionWhenFieldIdIsLesserThan0() {
+  @Test(expectedExceptions = NotInBoardRangeException.class)
+  public void shouldThrowNotInBoardRangeExceptionWhenFieldIdIsLesserThan0() {
     //given
     Round round = new Round(3);
 
@@ -41,8 +41,8 @@ public class RoundTest {
     //exception above method declaration
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void shouldThrowIllegalArgumentExceptionWhenFieldIsAlreadySet() {
+  @Test(expectedExceptions = ExistingFieldException.class)
+  public void shouldThrowExistingFieldExceptionWhenFieldIsAlreadySet() {
     //given
     Round round = new Round(3);
 

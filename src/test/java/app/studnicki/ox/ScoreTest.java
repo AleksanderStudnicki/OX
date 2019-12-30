@@ -2,8 +2,6 @@ package app.studnicki.ox;
 
 import org.testng.annotations.Test;
 
-import javax.naming.LimitExceededException;
-
 import static org.testng.Assert.assertEquals;
 
 @Test

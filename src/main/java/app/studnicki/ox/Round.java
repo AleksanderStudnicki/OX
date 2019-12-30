@@ -20,8 +20,8 @@ class Round {
    */
   Round(int dimension) {
     if (dimension < Config.INSTANCE.MINIMUM_DIMENSION) {
-      throw new IllegalArgumentException("Board dimension cannot be lesser than " +
-          Config.INSTANCE.MINIMUM_DIMENSION + "!");
+      throw new IllegalArgumentException("Board dimension cannot be lesser than "
+          + Config.INSTANCE.MINIMUM_DIMENSION + "!");
     }
     this.dimension = dimension;
     limit = dimension * dimension;
@@ -42,10 +42,10 @@ class Round {
       throw new NullPointerException("Sign cannot be null!");
     }
     if (id >= limit || id < 0) {
-      throw new IndexOutOfBoundsException("Id of field does not belong to the board range!");
+      throw new NotInBoardRangeException("Id of field does not belong to the board range!");
     }
     if (board.containsKey(id)) {
-      throw new IllegalArgumentException("Game board already has a field with that id!");
+      throw new ExistingFieldException("Game board already has a field with that id!");
     }
     board.put(id, sign);
     propertyChangeSupport.firePropertyChange(
