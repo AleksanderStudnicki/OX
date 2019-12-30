@@ -1,17 +1,17 @@
-= Estimates for 18.12.2019:
+= Estimates for 30.12.2019:
 
 == Optimistic:
 
-- First master commit with some code
-- Simple ability to game
+- Simple menu
+- Maybe some automated tests
 
 == Realistic:
 
-- Packages
-- Demo of boards representation on demo branch
-- Few classes written with a little help from TDD
+- Simple full game of 3 rounds
+- Optimal test coverage (70%)
+- Full TDD
 
 == Pessimistic:
 
-- Few classes written without TDD, maybe with some tests
-- Branches structure (master, development, demo, review)
+- Simple game with one round
+- Tests
