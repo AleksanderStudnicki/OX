@@ -17,4 +17,16 @@ public class RoundTest {
     //then
     assertEquals(round.dimension, 3);
   }
+
+  @Test (expectedExceptions = IndexOutOfBoundsException.class)
+  public void shouldThrowExceptionWhenFieldIsNotInRangeOfBoard() {
+    //given
+    Round round = new Round(3);
+
+    //when
+    round.setField(44, Sign.NAUGHT);
+
+    //then
+    //exception above method declaration
+  }
 }
