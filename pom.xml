@@ -6,7 +6,7 @@
 
     <groupId>app.studnicki</groupId>
     <artifactId>ox</artifactId>
-    <version>0.2</version>
+    <version>0.2.1</version>
     <name>OX Game</name>
     <description>Project of simple tic-tac-toe game written in Java 11</description>
 
