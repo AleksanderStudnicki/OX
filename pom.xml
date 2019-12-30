@@ -40,11 +40,22 @@
 
     <reporting>
         <plugins>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jxr-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${version.plugin.maven.checkstyle}</version>
+                <configuration>
+                    <configLocation>google_checks.xml</configLocation>
+                    <failOnViolation>false</failOnViolation>
+                    <enableFilesSummary>false</enableFilesSummary>
+                </configuration>
             </plugin>
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-pmd-plugin -->
             <plugin>
