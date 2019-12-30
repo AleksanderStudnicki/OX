@@ -19,12 +19,37 @@ public class RoundTest {
   }
 
   @Test (expectedExceptions = IndexOutOfBoundsException.class)
-  public void shouldThrowExceptionWhenFieldIsNotInRangeOfBoard() {
+  public void shouldThrowIndexOutOfBoundsExceptionWhenFieldIsNotInRangeOfBoard() {
     //given
     Round round = new Round(3);
 
     //when
-    round.setField(44, Sign.NAUGHT);
+    round.setField(9, Sign.NAUGHT);
+
+    //then
+    //exception above method declaration
+  }
+
+  @Test (expectedExceptions = IllegalArgumentException.class)
+  public void shouldThrowIllegalArgumentExceptionWhenFieldIsAlreadySet() {
+    //given
+    Round round = new Round(3);
+
+    //when
+    round.setField(0, Sign.NAUGHT);
+    round.setField(0, Sign.CROSS);
+
+    //then
+    //exception above method declaration
+  }
+
+  @Test (expectedExceptions = IllegalArgumentException.class)
+  public void shouldThrowIllegalArgumentExceptionWhenRoundDimensionIsLesserThanThree() {
+    //given
+    Round round;
+
+    //when
+    round = new Round(0);
 
     //then
     //exception above method declaration
