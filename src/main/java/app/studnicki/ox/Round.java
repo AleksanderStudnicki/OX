@@ -1,5 +1,8 @@
 package app.studnicki.ox;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +12,12 @@ public class Round {
 
   private final int limit;
   private static final int MININUM_DIMENSION = 3;
+  private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+  public void addObserver(PropertyChangeListener listener) {
+    propertyChangeSupport.addPropertyChangeListener("filledField", listener);
+    propertyChangeSupport.addPropertyChangeListener("filledField2", listener);
+  }
 
   /**
    * Constructor
@@ -41,5 +50,9 @@ public class Round {
       throw new IllegalArgumentException("Game board already has a field with that id!");
     }
     board.put(id, sign);
+    propertyChangeSupport.firePropertyChange(
+        new PropertyChangeEvent(this, "filledField", null, id));
+    propertyChangeSupport.firePropertyChange(
+        new PropertyChangeEvent(this, "filledField2", null, id));
   }
 }
