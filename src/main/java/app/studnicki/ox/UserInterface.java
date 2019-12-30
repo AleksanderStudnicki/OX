@@ -15,4 +15,8 @@ public interface UserInterface extends PropertyChangeListener {
    * @param board filled fields in board represented as a map
    */
   void board(int n, Map<Integer, Sign> board);
+
+  int fieldId(int limit);
+
+  void error(String content);
 }

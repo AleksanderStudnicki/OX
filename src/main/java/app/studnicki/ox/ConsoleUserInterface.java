@@ -3,11 +3,21 @@ package app.studnicki.ox;
 import static app.studnicki.ox.Config.INSTANCE;
 
 import java.beans.PropertyChangeEvent;
+import java.io.InputStream;
+import java.util.InputMismatchException;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-public class ConsoleUserInterface implements UserInterface {
+
+class ConsoleUserInterface implements UserInterface {
+
+  private final InputStream inputStream;
+
+  ConsoleUserInterface(InputStream inputStream) {
+    this.inputStream = inputStream;
+  }
+
   /**
    * Prints board when property equals filledField (because then source is the Round class object).
    *
@@ -22,10 +32,12 @@ public class ConsoleUserInterface implements UserInterface {
   }
 
   /**
-   * Prints welcome message (from properties file) with endline on a console using standard output print stream.
+   * Prints welcome message (from properties file) with endline
+   *                  on a console using standard output print stream.
    */
   @Override
   public void welcome() {
+    clear();
     System.out.println(INSTANCE.getString("welcome"));
   }
 
@@ -45,6 +57,34 @@ public class ConsoleUserInterface implements UserInterface {
           showLine(n, row, board);
           showSeparationLine(n);
         });
+  }
+
+  /**
+   * Returns id of the field.
+   *
+   * @param limit any number must be lesser than that number
+   * @return returns valid user input
+   */
+  @Override
+  public int fieldId(int limit) {
+    Scanner scanner = new Scanner(inputStream);
+    System.out.println(INSTANCE.getString("fieldId"));
+    try {
+      int id = scanner.nextInt();
+      if (id < 0 || id >= limit) {
+        System.out.println(INSTANCE.getString("notInRange"));
+        return fieldId(limit);
+      }
+      return id;
+    } catch (InputMismatchException ex) {
+      System.out.println(INSTANCE.getString("wrongMenuInput"));
+      return fieldId(limit);
+    }
+  }
+
+  @Override
+  public void error(String content) {
+    System.err.println(content);
   }
 
   private void clear() {

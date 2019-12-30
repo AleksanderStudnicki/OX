@@ -31,19 +31,19 @@ public class ConsoleUserInterfaceTest {
 
   public void shouldPrintWelcomeMessageInEnglish() {
     //given
-    ConsoleUserInterface ui = new ConsoleUserInterface();
+    ConsoleUserInterface ui = new ConsoleUserInterface(System.in);
 
     //when
     ui.welcome();
 
     //then
-    assertEquals(out.toString().trim(), Config.INSTANCE.getString("welcome"));
+    assertEquals(out.toString(), "\033[H\033[2J" + Config.INSTANCE.getString("welcome") + "\n");
   }
 
   public void shouldPrintBoardWithNaughtAtTheFirstField() {
     //given
     Round round = new Round(3);
-    ConsoleUserInterface ui = new ConsoleUserInterface();
+    ConsoleUserInterface ui = new ConsoleUserInterface(System.in);
     round.addObserver(ui);
 
     //when
