@@ -1,7 +1,8 @@
 package app.studnicki.ox;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import javax.naming.LimitExceededException;
 
 import static org.testng.Assert.assertEquals;
 
@@ -38,5 +39,19 @@ public class ScoreTest {
 
     //then
     assertEquals(score.value, 1);
+  }
+
+  @Test(expectedExceptions = VerifyError.class)
+  public void exceptionShouldBeThrownBecauseValueWouldBeGreaterThanLimitAfterAdditionOfWin() {
+    //given
+    Score score = new Score();
+
+    //when
+    score.addWin();
+    score.addWin();
+    score.addWin();
+
+    //then
+    //exception above method declaration
   }
 }
