@@ -21,7 +21,7 @@
         <!-- see source for the plugins to verify if those can be skipped, they should IIRC -->
         <maven.compiler.encoding>${project.build.sourceEncoding}</maven.compiler.encoding>
         <maven.resources.encoding>${project.build.sourceEncoding}</maven.resources.encoding>
-        <version.maven>3.6.3</version.maven>
+        <version.maven>3.6.2</version.maven>
         <!-- plugin versions should go here, so below they can be omitted -->
         <!-- plugins for build section -->
         <version.plugin.maven.enforcer>3.0.0-M2</version.plugin.maven.enforcer>
