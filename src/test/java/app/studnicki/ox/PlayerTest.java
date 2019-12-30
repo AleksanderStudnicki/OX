@@ -41,4 +41,26 @@ public class PlayerTest {
     //then
     assertTrue(player.hasWon());
   }
+
+  public void shouldReturnTrueOnHasWonBecauseScoreOfPlayerIsGreaterThanFive() {
+    //given
+    Player player = new Player("Aleksander");
+
+    //when - score will be equals 6
+    player.addWin();
+    player.addWin();
+
+    //then
+    assertTrue(player.hasWon());
+  }
+
+  public void shouldReturnFalseOnHasWonBecauseScoreOfPlayerIsEqualsZero() {
+    //given
+    Player player = new Player("Aleksander");
+
+    //when - score will be equals 0
+
+    //then
+    assertFalse(player.hasWon());
+  }
 }
