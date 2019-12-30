@@ -13,6 +13,7 @@ import java.io.PrintStream;
 public class ConsoleUserInterfaceTest {
   private final ByteArrayOutputStream out = new ByteArrayOutputStream();
   private final PrintStream originalOut = System.out;
+  private final String clearCommand = "\033[H\033[2J";
 
   @BeforeClass
   public void setStreams() {
@@ -37,7 +38,7 @@ public class ConsoleUserInterfaceTest {
     ui.welcome();
 
     //then
-    assertEquals(out.toString(), "\033[H\033[2J" + Config.INSTANCE.getString("welcome") + "\n");
+    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getString("welcome") + "\n");
   }
 
   public void shouldPrintBoardWithNaughtAtTheFirstField() {
@@ -50,7 +51,8 @@ public class ConsoleUserInterfaceTest {
     round.setField(0, Sign.NAUGHT);
 
     //then
-    String expected = "\033[H\033[2J  -------------\n" +
+    String expected = clearCommand +
+        "  -------------\n" +
         "0 | O |   |   |\n" +
         "  -------------\n" +
         "1 |   |   |   |\n" +

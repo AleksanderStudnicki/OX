@@ -2,7 +2,7 @@ package app.studnicki.ox;
 
 class Player {
 
-  String name;
+  final String name;
   private final Score score;
 
   Player(String name) {

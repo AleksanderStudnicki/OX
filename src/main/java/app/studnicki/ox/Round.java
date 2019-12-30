@@ -8,15 +8,9 @@ import java.util.Map;
 
 class Round {
   final int dimension;
-  Map<Integer, Sign> board = new HashMap<>();
-
   private final int limit;
-  private static final int MININUM_DIMENSION = 3;
   private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-
-  void addObserver(PropertyChangeListener listener) {
-    propertyChangeSupport.addPropertyChangeListener("filledField", listener);
-  }
+  Map<Integer, Sign> board = new HashMap<>();
 
   /**
    * Constructor
@@ -25,11 +19,16 @@ class Round {
    *                  (square: dimension x dimension)and range of id fields (0..(dimension^2 - 1)).
    */
   Round(int dimension) {
-    if (dimension < MININUM_DIMENSION) {
-      throw new IllegalArgumentException("Board dimension cannot be lesser than 3!");
+    if (dimension < Config.INSTANCE.MINIMUM_DIMENSION) {
+      throw new IllegalArgumentException("Board dimension cannot be lesser than " +
+          Config.INSTANCE.MINIMUM_DIMENSION + "!");
     }
     this.dimension = dimension;
     limit = dimension * dimension;
+  }
+
+  void addObserver(PropertyChangeListener listener) {
+    propertyChangeSupport.addPropertyChangeListener("filledField", listener);
   }
 
   /**

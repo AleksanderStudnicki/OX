@@ -6,11 +6,14 @@ import java.util.ResourceBundle;
 /**
  * Configuration class for the whole application. It is implemented as a singleton (enum property).
  * Config can retrieve values for specified keys from properties files and change language of them.
+ * @author Aleksander Studnicki
  */
 enum Config {
   INSTANCE;
 
   private Locale locale = Locale.forLanguageTag("en");
+
+  final int MINIMUM_DIMENSION = 3;
 
   /**
    * Changes language of locale field based on language tag (for example: en for English).

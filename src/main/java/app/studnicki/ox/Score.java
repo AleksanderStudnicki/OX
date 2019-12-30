@@ -1,7 +1,7 @@
 package app.studnicki.ox;
 
 class Score {
-  int value;
+  private int value;
 
   private static final int LIMIT = 7;
   private static final int WIN = 3;

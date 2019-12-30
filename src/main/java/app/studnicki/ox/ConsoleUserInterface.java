@@ -49,7 +49,6 @@ class ConsoleUserInterface implements UserInterface {
    */
   @Override
   public void board(int n, Map<Integer, Sign> board) {
-    //TODO: implementation
     clear();
     showSeparationLine(n);
     IntStream.range(0, n)
@@ -82,6 +81,10 @@ class ConsoleUserInterface implements UserInterface {
     }
   }
 
+  /**
+   * Prints a message as an error
+   * @param content Content of error message
+   */
   @Override
   public void error(String content) {
     System.err.println(content);
