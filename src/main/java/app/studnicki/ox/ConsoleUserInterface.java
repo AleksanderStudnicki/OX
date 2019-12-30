@@ -4,6 +4,7 @@ import static app.studnicki.ox.Config.INSTANCE;
 
 import java.beans.PropertyChangeEvent;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
@@ -66,7 +67,7 @@ class ConsoleUserInterface implements UserInterface {
    */
   @Override
   public int fieldId(int limit) {
-    Scanner scanner = new Scanner(inputStream);
+    Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
     System.out.println(INSTANCE.getString("fieldId"));
     try {
       int id = scanner.nextInt();
