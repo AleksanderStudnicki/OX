@@ -54,4 +54,24 @@ public class ScoreTest {
     //then
     //exception above method declaration
   }
+
+  @Test(expectedExceptions = VerifyError.class)
+  public void exceptionShouldBeThrownBecauseValueWouldBeGreaterThanLimitAfterAdditionOfDraw() {
+    //given
+    Score score = new Score();
+
+    //when
+    //8 times
+    score.addDraw();
+    score.addDraw();
+    score.addDraw();
+    score.addDraw();
+    score.addDraw();
+    score.addDraw();
+    score.addDraw();
+    score.addDraw();
+
+    //then
+    //exception above method declaration
+  }
 }

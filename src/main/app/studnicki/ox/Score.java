@@ -5,15 +5,16 @@ import javax.naming.LimitExceededException;
 public class Score {
   public int value;
 
+  private static final int LIMIT = 7;
+  private static final int WIN = 3;
+  private static final int DRAW = 1;
+
   /**
    * Addition of 3 to value. Win is represented by 3 points so that value should be added to score value.
    * If value after addition would be higher than a limit (7 points) exception will be thrown.
    */
   public void addWin() {
-    if(value + 3 > 7){
-      throw new VerifyError("Score would be greater than limit(7)!");
-    }
-    value += 3;
+    add(WIN);
   }
 
   /**
@@ -21,6 +22,13 @@ public class Score {
    * If value after addition would be higher than a limit (7 points) exception will be thrown.
    */
   public void addDraw() {
-    value += 1;
+    add(DRAW);
+  }
+
+  private void add(int n) {
+    if (value + n > LIMIT) {
+      throw new VerifyError("Score would be greater than limit(7)!");
+    }
+    value += n;
   }
 }
