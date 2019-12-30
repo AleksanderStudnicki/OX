@@ -3,9 +3,9 @@ package app.studnicki.ox;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Round {
-  public final int dimension;
-  public Map<Integer, Sign> board = new HashMap<>();
+class Round {
+  final int dimension;
+  Map<Integer, Sign> board = new HashMap<>();
 
   private final int limit;
   private static final int MININUM_DIMENSION = 3;
@@ -16,7 +16,7 @@ public class Round {
    * @param dimension Integer value that defines game board size (square: dimension x dimension)
    *                  and range of id fields (0..(dimension^2 - 1)).
    */
-  public Round(int dimension) {
+  Round(int dimension) {
     if (dimension < MININUM_DIMENSION) {
       throw new IllegalArgumentException("Board dimension cannot be lesser than 3!");
     }
@@ -30,7 +30,7 @@ public class Round {
    * @param id   Id of field within within range: 0..(dimension^2 - 1).
    * @param sign Naught or cross from Sign enum.
    */
-  public void setField(int id, Sign sign) {
+  void setField(int id, Sign sign) {
     if (sign == null) {
       throw new NullPointerException("Sign cannot be null!");
     }

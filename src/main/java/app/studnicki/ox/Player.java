@@ -1,11 +1,11 @@
 package app.studnicki.ox;
 
-public class Player {
+class Player {
 
-  public String name;
+  String name;
   private final Score score;
 
-  public Player(String name) {
+  Player(String name) {
     this.name = name;
     score = new Score();
   }
@@ -13,14 +13,14 @@ public class Player {
   /**
    * Add win points to player score. This is just calling the same method on player's score field.
    */
-  public void addWin() {
+  void addWin() {
     score.addWin();
   }
 
   /**
    * Add draw points to player score. This is just calling the same method on player's score field.
    */
-  public void addDraw() {
+  void addDraw() {
     score.addDraw();
   }
 
@@ -29,7 +29,7 @@ public class Player {
    * (5 points: 1 win, 2 draws).
    * @return if player won the game (minimal requirement for win is 5 points)
    */
-  public boolean hasWon() {
+  boolean hasWon() {
     return score.value >= 5;
   }
 

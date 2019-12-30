@@ -1,6 +1,6 @@
 package app.studnicki.ox;
 
-public enum Sign {
+enum Sign {
   NAUGHT("O"), CROSS("X");
 
   private final String value;

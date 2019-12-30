@@ -1,7 +1,7 @@
 package app.studnicki.ox;
 
-public class Score {
-  public int value;
+class Score {
+  int value;
 
   private static final int LIMIT = 7;
   private static final int WIN = 3;
@@ -12,7 +12,7 @@ public class Score {
    * Win is represented by 3 points so that value should be added to score value.
    * If value after addition would be higher than a limit (7 points) exception will be thrown.
    */
-  public void addWin() {
+  void addWin() {
     add(WIN);
   }
 
@@ -21,7 +21,7 @@ public class Score {
    * Draw is represented by 1 point so that value should be added to score value.
    * If value after addition would be higher than a limit (7 points) exception will be thrown.
    */
-  public void addDraw() {
+  void addDraw() {
     add(DRAW);
   }
 
