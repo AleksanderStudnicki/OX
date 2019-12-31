@@ -29,12 +29,16 @@ class Main {
 
     ui.welcome();
 
-    ui.board(round.dimension, round.board);
+    ui.board(round.board.dimension, round.board.getMap());
 
-    while (round.board.size() < (round.dimension * round.dimension)) {
-      int id = ui.fieldId(round.dimension * round.dimension);
+    while (round.board.size() < (round.board.limit)) {
+      int id = ui.fieldId(round.board.limit);
       try {
-        round.setField(id, Sign.NAUGHT);
+        try {
+          round.setField(id, Sign.NAUGHT);
+        } catch (ExistingFieldException | NotInBoardRangeException e) {
+          ui.error(e.getMessage());
+        }
       } catch (IllegalArgumentException ex) {
         ui.error(ex.getMessage());
       }

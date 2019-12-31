@@ -14,11 +14,12 @@ public class RoundTest {
     round = new Round(3);
 
     //then
-    assertEquals(round.dimension, 3);
+    assertEquals(round.board.dimension, 3);
   }
 
   @Test(expectedExceptions = NotInBoardRangeException.class)
-  public void shouldThrowNotInBoardRangeExceptionWhenFieldIdIsGreaterThanLimit() {
+  public void shouldThrowNotInBoardRangeExceptionWhenFieldIdIsGreaterThanLimit()
+      throws ExistingFieldException, NotInBoardRangeException {
     //given
     Round round = new Round(3);
 

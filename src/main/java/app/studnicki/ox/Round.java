@@ -3,14 +3,10 @@ package app.studnicki.ox;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
-import java.util.Map;
 
 class Round {
-  final int dimension;
-  private final int limit;
   private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-  Map<Integer, Sign> board = new HashMap<>();
+  Board board;
 
   /**
    * Constructor.
@@ -23,8 +19,7 @@ class Round {
       throw new IllegalArgumentException("Board dimension cannot be lesser than "
           + Config.MINIMUM_DIMENSION + "!");
     }
-    this.dimension = dimension;
-    limit = dimension * dimension;
+    board = new Board(dimension);
   }
 
   void addObserver(PropertyChangeListener listener) {
@@ -37,17 +32,8 @@ class Round {
    * @param id   Id of field within within range: 0..(dimension^2 - 1).
    * @param sign Naught or cross from Sign enum.
    */
-  void setField(int id, Sign sign) {
-    if (sign == null) {
-      throw new NullPointerException("Sign cannot be null!");
-    }
-    if (id >= limit || id < 0) {
-      throw new NotInBoardRangeException("Id of field does not belong to the board range!");
-    }
-    if (board.containsKey(id)) {
-      throw new ExistingFieldException("Game board already has a field with that id!");
-    }
-    board.put(id, sign);
+  void setField(int id, Sign sign) throws ExistingFieldException, NotInBoardRangeException {
+    board.setField(id, sign);
     propertyChangeSupport.firePropertyChange(
         new PropertyChangeEvent(this, "filledField", null, id));
   }

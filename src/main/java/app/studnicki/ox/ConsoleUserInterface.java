@@ -28,7 +28,7 @@ class ConsoleUserInterface implements UserInterface {
   public void propertyChange(PropertyChangeEvent evt) {
     if (evt.getPropertyName().equals("filledField")) {
       Round round = (Round) evt.getSource();
-      board(round.dimension, round.board);
+      board(round.board.dimension, round.board.getMap());
     }
   }
 
