@@ -1,6 +1,7 @@
 package app.studnicki.ox;
 
 import static app.studnicki.ox.Config.INSTANCE;
+import static app.studnicki.ox.Message.*;
 
 import java.beans.PropertyChangeEvent;
 import java.io.InputStream;
@@ -39,7 +40,7 @@ class ConsoleUserInterface implements UserInterface {
   @Override
   public void welcome() {
     clear();
-    System.out.println(INSTANCE.getString("welcome"));
+    System.out.println(INSTANCE.getString(WELCOME));
   }
 
   /**
@@ -68,16 +69,16 @@ class ConsoleUserInterface implements UserInterface {
   @Override
   public int fieldId(int limit) {
     Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
-    System.out.println(INSTANCE.getString("fieldId"));
+    System.out.println(INSTANCE.getString(FIELD_ID));
     try {
       int id = scanner.nextInt();
       if (id < 0 || id >= limit) {
-        System.out.println(INSTANCE.getString("notInRange"));
+        System.out.println(INSTANCE.getString(NOT_IN_RANGE));
         return fieldId(limit);
       }
       return id;
     } catch (InputMismatchException ex) {
-      System.out.println(INSTANCE.getString("wrongMenuInput"));
+      System.out.println(INSTANCE.getString(WRONG_MENU_INPUT));
       return fieldId(limit);
     }
   }
