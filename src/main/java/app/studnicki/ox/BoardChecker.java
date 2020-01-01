@@ -26,57 +26,42 @@ class BoardChecker {
 
   private boolean isWinner(int id, Board board, TransitionRule rule) {
     final Counter counter = new Counter();
-
-    Sign sign = board.getSignFromBoard(id).get();
     System.out.println(rule);
 
-    for (int i = 1; ; i++) {
-      int nextId = id + (rule.row * board.dimension * i) + (rule.column * i);
-      System.out.println(nextId);
-      if (!(nextId < board.limit && nextId >= 0)) break;
-      if (rightRowDifference(id, nextId, rule, board) && rightColumnDifference(id, nextId, rule, board)) {
-        System.out.println("IN");
-        if (board.getMap().containsKey(nextId)) {
-          System.out.println("OK");
-          Sign nextSign = board.getMap().get(nextId);
-          if (sign == nextSign) {
-            counter.increment();
-            if (counter.value == winningRule) {
-              return true;
-            }
-          } else {
-            break;
-          }
-        }
-      } else {
-        break;
-      }
+    checkStandard(id, rule, board, counter);
+
+    if(counter.value == winningRule){
+      return true;
     }
 
-    for (int i = -1; ; i--) {
-      int nextId = id + (rule.row * board.dimension * i) + (rule.column * i);
-      System.out.println(nextId);
-      if (!(nextId < board.limit && nextId >= 0)) break;
-      if (rightRowDifference(id, nextId, rule, board) && rightColumnDifference(id, nextId, rule, board)) {
-        System.out.println("IN");
-        if (board.getMap().containsKey(nextId)) {
-          System.out.println("OK");
-          Sign nextSign = board.getMap().get(nextId);
-          if (sign == nextSign) {
-            counter.increment();
-            if (counter.value == winningRule) {
-              return true;
-            }
-          } else {
-            break;
+    checkReversed(id, rule, board, counter);
+
+    return counter.value == winningRule;
+  }
+
+  private void checkStandard(int id, TransitionRule rule, Board board, Counter counter) {
+    int nextId = id + (rule.row * board.dimension) + (rule.column);
+    check(id, rule, board, counter, nextId);
+  }
+
+  private void check(int id, TransitionRule rule, Board board, Counter counter, int nextId) {
+    if (rightRowDifference(id, nextId, rule, board) && rightColumnDifference(id, nextId, rule, board)) {
+      if (board.getMap().containsKey(nextId)) {
+        Sign sign = board.getMap().get(id);
+        Sign nextSign = board.getMap().get(nextId);
+        if (sign == nextSign) {
+          counter.increment();
+          if(counter.value != winningRule){
+            checkStandard(nextId, rule, board, counter);
           }
         }
-      } else {
-        break;
       }
     }
+  }
 
-    return false;
+  private void checkReversed(int id, TransitionRule rule, Board board, Counter counter) {
+    int nextId = id - (rule.row * board.dimension) - (rule.column);
+    check(id, rule, board, counter, nextId);
   }
 
   private boolean rightRowDifference(int id, int nextId, TransitionRule rule, Board board) {
