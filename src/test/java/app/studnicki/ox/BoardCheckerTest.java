@@ -21,4 +21,18 @@ public class BoardCheckerTest {
     //then
     assertFalse(boardChecker.isWinner(2, board));
   }
+
+  public void shouldReturnTrueOnBoard() {
+    //given
+    BoardChecker boardChecker = new BoardChecker(3);
+    Board board = new Board(3);
+
+    //when
+    board.setField(0, Sign.NAUGHT);
+    board.setField(1, Sign.NAUGHT);
+    board.setField(2, Sign.NAUGHT);
+
+    //then
+    assertTrue(boardChecker.isWinner(2, board));
+  }
 }
