@@ -22,7 +22,7 @@ public class BoardCheckerTest {
     assertFalse(boardChecker.isWinner(2, board));
   }
 
-  public void shouldReturnTrueOnBoard() {
+  public void shouldReturnTrueOnBoardNaughtInFirstRow() {
     //given
     BoardChecker boardChecker = new BoardChecker(3);
     Board board = new Board(3);
@@ -34,5 +34,47 @@ public class BoardCheckerTest {
 
     //then
     assertTrue(boardChecker.isWinner(2, board));
+  }
+
+  public void shouldReturnTrueOnBoardCrossInFirstColumn() {
+    //given
+    BoardChecker boardChecker = new BoardChecker(3);
+    Board board = new Board(3);
+
+    //when
+    board.setField(0, Sign.CROSS);
+    board.setField(3, Sign.CROSS);
+    board.setField(5, Sign.CROSS);
+
+    //then
+    assertTrue(boardChecker.isWinner(3, board));
+  }
+
+  public void shouldReturnTrueOnBoardDiagonalFromFirstField() {
+    //given
+    BoardChecker boardChecker = new BoardChecker(3);
+    Board board = new Board(3);
+
+    //when
+    board.setField(0, Sign.CROSS);
+    board.setField(4, Sign.CROSS);
+    board.setField(8, Sign.CROSS);
+
+    //then
+    assertTrue(boardChecker.isWinner(0, board));
+  }
+
+  public void shouldReturnTrueOnBoardDiagonalFromThirdField() {
+    //given
+    BoardChecker boardChecker = new BoardChecker(3);
+    Board board = new Board(3);
+
+    //when
+    board.setField(3, Sign.CROSS);
+    board.setField(4, Sign.CROSS);
+    board.setField(6, Sign.CROSS);
+
+    //then
+    assertTrue(boardChecker.isWinner(4, board));
   }
 }

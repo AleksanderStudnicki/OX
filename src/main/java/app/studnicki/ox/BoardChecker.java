@@ -75,7 +75,7 @@ class BoardChecker {
     if (rule.column == 0) {
       return true;
     }
-    return Math.abs(column(id, board.dimension) - column(nextId, board.dimension)) == rule.row;
+    return Math.abs(column(id, board.dimension) - column(nextId, board.dimension)) == rule.column;
   }
 
   private int row(int id, int dimension) {
