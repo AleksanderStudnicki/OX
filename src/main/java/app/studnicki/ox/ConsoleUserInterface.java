@@ -95,7 +95,7 @@ class ConsoleUserInterface implements UserInterface {
   /**
    * String passed to print method is a command for cleaning console
    * (same effect as clear command, printing as many empty lines as required
-   * to make empty console effect)
+   * to make empty console effect).
    */
   private void clear() {
     System.out.print("\033[H\033[2J");
