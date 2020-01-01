@@ -1,5 +1,6 @@
 package app.studnicki.ox;
 
+import static app.studnicki.ox.Message.*;
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.*;
@@ -43,7 +44,7 @@ public class ConsoleUserInterfaceTest {
     ui.welcome();
 
     //then
-    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getString("welcome") + "\n");
+    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getString(WELCOME) + "\n");
   }
 
   public void shouldPrintWelcomeMessageInPolish() {
@@ -55,7 +56,7 @@ public class ConsoleUserInterfaceTest {
     ui.welcome();
 
     //then
-    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getString("welcome") + "\n");
+    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getString(WELCOME) + "\n");
   }
 
   public void shouldPrintBoardWithNaughtAtTheFirstField() {
