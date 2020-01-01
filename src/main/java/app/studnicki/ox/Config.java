@@ -27,12 +27,12 @@ enum Config {
   /**
    * Return value for key from properties file.
    *
-   * @param message Key from properties file as a Message enum
+   * @param messageKey Key from properties file as a MessageKey enum
    * @return Value of key from properties file for specified language
    *        (previously set by changeLanguage method or default in English).
    */
-  String getString(Message message) {
+  String getMessage(MessageKey messageKey) {
     ResourceBundle resourceBundle = ResourceBundle.getBundle("Message", locale);
-    return resourceBundle.getString(message.toString());
+    return resourceBundle.getString(messageKey.toString());
   }
 }

@@ -1,12 +1,11 @@
 package app.studnicki.ox;
 
-import static app.studnicki.ox.Message.*;
+import static app.studnicki.ox.MessageKey.*;
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 
 
@@ -44,7 +43,7 @@ public class ConsoleUserInterfaceTest {
     ui.welcome();
 
     //then
-    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getString(WELCOME) + "\n");
+    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getMessage(WELCOME) + "\n");
   }
 
   public void shouldPrintWelcomeMessageInPolish() {
@@ -56,7 +55,7 @@ public class ConsoleUserInterfaceTest {
     ui.welcome();
 
     //then
-    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getString(WELCOME) + "\n");
+    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getMessage(WELCOME) + "\n");
   }
 
   public void shouldPrintBoardWithNaughtAtTheFirstField() {
