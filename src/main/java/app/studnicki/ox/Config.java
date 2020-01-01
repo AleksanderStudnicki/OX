@@ -28,7 +28,7 @@ enum Config {
    * Return value for key from properties file.
    *
    * @param messageKey Key from properties file as a MessageKey enum
-   * @return Value of key from properties file for specified language
+   * @return Value of key from properties file for the specified language
    *        (previously set by changeLanguage method or default in English).
    */
   String getMessage(MessageKey messageKey) {

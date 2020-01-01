@@ -73,12 +73,12 @@ class ConsoleUserInterface implements UserInterface {
     try {
       int id = scanner.nextInt();
       if (id < 0 || id >= limit) {
-        System.out.println(INSTANCE.getMessage(NOT_IN_RANGE));
+        System.err.println(INSTANCE.getMessage(NOT_IN_RANGE));
         return fieldId(limit);
       }
       return id;
     } catch (InputMismatchException ex) {
-      System.out.println(INSTANCE.getMessage(WRONG_MENU_INPUT));
+      System.err.println(INSTANCE.getMessage(WRONG_MENU_INPUT));
       return fieldId(limit);
     }
   }
@@ -92,6 +92,11 @@ class ConsoleUserInterface implements UserInterface {
     System.err.println(content);
   }
 
+  /**
+   * String passed to print method is a command for cleaning console
+   * (same effect as clear command, printing as many empty lines as required
+   * to make empty console effect)
+   */
   private void clear() {
     System.out.print("\033[H\033[2J");
   }
