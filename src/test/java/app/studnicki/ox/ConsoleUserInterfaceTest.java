@@ -65,7 +65,7 @@ public class ConsoleUserInterfaceTest {
     round.addObserver(ui);
 
     //when
-    round.setField(0, Sign.NAUGHT);
+    round.markASign(0, Sign.NAUGHT);
 
     //then
     String expected = clearCommand +
