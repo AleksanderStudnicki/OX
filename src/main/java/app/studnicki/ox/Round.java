@@ -32,8 +32,8 @@ class Round {
    * @param id   Id of field within within range: 0..(dimension^2 - 1).
    * @param sign Naught or cross from Sign enum.
    */
-  void setField(int id, Sign sign) throws ExistingFieldException, NotInBoardRangeException {
-    board.setField(id, sign);
+  void markASign(int id, Sign sign) throws ExistingFieldException, NotInBoardRangeException {
+    board.markASign(id, sign);
     propertyChangeSupport.firePropertyChange(
         new PropertyChangeEvent(this.board, "filledField", null, id));
   }

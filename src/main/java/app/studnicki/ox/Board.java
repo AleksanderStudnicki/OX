@@ -13,7 +13,7 @@ public class Board {
     this.limit = dimension * dimension;
   }
 
-  void setField(int id, Sign sign) throws ExistingFieldException, NotInBoardRangeException {
+  void markASign(int id, Sign sign) throws ExistingFieldException, NotInBoardRangeException {
     if (sign == null) {
       throw new NullPointerException("Sign cannot be null!");
     }

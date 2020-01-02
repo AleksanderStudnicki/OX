@@ -41,9 +41,6 @@ class BoardChecker implements PropertyChangeListener {
 
   private void checkStandard(int id, TransitionRule rule, Board board, Counter counter) {
     int nextId = id + (rule.row * board.dimension) + (rule.column);
-
-    System.out.println(id + "  |  " + nextId);
-
     if (rightRowDifference(id, nextId, rule, board)
         && rightColumnDifference(id, nextId, rule, board)) {
       board.getSignFromField(nextId).ifPresent(s -> {
@@ -60,7 +57,6 @@ class BoardChecker implements PropertyChangeListener {
 
   private void checkReversed(int id, TransitionRule rule, Board board, Counter counter) {
     int nextId = id - (rule.row * board.dimension) - (rule.column);
-
     if (rightRowDifference(id, nextId, rule, board)
         && rightColumnDifference(id, nextId, rule, board)) {
       board.getSignFromField(nextId).ifPresent(s -> {
