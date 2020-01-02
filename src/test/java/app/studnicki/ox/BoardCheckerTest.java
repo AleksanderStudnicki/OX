@@ -19,7 +19,7 @@ public class BoardCheckerTest {
     board.markASign(2, Sign.NAUGHT);
 
     //then
-    assertFalse(boardChecker.isWinner(2, board));
+    assertFalse(boardChecker.isWinner(0, board));
     assertFalse(boardChecker.isWinner(1, board));
     assertFalse(boardChecker.isWinner(2, board));
   }

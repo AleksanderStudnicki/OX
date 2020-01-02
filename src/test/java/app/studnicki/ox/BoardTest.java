@@ -1,7 +1,8 @@
 package app.studnicki.ox;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
 
 @Test
 public class BoardTest {
@@ -14,7 +15,19 @@ public class BoardTest {
     board = new Board(3);
 
     //then
-    Assert.assertEquals(board.limit, 9);
+    assertEquals(board.limit, 9);
+  }
+
+  public void boardSizeShouldBeTwo() {
+    //given
+    Board board = new Board(3);
+
+    //when
+    board.markASign(0, Sign.NAUGHT);
+    board.markASign(1, Sign.CROSS);
+
+    //then
+    assertEquals(board.size(), 2);
   }
 
 

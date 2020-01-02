@@ -22,7 +22,11 @@ class Round {
     board = new Board(dimension);
   }
 
-  void addObserver(PropertyChangeListener listener) {
+  void addObserverForBoardPrinting(PropertyChangeListener listener) {
+    propertyChangeSupport.addPropertyChangeListener("markedAField", listener);
+  }
+
+  void addObserverForCheckingWinner(PropertyChangeListener listener) {
     propertyChangeSupport.addPropertyChangeListener("filledField", listener);
   }
 
@@ -35,6 +39,9 @@ class Round {
   void markASign(int id, Sign sign) throws ExistingFieldException, NotInBoardRangeException {
     board.markASign(id, sign);
     propertyChangeSupport.firePropertyChange(
+        new PropertyChangeEvent(this.board, "markedAField", null, id));
+    propertyChangeSupport.firePropertyChange(
         new PropertyChangeEvent(this.board, "filledField", null, id));
   }
+
 }

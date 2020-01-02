@@ -3,11 +3,13 @@ package app.studnicki.ox;
 class Player {
 
   final String name;
-  private final Score score;
+  final Score score;
+  final Sign sign;
 
-  Player(String name) {
+  Player(String name, Sign sign) {
     this.name = name;
     score = new Score();
+    this.sign = sign;
   }
 
   /**
@@ -27,11 +29,19 @@ class Player {
   /**
    * Defines that player has won or not based on minimal requirement for win
    * (5 points: 1 win, 2 draws).
+   *
    * @return if player won the game (minimal requirement for win is 5 points)
    */
   boolean hasWon() {
     return score.value >= 5;
   }
 
-
+  @Override
+  public String toString() {
+    return "Player{"
+        + "name='" + name + '\''
+        + ", score=" + score
+        + ", sign=" + sign
+        + '}';
+  }
 }

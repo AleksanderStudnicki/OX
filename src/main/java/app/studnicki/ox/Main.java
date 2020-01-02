@@ -11,48 +11,31 @@ class Main {
   public static void main(String[] args) {
     ConsoleUserInterface ui = new ConsoleUserInterface(System.in);
 
-    int n;
+    int n = 3;
+    int winningRule = 3;
 
-    if (args.length > 0) {
+    if (args.length == 2) {
       try {
         n = Integer.parseInt(args[0]);
+        winningRule = Integer.parseInt(args[1]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
-        n = 3;
       }
-    } else {
-      n = 3;
     }
-
-    Round round = new Round(n);
-    BoardChecker boardChecker = new BoardChecker(3);
-
-    round.addObserver(ui);
-    round.addObserver(boardChecker);
 
     ui.welcome();
 
-    ui.board(round.board);
+    Player player1 = new Player("Aleksander", Sign.NAUGHT);
+    Player player2 = new Player("Czesio", Sign.CROSS);
 
-    boolean naught = true;
+    Game game = new Game.Builder()
+        .player1(player1)
+        .player2(player2)
+        .winningRule(winningRule)
+        .dimension(n)
+        .userInterface(ui)
+        .build();
 
-    while (round.board.size() < (round.board.limit)) {
-      int id = ui.fieldId(round.board.limit);
-      try {
-        try {
-          if (naught) {
-            round.markASign(id, Sign.NAUGHT);
-          } else {
-            round.markASign(id, Sign.CROSS);
-          }
-          naught = !naught;
-        } catch (ExistingFieldException | NotInBoardRangeException e) {
-          ui.error(e.getMessage());
-        }
-      } catch (IllegalArgumentException ex) {
-        ui.error(ex.getMessage());
-      }
-
-    }
+    game.start();
   }
 }

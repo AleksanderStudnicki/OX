@@ -26,7 +26,7 @@ class ConsoleUserInterface implements UserInterface {
    */
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("filledField")) {
+    if (evt.getPropertyName().equals("markedAField")) {
       Board board = (Board) evt.getSource();
       board(board);
     }
@@ -89,6 +89,29 @@ class ConsoleUserInterface implements UserInterface {
   @Override
   public void error(String content) {
     System.err.println(content);
+  }
+
+  @Override
+  public void announceWinner(Player player) {
+    System.out.println("Congratulations " + player.name + ". You Win!");
+    System.out.println("Your score was: " + player.score);
+  }
+
+  @Override
+  public void nowPlaying(Player player) {
+    System.out.println("Now playing: " + player.name);
+  }
+
+  @Override
+  public void waitForAnyAction() {
+    System.out.println("Press ENTER to continue...");
+    Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
+    scanner.nextLine();
+  }
+
+  @Override
+  public void announceResultOfRound(Player player1, Player player2) {
+    System.out.println(player1 + "  |  " + player2);
   }
 
   /**

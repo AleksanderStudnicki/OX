@@ -17,4 +17,12 @@ public interface UserInterface extends PropertyChangeListener {
   int fieldId(int limit);
 
   void error(String content);
+
+  void announceWinner(Player player);
+
+  void nowPlaying(Player player);
+
+  void waitForAnyAction();
+
+  void announceResultOfRound(Player player1, Player player2);
 }

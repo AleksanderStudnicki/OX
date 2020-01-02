@@ -31,4 +31,9 @@ class Score {
     }
     value += n;
   }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 }

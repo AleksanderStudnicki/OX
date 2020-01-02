@@ -12,7 +12,7 @@ public class PlayerTest {
     Player player;
 
     //when
-    player = new Player("Aleksander");
+    player = new Player("Aleksander", Sign.NAUGHT);
 
     //then
     assertEquals(player.name, "Aleksander");
@@ -20,7 +20,7 @@ public class PlayerTest {
 
   public void shouldReturnFalseOnHasWonBecauseScoreOfPlayerIsLessThanFive() {
     //given
-    Player player = new Player("Aleksander");
+    Player player = new Player("Aleksander", Sign.NAUGHT);
 
     //when - score will be equals 3
     player.addWin();
@@ -31,7 +31,7 @@ public class PlayerTest {
 
   public void shouldReturnTrueOnHasWonBecauseScoreOfPlayerIsEqualsFive() {
     //given
-    Player player = new Player("Aleksander");
+    Player player = new Player("Aleksander", Sign.NAUGHT);
 
     //when - score will be equals 5
     player.addWin();
@@ -44,7 +44,7 @@ public class PlayerTest {
 
   public void shouldReturnTrueOnHasWonBecauseScoreOfPlayerIsGreaterThanFive() {
     //given
-    Player player = new Player("Aleksander");
+    Player player = new Player("Aleksander", Sign.NAUGHT);
 
     //when - score will be equals 6
     player.addWin();
@@ -56,7 +56,7 @@ public class PlayerTest {
 
   public void shouldReturnFalseOnHasWonBecauseScoreOfPlayerIsEqualsZero() {
     //given
-    Player player = new Player("Aleksander");
+    Player player = new Player("Aleksander", Sign.NAUGHT);
 
     //when - score will be equals 0
 
