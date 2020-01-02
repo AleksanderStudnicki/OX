@@ -14,9 +14,11 @@ import static app.studnicki.ox.MessageKey.*;
 class ConsoleUserInterface implements UserInterface {
 
   private final InputStream inputStream;
+  Scanner scanner;
 
   ConsoleUserInterface(InputStream inputStream) {
     this.inputStream = inputStream;
+    scanner = new Scanner(inputStream);
   }
 
   /**
@@ -66,17 +68,20 @@ class ConsoleUserInterface implements UserInterface {
    */
   @Override
   public int fieldId(int limit) {
-    Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
     System.out.println(INSTANCE.getMessage(FIELD_ID));
     try {
       int id = scanner.nextInt();
+      scanner.nextLine();
       if (id < 0 || id >= limit) {
         System.err.println(INSTANCE.getMessage(NOT_IN_RANGE));
+        scanner.nextLine();
         return fieldId(limit);
       }
       return id;
     } catch (InputMismatchException ex) {
+      scanner = new Scanner(inputStream);
       System.err.println(INSTANCE.getMessage(WRONG_MENU_INPUT));
+      scanner.nextLine();
       return fieldId(limit);
     }
   }
@@ -118,7 +123,7 @@ class ConsoleUserInterface implements UserInterface {
   @Override
   public void waitForAnyAction() {
     System.out.println(INSTANCE.getMessage(PRESS_ENTER));
-    Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
+    //scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
     scanner.nextLine();
   }
 
