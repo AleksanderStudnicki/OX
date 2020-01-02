@@ -1,15 +1,18 @@
 package app.studnicki.ox;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashSet;
 import java.util.Set;
 
 import static app.studnicki.ox.TransitionRule.*;
 
-class BoardChecker {
+class BoardChecker implements PropertyChangeListener {
 
   private final int winningRule;
   private final Set<TransitionRule> ruleSet = new HashSet<>(
       Set.of(VERTICAL, HORIZONTAL, DIAGONAL_UP, DIAGONAL_DOWN));
+  private int turn;
 
   BoardChecker(int winningRule) {
     this.winningRule = winningRule;
@@ -25,17 +28,12 @@ class BoardChecker {
   }
 
   private boolean isWinner(int id, Board board, TransitionRule rule) {
-    final Counter counter = new Counter();
-    System.out.println(rule);
-
+    Counter counter = new Counter();
     checkStandard(id, rule, board, counter);
-
     if (counter.value == winningRule) {
       return true;
     }
-
     checkReversed(id, rule, board, counter);
-
     return counter.value == winningRule;
   }
 
@@ -45,16 +43,16 @@ class BoardChecker {
     System.out.println(id + "  |  " + nextId);
 
     if (rightRowDifference(id, nextId, rule, board)
-        && rightColumnDifference(id, nextId, rule, board)
-        && board.getMap().containsKey(nextId)) {
-      Sign sign = board.getMap().get(id);
-      Sign nextSign = board.getMap().get(nextId);
-      if (sign == nextSign) {
-        counter.increment();
-        if (counter.value != winningRule) {
-          checkStandard(nextId, rule, board, counter);
+        && rightColumnDifference(id, nextId, rule, board)) {
+      board.getSignFromField(nextId).ifPresent(s -> {
+        Sign sign = board.getSignFromField(id).get();
+        if (sign.equals(s)) {
+          counter.increment();
+          if (counter.value != winningRule) {
+            checkStandard(nextId, rule, board, counter);
+          }
         }
-      }
+      });
     }
   }
 
@@ -62,16 +60,16 @@ class BoardChecker {
     int nextId = id - (rule.row * board.dimension) - (rule.column);
 
     if (rightRowDifference(id, nextId, rule, board)
-        && rightColumnDifference(id, nextId, rule, board)
-        && board.getMap().containsKey(nextId)) {
-      Sign sign = board.getMap().get(id);
-      Sign nextSign = board.getMap().get(nextId);
-      if (sign == nextSign) {
-        counter.increment();
-        if (counter.value != winningRule) {
-          checkReversed(nextId, rule, board, counter);
+        && rightColumnDifference(id, nextId, rule, board)) {
+      board.getSignFromField(nextId).ifPresent(s -> {
+        Sign sign = board.getSignFromField(id).get();
+        if (sign.equals(s)) {
+          counter.increment();
+          if (counter.value != winningRule) {
+            checkReversed(nextId, rule, board, counter);
+          }
         }
-      }
+      });
     }
   }
 
@@ -96,6 +94,22 @@ class BoardChecker {
 
   private int column(int id, int dimension) {
     return id % dimension;
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    if(evt.getPropertyName().equals("filledField")){
+      checkWinnerIfItIsProperTurn(evt);
+    }
+  }
+
+  private void checkWinnerIfItIsProperTurn(PropertyChangeEvent evt) {
+    turn++;
+    if(turn >= winningRule * 2 - 1){
+      Board board = (Board) evt.getSource();
+      int id = (Integer) evt.getNewValue();
+      System.out.println(isWinner(id, board));
+    }
   }
 
   private static class Counter {

@@ -35,6 +35,6 @@ class Round {
   void setField(int id, Sign sign) throws ExistingFieldException, NotInBoardRangeException {
     board.setField(id, sign);
     propertyChangeSupport.firePropertyChange(
-        new PropertyChangeEvent(this, "filledField", null, id));
+        new PropertyChangeEvent(this.board, "filledField", null, id));
   }
 }

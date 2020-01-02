@@ -24,24 +24,34 @@ class Main {
     }
 
     Round round = new Round(n);
+    BoardChecker boardChecker = new BoardChecker(3);
 
     round.addObserver(ui);
+    round.addObserver(boardChecker);
 
     ui.welcome();
 
-    ui.board(round.board.dimension, round.board.getMap());
+    ui.board(round.board);
+
+    boolean naught = true;
 
     while (round.board.size() < (round.board.limit)) {
       int id = ui.fieldId(round.board.limit);
       try {
         try {
-          round.setField(id, Sign.NAUGHT);
+          if(naught){
+            round.setField(id, Sign.NAUGHT);
+          } else{
+            round.setField(id, Sign.CROSS);
+          }
+          naught = !naught;
         } catch (ExistingFieldException | NotInBoardRangeException e) {
           ui.error(e.getMessage());
         }
       } catch (IllegalArgumentException ex) {
         ui.error(ex.getMessage());
       }
+
     }
   }
 }

@@ -1,7 +1,7 @@
 package app.studnicki.ox;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 public class Board {
   final int limit;
@@ -26,12 +26,11 @@ public class Board {
     map.put(id, sign);
   }
 
-  Map<Integer, Sign> getMap() {
-    return new HashMap<>(map);
-  }
-
   int size() {
     return map.size();
   }
 
+  Optional<Sign> getSignFromField(int id) {
+    return Optional.ofNullable(map.get(id));
+  }
 }

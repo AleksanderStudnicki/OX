@@ -1,15 +1,14 @@
 package app.studnicki.ox;
 
-import static app.studnicki.ox.Config.INSTANCE;
-import static app.studnicki.ox.MessageKey.*;
-
 import java.beans.PropertyChangeEvent;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.IntStream;
+
+import static app.studnicki.ox.Config.INSTANCE;
+import static app.studnicki.ox.MessageKey.*;
 
 
 class ConsoleUserInterface implements UserInterface {
@@ -28,14 +27,14 @@ class ConsoleUserInterface implements UserInterface {
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     if (evt.getPropertyName().equals("filledField")) {
-      Round round = (Round) evt.getSource();
-      board(round.board.dimension, round.board.getMap());
+      Board board = (Board) evt.getSource();
+      board(board);
     }
   }
 
   /**
    * Prints welcome message (from properties file) with endline
-   *                  on a console using standard output print stream.
+   * on a console using standard output print stream.
    */
   @Override
   public void welcome() {
@@ -46,17 +45,16 @@ class ConsoleUserInterface implements UserInterface {
   /**
    * Prints board to a console output print stream.
    *
-   * @param n     amount of field on one row
    * @param board filled fields in board represented as a map
    */
   @Override
-  public void board(int n, Map<Integer, Sign> board) {
+  public void board(Board board) {
     clear();
-    showSeparationLine(n);
-    IntStream.range(0, n)
+    showSeparationLine(board.dimension);
+    IntStream.range(0, board.dimension)
         .forEach(row -> {
-          showLine(n, row, board);
-          showSeparationLine(n);
+          showLine(board.dimension, row, board);
+          showSeparationLine(board.dimension);
         });
   }
 
@@ -85,6 +83,7 @@ class ConsoleUserInterface implements UserInterface {
 
   /**
    * Prints a message as an error.
+   *
    * @param content Content of error message
    */
   @Override
@@ -101,20 +100,17 @@ class ConsoleUserInterface implements UserInterface {
     System.out.print("\033[H\033[2J");
   }
 
-  private void showLine(int totalRow, int actualRow, Map<Integer, Sign> board) {
+  private void showLine(int totalRow, int actualRow, Board board) {
     int start = (actualRow * totalRow);
     int end = (actualRow * totalRow) + totalRow;
 
     System.out.printf("%d |", actualRow);
 
     IntStream.range(start, end)
-        .forEach(index -> {
-          if (board.containsKey(index)) {
-            System.out.printf(" %s |", board.get(index));
-          } else {
-            System.out.print("   |");
-          }
-        });
+        .forEach(index -> board.getSignFromField(index).ifPresentOrElse(
+            s -> System.out.printf(" %s |", s),
+            () -> System.out.print("   |")
+        ));
 
     System.out.println();
   }
