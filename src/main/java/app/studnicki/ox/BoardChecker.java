@@ -10,12 +10,14 @@ import static app.studnicki.ox.TransitionRule.*;
 class BoardChecker implements PropertyChangeListener {
 
   private final int winningRule;
+  private final int checkingThreshold;
   private final Set<TransitionRule> ruleSet = new HashSet<>(
       Set.of(VERTICAL, HORIZONTAL, DIAGONAL_UP, DIAGONAL_DOWN));
   private int turn;
 
   BoardChecker(int winningRule) {
     this.winningRule = winningRule;
+    checkingThreshold = winningRule * 2 - 1;
   }
 
   boolean isWinner(int id, Board board) {
@@ -105,7 +107,7 @@ class BoardChecker implements PropertyChangeListener {
 
   private void checkWinnerIfItIsProperTurn(PropertyChangeEvent evt) {
     turn++;
-    if (turn >= winningRule * 2 - 1) {
+    if (turn >= checkingThreshold) {
       Board board = (Board) evt.getSource();
       int id = (Integer) evt.getNewValue();
       System.out.println(isWinner(id, board));
