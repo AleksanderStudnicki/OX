@@ -41,10 +41,9 @@ class BoardChecker {
 
   private void checkStandard(int id, TransitionRule rule, Board board, Counter counter) {
     int nextId = id + (rule.row * board.dimension) + (rule.column);
-    check(id, rule, board, counter, nextId);
-  }
 
-  private void check(int id, TransitionRule rule, Board board, Counter counter, int nextId) {
+    System.out.println(id + "  |  " + nextId);
+
     if (rightRowDifference(id, nextId, rule, board) && rightColumnDifference(id, nextId, rule, board)) {
       if (board.getMap().containsKey(nextId)) {
         Sign sign = board.getMap().get(id);
@@ -59,23 +58,36 @@ class BoardChecker {
     }
   }
 
+
   private void checkReversed(int id, TransitionRule rule, Board board, Counter counter) {
     int nextId = id - (rule.row * board.dimension) - (rule.column);
-    check(id, rule, board, counter, nextId);
+
+    if (rightRowDifference(id, nextId, rule, board) && rightColumnDifference(id, nextId, rule, board)) {
+      if (board.getMap().containsKey(nextId)) {
+        Sign sign = board.getMap().get(id);
+        Sign nextSign = board.getMap().get(nextId);
+        if (sign == nextSign) {
+          counter.increment();
+          if(counter.value != winningRule){
+            checkReversed(nextId, rule, board, counter);
+          }
+        }
+      }
+    }
   }
 
   private boolean rightRowDifference(int id, int nextId, TransitionRule rule, Board board) {
     if (rule.row == 0) {
       return true;
     }
-    return Math.abs(row(id, board.dimension) - row(nextId, board.dimension)) == rule.row;
+    return Math.abs(row(id, board.dimension) - row(nextId, board.dimension)) == Math.abs(rule.row);
   }
 
   private boolean rightColumnDifference(int id, int nextId, TransitionRule rule, Board board) {
     if (rule.column == 0) {
       return true;
     }
-    return Math.abs(column(id, board.dimension) - column(nextId, board.dimension)) == rule.column;
+    return Math.abs(column(id, board.dimension) - column(nextId, board.dimension)) == Math.abs(rule.column);
   }
 
   private int row(int id, int dimension) {

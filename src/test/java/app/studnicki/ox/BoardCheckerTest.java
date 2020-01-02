@@ -1,9 +1,9 @@
 package app.studnicki.ox;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 @Test
 public class BoardCheckerTest {
@@ -20,6 +20,8 @@ public class BoardCheckerTest {
 
     //then
     assertFalse(boardChecker.isWinner(2, board));
+    assertFalse(boardChecker.isWinner(1, board));
+    assertFalse(boardChecker.isWinner(2, board));
   }
 
   public void shouldReturnTrueOnBoardNaughtInFirstRow() {
@@ -33,6 +35,8 @@ public class BoardCheckerTest {
     board.setField(2, Sign.NAUGHT);
 
     //then
+    assertTrue(boardChecker.isWinner(0, board));
+    assertTrue(boardChecker.isWinner(1, board));
     assertTrue(boardChecker.isWinner(2, board));
   }
 
@@ -44,10 +48,12 @@ public class BoardCheckerTest {
     //when
     board.setField(0, Sign.CROSS);
     board.setField(3, Sign.CROSS);
-    board.setField(5, Sign.CROSS);
+    board.setField(6, Sign.CROSS);
 
     //then
+    assertTrue(boardChecker.isWinner(0, board));
     assertTrue(boardChecker.isWinner(3, board));
+    assertTrue(boardChecker.isWinner(6, board));
   }
 
   public void shouldReturnTrueOnBoardDiagonalFromFirstField() {
@@ -62,6 +68,8 @@ public class BoardCheckerTest {
 
     //then
     assertTrue(boardChecker.isWinner(0, board));
+    assertTrue(boardChecker.isWinner(4, board));
+    assertTrue(boardChecker.isWinner(8, board));
   }
 
   public void shouldReturnTrueOnBoardDiagonalFromThirdField() {
@@ -70,11 +78,31 @@ public class BoardCheckerTest {
     Board board = new Board(3);
 
     //when
-    board.setField(3, Sign.CROSS);
+    board.setField(2, Sign.CROSS);
     board.setField(4, Sign.CROSS);
     board.setField(6, Sign.CROSS);
 
     //then
+    assertTrue(boardChecker.isWinner(2, board));
     assertTrue(boardChecker.isWinner(4, board));
+    assertTrue(boardChecker.isWinner(6, board));
+  }
+
+  public void shouldReturnFalseOnThatDiagonal() {
+    //given
+    BoardChecker boardChecker = new BoardChecker(3);
+    Board board = new Board(3);
+
+    //when
+    board.setField(1, Sign.CROSS);
+    board.setField(3, Sign.CROSS);
+    board.setField(5, Sign.CROSS);
+    board.setField(7, Sign.CROSS);
+
+    //then
+    assertFalse(boardChecker.isWinner(1, board));
+    assertFalse(boardChecker.isWinner(3, board));
+    assertFalse(boardChecker.isWinner(5, board));
+    assertFalse(boardChecker.isWinner(7, board));
   }
 }
