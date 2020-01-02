@@ -30,7 +30,7 @@ class BoardChecker {
 
     checkStandard(id, rule, board, counter);
 
-    if(counter.value == winningRule){
+    if (counter.value == winningRule) {
       return true;
     }
 
@@ -44,33 +44,32 @@ class BoardChecker {
 
     System.out.println(id + "  |  " + nextId);
 
-    if (rightRowDifference(id, nextId, rule, board) && rightColumnDifference(id, nextId, rule, board)) {
-      if (board.getMap().containsKey(nextId)) {
-        Sign sign = board.getMap().get(id);
-        Sign nextSign = board.getMap().get(nextId);
-        if (sign == nextSign) {
-          counter.increment();
-          if(counter.value != winningRule){
-            checkStandard(nextId, rule, board, counter);
-          }
+    if (rightRowDifference(id, nextId, rule, board)
+        && rightColumnDifference(id, nextId, rule, board)
+        && board.getMap().containsKey(nextId)) {
+      Sign sign = board.getMap().get(id);
+      Sign nextSign = board.getMap().get(nextId);
+      if (sign == nextSign) {
+        counter.increment();
+        if (counter.value != winningRule) {
+          checkStandard(nextId, rule, board, counter);
         }
       }
     }
   }
 
-
   private void checkReversed(int id, TransitionRule rule, Board board, Counter counter) {
     int nextId = id - (rule.row * board.dimension) - (rule.column);
 
-    if (rightRowDifference(id, nextId, rule, board) && rightColumnDifference(id, nextId, rule, board)) {
-      if (board.getMap().containsKey(nextId)) {
-        Sign sign = board.getMap().get(id);
-        Sign nextSign = board.getMap().get(nextId);
-        if (sign == nextSign) {
-          counter.increment();
-          if(counter.value != winningRule){
-            checkReversed(nextId, rule, board, counter);
-          }
+    if (rightRowDifference(id, nextId, rule, board)
+        && rightColumnDifference(id, nextId, rule, board)
+        && board.getMap().containsKey(nextId)) {
+      Sign sign = board.getMap().get(id);
+      Sign nextSign = board.getMap().get(nextId);
+      if (sign == nextSign) {
+        counter.increment();
+        if (counter.value != winningRule) {
+          checkReversed(nextId, rule, board, counter);
         }
       }
     }
@@ -87,7 +86,8 @@ class BoardChecker {
     if (rule.column == 0) {
       return true;
     }
-    return Math.abs(column(id, board.dimension) - column(nextId, board.dimension)) == Math.abs(rule.column);
+    return Math.abs(column(id, board.dimension) - column(nextId, board.dimension))
+        == Math.abs(rule.column);
   }
 
   private int row(int id, int dimension) {
@@ -98,7 +98,7 @@ class BoardChecker {
     return id % dimension;
   }
 
-  private class Counter {
+  private static class Counter {
     int value = 1;
 
     void increment() {
@@ -106,4 +106,5 @@ class BoardChecker {
       value++;
     }
   }
+
 }

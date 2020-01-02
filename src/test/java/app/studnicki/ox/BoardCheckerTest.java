@@ -105,4 +105,22 @@ public class BoardCheckerTest {
     assertFalse(boardChecker.isWinner(5, board));
     assertFalse(boardChecker.isWinner(7, board));
   }
+
+  public void shouldReturnTrueOnThatDiagonal5() {
+    //given
+    BoardChecker boardChecker = new BoardChecker(4);
+    Board board = new Board(5);
+
+    //when
+    board.setField(0, Sign.CROSS);
+    board.setField(6, Sign.CROSS);
+    board.setField(12, Sign.CROSS);
+    board.setField(18, Sign.CROSS);
+
+    //then
+    assertTrue(boardChecker.isWinner(0, board));
+    assertTrue(boardChecker.isWinner(6, board));
+    assertTrue(boardChecker.isWinner(12, board));
+    assertTrue(boardChecker.isWinner(18, board));
+  }
 }

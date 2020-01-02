@@ -2,7 +2,6 @@ package app.studnicki.ox;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class Board {
   final int limit;
@@ -33,10 +32,6 @@ public class Board {
 
   int size() {
     return map.size();
-  }
-
-  Optional<Sign> getSignFromBoard(int id){
-    return Optional.of(map.get(id));
   }
 
 }
