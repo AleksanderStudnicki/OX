@@ -1,6 +1,6 @@
 package app.studnicki.ox;
 
-public enum MessageKey {
+enum MessageKey {
   WELCOME("welcome"), BACK("back"), WRONG_MENU_INPUT("wrongMenuInput"),
   FIELD_ID("fieldId"), NOT_IN_RANGE("notInRange");
 

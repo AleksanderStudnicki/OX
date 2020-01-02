@@ -98,14 +98,14 @@ class BoardChecker implements PropertyChangeListener {
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    if(evt.getPropertyName().equals("filledField")){
+    if (evt.getPropertyName().equals("filledField")) {
       checkWinnerIfItIsProperTurn(evt);
     }
   }
 
   private void checkWinnerIfItIsProperTurn(PropertyChangeEvent evt) {
     turn++;
-    if(turn >= winningRule * 2 - 1){
+    if (turn >= winningRule * 2 - 1) {
       Board board = (Board) evt.getSource();
       int id = (Integer) evt.getNewValue();
       System.out.println(isWinner(id, board));

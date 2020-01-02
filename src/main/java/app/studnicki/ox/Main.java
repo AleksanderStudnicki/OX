@@ -4,6 +4,7 @@ class Main {
   /**
    * Simple game: just filling the board with naught sign.
    * Board dimension can be customized by args. Error handling is provided.
+   *
    * @param args simple main arguments
    *             (the first can be treated as a board dimension if is parsable to integer)
    */
@@ -39,9 +40,9 @@ class Main {
       int id = ui.fieldId(round.board.limit);
       try {
         try {
-          if(naught){
+          if (naught) {
             round.setField(id, Sign.NAUGHT);
-          } else{
+          } else {
             round.setField(id, Sign.CROSS);
           }
           naught = !naught;
