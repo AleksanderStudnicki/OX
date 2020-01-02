@@ -8,6 +8,12 @@ import java.util.Set;
 
 import static app.studnicki.ox.TransitionRule.*;
 
+/**
+ * Class for checking a winner of the game after each move on board.
+ * Communication with other classes is based on property changes.
+ *
+ * @author Aleksander Studnicki
+ */
 class BoardChecker implements PropertyChangeListener {
 
   private final int winningRule;
@@ -18,11 +24,23 @@ class BoardChecker implements PropertyChangeListener {
 
   private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
+  /**
+   * Adds observers for 2 type of events.
+   * Play - when there is possibility to play and no winner.
+   * Resolved - when there is a winner or no possibility to play (draw).
+   * When resolved then flag is send to observer (true - winner, false - draw).
+   *
+   * @param listener Object which will be observing GameChecker
+   *                 (must implements PropertyChangeListener)
+   */
   void addObserver(PropertyChangeListener listener) {
     propertyChangeSupport.addPropertyChangeListener("play", listener);
     propertyChangeSupport.addPropertyChangeListener("resolved", listener);
   }
 
+  /**
+   * @param winningRule How many fields must by filled by sign (one of them) to win the game.
+   */
   BoardChecker(int winningRule) {
     this.winningRule = winningRule;
     checkingThreshold = winningRule * 2 - 1;

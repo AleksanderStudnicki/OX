@@ -7,6 +7,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 
+/**
+ * Class for playing the ox game.
+ * It provides all of the game logic when other variables
+ * like players, rules, ui are given in constructor.
+ * Maximum of 3 rounds can be played.
+ *
+ * @author Aleksander Studnicki
+ */
 public class Game implements PropertyChangeListener {
   final Player player1;
   final Player player2;
@@ -15,7 +23,7 @@ public class Game implements PropertyChangeListener {
   int dimension;
   UserInterface userInterface;
 
-  private final List<Round> rounds = new LinkedList<Round>();
+  private final List<Round> rounds = new LinkedList<>();
   private Round tail;
 
   private Game(Player player1, Player player2, int winningRule,
@@ -29,7 +37,11 @@ public class Game implements PropertyChangeListener {
     boardChecker.addObserver(this);
   }
 
-  public void start() {
+  /**
+   * Starts the game by creating a new round, adding it to list of rounds,
+   * showing an empty board and running play method.
+   */
+  void start() {
     tail = initRound();
     rounds.add(tail);
     userInterface.board(tail.board);
@@ -45,7 +57,7 @@ public class Game implements PropertyChangeListener {
     return tail;
   }
 
-  void play() {
+  private void play() {
     Player player = playersQueue.peek();
     userInterface.nowPlaying(player);
     reverseQueue();
@@ -67,6 +79,14 @@ public class Game implements PropertyChangeListener {
     playersQueue.add(playersQueue.poll());
   }
 
+  /**
+   * When event occurs then check property name.
+   * If play then next turn of the current game.
+   * If resolved then show the result and based on that
+   * play another round or quit the game and announce winner or draw.
+   *
+   * @param evt Event from source object. In that case - BoardChecker.
+   */
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     if (evt.getPropertyName().equals("play")) {
@@ -141,7 +161,7 @@ public class Game implements PropertyChangeListener {
 
     Game build() {
       if (winningRule > dimension || winningRule < 3) {
-        throw new IllegalArgumentException("Winning rule must be in range 3..dimension - 1");
+        throw new IllegalArgumentException(Config.INSTANCE.getMessage(MessageKey.WRONG_WINNING_RULE));
       }
       return new Game(player1, player2, winningRule, dimension, userInterface);
     }

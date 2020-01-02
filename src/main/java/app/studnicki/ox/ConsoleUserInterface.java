@@ -91,24 +91,43 @@ class ConsoleUserInterface implements UserInterface {
     System.err.println(content);
   }
 
+  /**
+   * Shows winner message.
+   *
+   * @param player Winner or game.
+   */
   @Override
   public void announceWinner(Player player) {
-    System.out.println("Congratulations " + player.name + ". You Win!");
-    System.out.println("Your score was: " + player.score);
+    System.out.println(INSTANCE.getMessage(CONGRATULATIONS) + " " + player.name + ". " + INSTANCE.getMessage(YOU_WIN));
+    System.out.println(INSTANCE.getMessage(YOUR_SCORE) + player.score);
   }
 
+  /**
+   * Shows which player should mark a field.
+   *
+   * @param player Current player
+   */
   @Override
   public void nowPlaying(Player player) {
-    System.out.println("Now playing: " + player.name);
+    System.out.println(INSTANCE.getMessage(NOW_PLAYING) + player.name);
   }
 
+  /**
+   * Waits for pressing ENTER key.
+   */
   @Override
   public void waitForAnyAction() {
-    System.out.println("Press ENTER to continue...");
+    System.out.println(INSTANCE.getMessage(PRESS_ENTER));
     Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
     scanner.nextLine();
   }
 
+  /**
+   * Shows summary of players and their scores after the round.
+   *
+   * @param player1 first player
+   * @param player2 second player
+   */
   @Override
   public void announceResultOfRound(Player player1, Player player2) {
     System.out.println(player1 + "  |  " + player2);
