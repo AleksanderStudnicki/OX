@@ -14,9 +14,9 @@ public class BoardCheckerTest {
     Board board = new Board(3);
 
     //when
-    board.setField(0, Sign.NAUGHT);
-    board.setField(1, Sign.CROSS);
-    board.setField(2, Sign.NAUGHT);
+    board.markASign(0, Sign.NAUGHT);
+    board.markASign(1, Sign.CROSS);
+    board.markASign(2, Sign.NAUGHT);
 
     //then
     assertFalse(boardChecker.isWinner(2, board));
@@ -30,9 +30,9 @@ public class BoardCheckerTest {
     Board board = new Board(3);
 
     //when
-    board.setField(0, Sign.NAUGHT);
-    board.setField(1, Sign.NAUGHT);
-    board.setField(2, Sign.NAUGHT);
+    board.markASign(0, Sign.NAUGHT);
+    board.markASign(1, Sign.NAUGHT);
+    board.markASign(2, Sign.NAUGHT);
 
     //then
     assertTrue(boardChecker.isWinner(0, board));
@@ -46,9 +46,9 @@ public class BoardCheckerTest {
     Board board = new Board(3);
 
     //when
-    board.setField(0, Sign.CROSS);
-    board.setField(3, Sign.CROSS);
-    board.setField(6, Sign.CROSS);
+    board.markASign(0, Sign.CROSS);
+    board.markASign(3, Sign.CROSS);
+    board.markASign(6, Sign.CROSS);
 
     //then
     assertTrue(boardChecker.isWinner(0, board));
@@ -62,9 +62,9 @@ public class BoardCheckerTest {
     Board board = new Board(3);
 
     //when
-    board.setField(0, Sign.CROSS);
-    board.setField(4, Sign.CROSS);
-    board.setField(8, Sign.CROSS);
+    board.markASign(0, Sign.CROSS);
+    board.markASign(4, Sign.CROSS);
+    board.markASign(8, Sign.CROSS);
 
     //then
     assertTrue(boardChecker.isWinner(0, board));
@@ -78,9 +78,9 @@ public class BoardCheckerTest {
     Board board = new Board(3);
 
     //when
-    board.setField(2, Sign.CROSS);
-    board.setField(4, Sign.CROSS);
-    board.setField(6, Sign.CROSS);
+    board.markASign(2, Sign.CROSS);
+    board.markASign(4, Sign.CROSS);
+    board.markASign(6, Sign.CROSS);
 
     //then
     assertTrue(boardChecker.isWinner(2, board));
@@ -94,10 +94,10 @@ public class BoardCheckerTest {
     Board board = new Board(3);
 
     //when
-    board.setField(1, Sign.CROSS);
-    board.setField(3, Sign.CROSS);
-    board.setField(5, Sign.CROSS);
-    board.setField(7, Sign.CROSS);
+    board.markASign(1, Sign.CROSS);
+    board.markASign(3, Sign.CROSS);
+    board.markASign(5, Sign.CROSS);
+    board.markASign(7, Sign.CROSS);
 
     //then
     assertFalse(boardChecker.isWinner(1, board));
@@ -112,10 +112,10 @@ public class BoardCheckerTest {
     Board board = new Board(5);
 
     //when
-    board.setField(0, Sign.CROSS);
-    board.setField(6, Sign.CROSS);
-    board.setField(12, Sign.CROSS);
-    board.setField(18, Sign.CROSS);
+    board.markASign(0, Sign.CROSS);
+    board.markASign(6, Sign.CROSS);
+    board.markASign(12, Sign.CROSS);
+    board.markASign(18, Sign.CROSS);
 
     //then
     assertTrue(boardChecker.isWinner(0, board));

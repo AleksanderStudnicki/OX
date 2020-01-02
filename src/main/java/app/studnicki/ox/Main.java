@@ -41,9 +41,9 @@ class Main {
       try {
         try {
           if (naught) {
-            round.setField(id, Sign.NAUGHT);
+            round.markASign(id, Sign.NAUGHT);
           } else {
-            round.setField(id, Sign.CROSS);
+            round.markASign(id, Sign.CROSS);
           }
           naught = !naught;
         } catch (ExistingFieldException | NotInBoardRangeException e) {
