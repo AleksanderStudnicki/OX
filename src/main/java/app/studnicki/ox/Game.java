@@ -161,7 +161,8 @@ public class Game implements PropertyChangeListener {
 
     Game build() {
       if (winningRule > dimension || winningRule < 3) {
-        throw new IllegalArgumentException(Config.INSTANCE.getMessage(MessageKey.WRONG_WINNING_RULE));
+        throw new IllegalArgumentException(
+            Config.INSTANCE.getMessage(MessageKey.WRONG_WINNING_RULE));
       }
       return new Game(player1, player2, winningRule, dimension, userInterface);
     }

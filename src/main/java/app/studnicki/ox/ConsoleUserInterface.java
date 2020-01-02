@@ -13,12 +13,10 @@ import static app.studnicki.ox.MessageKey.*;
 
 class ConsoleUserInterface implements UserInterface {
 
-  private final InputStream inputStream;
   Scanner scanner;
 
   ConsoleUserInterface(InputStream inputStream) {
-    this.inputStream = inputStream;
-    scanner = new Scanner(inputStream);
+    scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
   }
 
   /**
@@ -79,7 +77,6 @@ class ConsoleUserInterface implements UserInterface {
       }
       return id;
     } catch (InputMismatchException ex) {
-      scanner = new Scanner(inputStream);
       System.err.println(INSTANCE.getMessage(WRONG_MENU_INPUT));
       scanner.nextLine();
       return fieldId(limit);
@@ -103,7 +100,8 @@ class ConsoleUserInterface implements UserInterface {
    */
   @Override
   public void announceWinner(Player player) {
-    System.out.println(INSTANCE.getMessage(CONGRATULATIONS) + " " + player.name + ". " + INSTANCE.getMessage(YOU_WIN));
+    System.out.println(INSTANCE.getMessage(CONGRATULATIONS)
+        + " " + player.name + ". " + INSTANCE.getMessage(YOU_WIN));
     System.out.println(INSTANCE.getMessage(YOUR_SCORE) + player.score);
   }
 
@@ -123,7 +121,6 @@ class ConsoleUserInterface implements UserInterface {
   @Override
   public void waitForAnyAction() {
     System.out.println(INSTANCE.getMessage(PRESS_ENTER));
-    //scanner = new Scanner(inputStream, StandardCharsets.UTF_8);
     scanner.nextLine();
   }
 

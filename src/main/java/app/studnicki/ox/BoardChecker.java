@@ -39,6 +39,8 @@ class BoardChecker implements PropertyChangeListener {
   }
 
   /**
+   * One and only constructor of the class.
+   *
    * @param winningRule How many fields must by filled by sign (one of them) to win the game.
    */
   BoardChecker(int winningRule) {
