@@ -65,7 +65,7 @@ class Main {
       if (args[1].equals("O") || args[1].equals("o")) {
         player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.NAUGHT);
       } else if
-      (args[1].equals("X") || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("x")) {
+          (args[1].equals("X") || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("x")) {
         player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.CROSS);
       } else {
         ui.error("Not proper sign of first player");
