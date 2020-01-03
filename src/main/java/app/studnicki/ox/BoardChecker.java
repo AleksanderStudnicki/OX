@@ -5,8 +5,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.EnumSet;
 import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.Predicate;
 
 import static app.studnicki.ox.TransitionRule.*;
 
@@ -56,6 +54,7 @@ class BoardChecker implements PropertyChangeListener {
     if (turn == board.limit) {
       turn = 0;
       propertyChangeSupport.firePropertyChange("resolved", null, false);
+      return false;
     }
     propertyChangeSupport.firePropertyChange("playable", null, 1);
     return false;
