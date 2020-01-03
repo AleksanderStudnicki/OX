@@ -73,13 +73,13 @@ public class ConsoleUserInterfaceTest {
 
     //then
     String expected = clearCommand
-        + "  -------------\n"
-        + "0 | O |   |   |\n"
-        + "  -------------\n"
-        + "1 |   |   |   |\n"
-        + "  -------------\n"
-        + "2 |   |   |   |\n"
-        + "  -------------\n";
+        + "-------------\n"
+        + "| O | 1 | 2 |\n"
+        + "-------------\n"
+        + "| 3 | 4 | 5 |\n"
+        + "-------------\n"
+        + "| 6 | 7 | 8 |\n"
+        + "-------------\n";
 
     assertEquals(out.toString(), expected);
   }
@@ -181,7 +181,7 @@ public class ConsoleUserInterfaceTest {
 
     //when
     pcs.firePropertyChange("notMarkedAField", 0, 1);
-    
+
     //then
     assertEquals(out.toString().length(), 0);
   }

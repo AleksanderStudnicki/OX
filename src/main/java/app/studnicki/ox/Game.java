@@ -106,6 +106,7 @@ class Game implements PropertyChangeListener {
           },
           () -> {
             if (rounds.size() != 3) {
+              userInterface.waitForAnyAction();
               this.reverseQueue();
               this.start();
             } else {

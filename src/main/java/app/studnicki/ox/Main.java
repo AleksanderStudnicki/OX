@@ -1,6 +1,7 @@
 package app.studnicki.ox;
 
 import java.util.Optional;
+
 /**
  * Main class of the application.
  * Game running if available through the main method.
@@ -11,6 +12,7 @@ class Main {
   /**
    * Method to run the game.
    * Able to run a game from passed argument
+   *
    * @param args simple main arguments
    *             runs the game when arguments are:
    *             [0] - name of the first player
@@ -28,21 +30,21 @@ class Main {
       ui.welcome();
       g.start();
     }, () -> {
-      ui.welcome();
+        ui.welcome();
 
-      Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
-      Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
+        Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
+        Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
 
-      Game game = new Game.Builder()
-          .player1(player1)
-          .player2(player2)
-          .winningRule(3)
-          .dimension(3)
-          .userInterface(ui)
-          .build();
+        Game game = new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .winningRule(3)
+            .dimension(3)
+            .userInterface(ui)
+            .build();
 
-      game.start();
-    });
+        game.start();
+      });
   }
 
   private static Optional<Game> parseGame(String[] args, UserInterface ui) {
@@ -58,7 +60,7 @@ class Main {
         player1 = new Player(args[0], Sign.CROSS);
       } else {
         ui.error("Not proper sign of first player");
-        return Optional.of(null);
+        return Optional.ofNullable(null);
       }
 
       if (player1.sign == Sign.NAUGHT) {
@@ -71,14 +73,14 @@ class Main {
         dimension = Integer.parseInt(args[3]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
-        return Optional.of(null);
+        return Optional.ofNullable(null);
       }
 
       try {
         winningRule = Integer.parseInt(args[3]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
-        return Optional.of(null);
+        return Optional.ofNullable(null);
       }
 
       return Optional.of(new Game.Builder()
@@ -89,7 +91,7 @@ class Main {
           .userInterface(ui)
           .build());
     }
-    return Optional.of(null);
+    return Optional.ofNullable(null);
   }
 
 }

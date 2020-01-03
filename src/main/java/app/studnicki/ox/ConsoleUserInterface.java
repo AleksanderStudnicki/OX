@@ -154,19 +154,25 @@ class ConsoleUserInterface implements UserInterface {
     int start = (actualRow * totalRow);
     int end = (actualRow * totalRow) + totalRow;
 
-    System.out.printf("%d |", actualRow);
+    System.out.print("|");
 
     IntStream.range(start, end)
         .forEach(index -> board.getSignFromField(index).ifPresentOrElse(
             s -> System.out.printf(" %s |", s),
-            () -> System.out.print("   |")
+            () -> {
+              if (index > 9) {
+                System.out.printf(" %d|", index);
+              } else {
+                System.out.printf(" %d |", index);
+              }
+            }
         ));
 
     System.out.println();
   }
 
   private void showSeparationLine(int n) {
-    System.out.print("  -");
+    System.out.print("-");
     IntStream.range(0, n).forEach(i -> System.out.print("----"));
     System.out.println();
   }
