@@ -50,42 +50,43 @@ class Main {
   }
 
   private static void changeLanguage(String[] args) {
-    if (args.length > 5) {
-      Config.INSTANCE.changeLanguage(args[5]);
+    if (args.length > MainNavigation.MINIMUM_ARGS_TO_CHANGE_LANGUAGE.value) {
+      Config.INSTANCE.changeLanguage(args[MainNavigation.LANGUAGE_TAG_FIELD.value]);
     }
   }
 
   private static Optional<Game> parseGame(String[] args, UserInterface ui) {
-    if (args.length >= 5) {
+    if (args.length >= MainNavigation.MINIMUM_ARGS.value) {
       Player player1;
       Player player2;
       int dimension;
       int winningRule;
 
       if (args[1].equals("O") || args[1].equals("o")) {
-        player1 = new Player(args[0], Sign.NAUGHT);
-      } else if (args[1].equals("X") || args[1].equals("x")) {
-        player1 = new Player(args[0], Sign.CROSS);
+        player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.NAUGHT);
+      } else if
+          (args[1].equals("X") || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("x")) {
+        player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.CROSS);
       } else {
         ui.error("Not proper sign of first player");
         return Optional.ofNullable(null);
       }
 
       if (player1.sign == Sign.NAUGHT) {
-        player2 = new Player(args[2], Sign.CROSS);
+        player2 = new Player(args[MainNavigation.SECOND_PLAYER_NAME_FIELD.value], Sign.CROSS);
       } else {
-        player2 = new Player(args[2], Sign.NAUGHT);
+        player2 = new Player(args[MainNavigation.SECOND_PLAYER_NAME_FIELD.value], Sign.NAUGHT);
       }
 
       try {
-        dimension = Integer.parseInt(args[3]);
+        dimension = Integer.parseInt(args[MainNavigation.DIMENSION_FIELD.value]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
         return Optional.ofNullable(null);
       }
 
       try {
-        winningRule = Integer.parseInt(args[3]);
+        winningRule = Integer.parseInt(args[MainNavigation.WINNING_RULE_FIELD.value]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
         return Optional.ofNullable(null);
@@ -100,6 +101,23 @@ class Main {
           .build());
     }
     return Optional.ofNullable(null);
+  }
+
+  private enum MainNavigation {
+    FIRST_PLAYER_NAME_FIELD(0),
+    FIRST_PLAYER_SIGN_FIELD(1),
+    SECOND_PLAYER_NAME_FIELD(2),
+    DIMENSION_FIELD(3),
+    WINNING_RULE_FIELD(4),
+    LANGUAGE_TAG_FIELD(5),
+    MINIMUM_ARGS(5),
+    MINIMUM_ARGS_TO_CHANGE_LANGUAGE(6);
+
+    final int value;
+
+    MainNavigation(int value) {
+      this.value = value;
+    }
   }
 
 }

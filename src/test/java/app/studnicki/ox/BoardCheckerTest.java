@@ -3,6 +3,8 @@ package app.studnicki.ox;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import static org.testng.Assert.*;
+
 @Test
 public class BoardCheckerTest {
 
@@ -141,6 +143,23 @@ public class BoardCheckerTest {
     soft.assertTrue(boardChecker.isWinner(18, board));
 
     soft.assertAll();
+  }
+
+  public void autoPlayBugFixTest() {
+    //given
+    SoftAssert soft = new SoftAssert();
+    BoardChecker boardChecker = new BoardChecker(3);
+    Board board = new Board(4);
+
+    //when
+    board.markASign(13, Sign.CROSS);
+    board.markASign(1, Sign.NAUGHT);
+    board.markASign(14, Sign.CROSS);
+    board.markASign(8, Sign.NAUGHT);
+    board.markASign(15, Sign.CROSS);
+
+    //then
+    assertTrue(boardChecker.isWinner(15, board));
   }
 
 }
