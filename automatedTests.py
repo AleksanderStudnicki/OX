@@ -3,7 +3,12 @@ import sys
 from datetime import datetime
 import random
 
-rules = [[0, 1], [1, 0], [1, 1], [1, -1]]
+HORIZONTAL = [0, 1]
+VERTICAL = [1, 0]
+DIAGONAL_DOWN = [1, 1]
+DIAGONAL_UP = [1, -1]
+
+rules = [HORIZONTAL, VERTICAL, DIAGONAL_DOWN, DIAGONAL_UP]
 
 
 def generate_draw(dimension):
@@ -204,7 +209,6 @@ if len(args) == 3:
     report_filename = "summary-" + filename
     f = open(filename, "w")
     rf = open(report_filename, "w")
-
     full_out = None
 
     for full_round in all_set:
@@ -222,17 +226,14 @@ if len(args) == 3:
         f.write(out)
 
     f.close()
-
     rf.write("For automated test of dimension = " + str(dimension) + " and winning rule = " + str(winning_rule) + "\n")
     rf.write("Win of first player: " + str(full_out.count("Congratulations #1")) + "\n")
     rf.write("Win of first player: " + str(full_out.count("Congratulations #2")) + "\n")
     rf.write("Win of first player: " + str(full_out.count("Draw! No one won the game")) + "\n")
-
     additionalDiagonals = 0
     for i in range(1, dimension - winning_rule + 1):
         additionalDiagonals += 4 * i
-
     rf.write("Result should be: " + str(
-        dimension * (dimension - winning_rule + 1) * 2 + 2 * (dimension - winning_rule + 1) + additionalDiagonals) + " for Player #1, 0 for Player #2, 1 for draw")
-
+        dimension * (dimension - winning_rule + 1) * 2 + 2 * (
+                dimension - winning_rule + 1) + additionalDiagonals) + " for Player #1, 0 for Player #2, 1 for draw")
     rf.close()
