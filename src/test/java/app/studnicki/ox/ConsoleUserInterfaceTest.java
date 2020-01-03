@@ -6,6 +6,7 @@ import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.*;
 
+import java.beans.PropertyChangeSupport;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -131,5 +132,57 @@ public class ConsoleUserInterfaceTest {
 
     //then
     assertEquals(out.toString(), INSTANCE.getMessage(DRAW) + "\n");
+  }
+
+  public void shouldShowNotInRangeMessageOnInputGreaterThanLimit() {
+    //given
+    String input = "10\n\n3\n";
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream(input.getBytes()));
+
+    //when
+    consoleUserInterface.fieldId(9);
+
+    //then
+    assertEquals(err.toString(), INSTANCE.getMessage(NOT_IN_RANGE) + "\n");
+  }
+
+  public void shouldShowNotInRangeMessageOnInputLesserThanZero() {
+    //given
+    String input = "-2\n\n3\n";
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream(input.getBytes()));
+
+    //when
+    consoleUserInterface.fieldId(9);
+
+    //then
+    assertEquals(err.toString(), INSTANCE.getMessage(NOT_IN_RANGE) + "\n");
+  }
+
+  public void shouldShowWrongMenuInputMessageOnNotProperInput() {
+    //given
+    String input = "asdadasd\n\n3\n";
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream(input.getBytes()));
+
+    //when
+    consoleUserInterface.fieldId(9);
+
+    //then
+    assertEquals(err.toString(), INSTANCE.getMessage(WRONG_MENU_INPUT) + "\n");
+  }
+
+  public void shouldNotActOnNotProperPropertyEventChange() {
+    //given
+    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+    PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    pcs.addPropertyChangeListener(consoleUserInterface);
+
+    //when
+    pcs.firePropertyChange("notMarkedAField", 0, 1);
+    
+    //then
+    assertEquals(out.toString().length(), 0);
   }
 }

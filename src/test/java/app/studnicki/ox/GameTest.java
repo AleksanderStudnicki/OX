@@ -1,12 +1,39 @@
 package app.studnicki.ox;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 @Test
 public class GameTest {
+  private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+  private final ByteArrayOutputStream err = new ByteArrayOutputStream();
+  private final PrintStream originalOut = System.out;
+  private final PrintStream originalErr = System.err;
+
+  @BeforeClass
+  public void setStreams() {
+    System.setOut(new PrintStream(out));
+    System.setErr(new PrintStream(err));
+  }
+
+  @AfterClass
+  public void restoreStreams() {
+    System.setOut(originalOut);
+    System.setErr(originalErr);
+  }
+
+  @AfterMethod
+  public void cleanStream() {
+    out.reset();
+    err.reset();
+  }
 
   public void shouldThrowOnDisallowedGameOptions() {
     //given
@@ -17,6 +44,28 @@ public class GameTest {
     builder.player1(new Player("Aleksander", Sign.NAUGHT))
         .player2(new Player("Czesio", Sign.CROSS))
         .winningRule(4)
+        .dimension(3)
+        .userInterface(null);
+
+    //then
+    try {
+      builder.build();
+    } catch (IllegalArgumentException ex) {
+      soft.assertEquals(ex.getClass(), IllegalArgumentException.class);
+      soft.assertEquals(ex.getMessage(), Config.INSTANCE.getMessage(MessageKey.WRONG_WINNING_RULE));
+      soft.assertAll();
+    }
+  }
+
+  public void shouldThrowOnDisallowedGameOptionsWinningRuleLesserThanThree() {
+    //given
+    SoftAssert soft = new SoftAssert();
+    Game.Builder builder = new Game.Builder();
+
+    //when
+    builder.player1(new Player("Aleksander", Sign.NAUGHT))
+        .player2(new Player("Czesio", Sign.CROSS))
+        .winningRule(2)
         .dimension(3)
         .userInterface(null);
 
@@ -54,7 +103,7 @@ public class GameTest {
 
   public void gameShouldEndedWithFirstPlayerHavingSixPoints() {
     //given
-    String input = "0\n1\n2\n3\n4\n5\n6\n\n0\n1\n2\n"
+    String input = "0\n0\n1\n2\n3\n4\n5\n6\n\n0\n1\n2\n"
         + "3\n4\n5\n6\n\n0\n1\n2\n3\n4\n5\n6\n\n";
     ConsoleUserInterface consoleUserInterface
         = new ConsoleUserInterface(new ByteArrayInputStream(input.getBytes()));
@@ -75,6 +124,7 @@ public class GameTest {
     //then
     soft.assertEquals(player1.score.value, 6);
     soft.assertEquals(player2.score.value, 3);
+    soft.assertEquals(err.toString(), Config.INSTANCE.getMessage(MessageKey.EXISTING_FIELD) + "\n");
     soft.assertAll();
   }
 

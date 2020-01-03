@@ -31,7 +31,7 @@ class Board {
       throw new NotInBoardRangeException("Id of field does not belong to the board range!");
     }
     if (map.containsKey(id)) {
-      throw new ExistingFieldException("Game board already has a field with that id!");
+      throw new ExistingFieldException(Config.INSTANCE.getMessage(MessageKey.EXISTING_FIELD));
     }
     map.put(id, sign);
   }

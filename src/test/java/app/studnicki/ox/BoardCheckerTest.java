@@ -3,8 +3,9 @@ package app.studnicki.ox;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import java.beans.PropertyChangeSupport;
+
+import static org.testng.Assert.*;
 
 @Test
 public class BoardCheckerTest {
@@ -145,4 +146,5 @@ public class BoardCheckerTest {
 
     soft.assertAll();
   }
+
 }
