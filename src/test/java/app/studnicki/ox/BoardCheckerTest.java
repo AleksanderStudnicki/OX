@@ -3,6 +3,8 @@ package app.studnicki.ox;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import static org.testng.Assert.*;
+
 @Test
 public class BoardCheckerTest {
 
@@ -143,7 +145,7 @@ public class BoardCheckerTest {
     soft.assertAll();
   }
 
-  public void shouldReturnTrueOnThatCrossesInTheLastLineFromSecondWhenWinningRuleIsLesserThanDimension() {
+  public void autoPlayBugFixTest() {
     //given
     SoftAssert soft = new SoftAssert();
     BoardChecker boardChecker = new BoardChecker(3);
@@ -156,11 +158,8 @@ public class BoardCheckerTest {
     board.markASign(8, Sign.NAUGHT);
     board.markASign(15, Sign.CROSS);
 
-
     //then
-    soft.assertTrue(boardChecker.isWinner(15, board));
-
-    soft.assertAll();
+    assertTrue(boardChecker.isWinner(15, board));
   }
 
 }

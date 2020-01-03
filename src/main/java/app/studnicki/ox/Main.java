@@ -9,17 +9,6 @@ import java.util.Optional;
  * Because of that there is ability to play after args being passed.
  */
 class Main {
-
-  private static final int FIRST_PLAYER_NAME_FIELD = 0;
-  private static final int FIRST_PLAYER_SIGN_FIELD = 1;
-  private static final int SECOND_PLAYER_NAME_FIELD = 2;
-  private static final int DIMENSION_FIELD = 3;
-  private static final int WINNING_RULE_FIELD = 4;
-  private static final int LANGUAGE_TAG_FIELD = 5;
-  private static final int MINIMUM_ARGS = 5;
-  private static final int MINIMUM_ARGS_TO_CHANGE_LANGUAGE = 6;
-
-
   /**
    * Method to run the game.
    * Able to run a game from passed argument
@@ -61,42 +50,42 @@ class Main {
   }
 
   private static void changeLanguage(String[] args) {
-    if (args.length > MINIMUM_ARGS_TO_CHANGE_LANGUAGE) {
-      Config.INSTANCE.changeLanguage(args[LANGUAGE_TAG_FIELD]);
+    if (args.length > MainNavigation.MINIMUM_ARGS_TO_CHANGE_LANGUAGE.value) {
+      Config.INSTANCE.changeLanguage(args[MainNavigation.LANGUAGE_TAG_FIELD.value]);
     }
   }
 
   private static Optional<Game> parseGame(String[] args, UserInterface ui) {
-    if (args.length >= MINIMUM_ARGS) {
+    if (args.length >= MainNavigation.MINIMUM_ARGS.value) {
       Player player1;
       Player player2;
       int dimension;
       int winningRule;
 
       if (args[1].equals("O") || args[1].equals("o")) {
-        player1 = new Player(args[FIRST_PLAYER_NAME_FIELD], Sign.NAUGHT);
-      } else if (args[1].equals("X") || args[FIRST_PLAYER_SIGN_FIELD].equals("x")) {
-        player1 = new Player(args[FIRST_PLAYER_NAME_FIELD], Sign.CROSS);
+        player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.NAUGHT);
+      } else if (args[1].equals("X") || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("x")) {
+        player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.CROSS);
       } else {
         ui.error("Not proper sign of first player");
         return Optional.ofNullable(null);
       }
 
       if (player1.sign == Sign.NAUGHT) {
-        player2 = new Player(args[SECOND_PLAYER_NAME_FIELD], Sign.CROSS);
+        player2 = new Player(args[MainNavigation.SECOND_PLAYER_NAME_FIELD.value], Sign.CROSS);
       } else {
-        player2 = new Player(args[SECOND_PLAYER_NAME_FIELD], Sign.NAUGHT);
+        player2 = new Player(args[MainNavigation.SECOND_PLAYER_NAME_FIELD.value], Sign.NAUGHT);
       }
 
       try {
-        dimension = Integer.parseInt(args[DIMENSION_FIELD]);
+        dimension = Integer.parseInt(args[MainNavigation.DIMENSION_FIELD.value]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
         return Optional.ofNullable(null);
       }
 
       try {
-        winningRule = Integer.parseInt(args[WINNING_RULE_FIELD]);
+        winningRule = Integer.parseInt(args[MainNavigation.WINNING_RULE_FIELD.value]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
         return Optional.ofNullable(null);
@@ -111,6 +100,23 @@ class Main {
           .build());
     }
     return Optional.ofNullable(null);
+  }
+
+  private enum MainNavigation {
+    FIRST_PLAYER_NAME_FIELD(0),
+    FIRST_PLAYER_SIGN_FIELD(1),
+    SECOND_PLAYER_NAME_FIELD(2),
+    DIMENSION_FIELD(3),
+    WINNING_RULE_FIELD(4),
+    LANGUAGE_TAG_FIELD(5),
+    MINIMUM_ARGS(5),
+    MINIMUM_ARGS_TO_CHANGE_LANGUAGE(6);
+
+    final int value;
+
+    MainNavigation(int value) {
+      this.value = value;
+    }
   }
 
 }
