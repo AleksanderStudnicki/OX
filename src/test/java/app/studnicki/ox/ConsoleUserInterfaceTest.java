@@ -59,6 +59,7 @@ public class ConsoleUserInterfaceTest {
 
     //then
     assertEquals(out.toString(), clearCommand + Config.INSTANCE.getMessage(WELCOME) + "\n");
+    INSTANCE.changeLanguage("en");
   }
 
   public void shouldPrintBoardWithNaughtAtTheFirstField() {
