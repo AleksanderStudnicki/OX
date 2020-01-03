@@ -85,11 +85,13 @@ class Main {
       }
 
       try {
-        winningRule = Integer.parseInt(args[3]);
+        winningRule = Integer.parseInt(args[4]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
         return Optional.ofNullable(null);
       }
+
+      System.out.println(dimension + " |  " + winningRule);
 
       return Optional.of(new Game.Builder()
           .player1(player1)

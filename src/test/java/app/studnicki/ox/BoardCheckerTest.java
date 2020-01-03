@@ -143,4 +143,24 @@ public class BoardCheckerTest {
     soft.assertAll();
   }
 
+  public void shouldReturnTrueOnThat5() {
+    //given
+    SoftAssert soft = new SoftAssert();
+    BoardChecker boardChecker = new BoardChecker(3);
+    Board board = new Board(4);
+
+    //when
+    board.markASign(13, Sign.CROSS);
+    board.markASign(1, Sign.NAUGHT);
+    board.markASign(14, Sign.CROSS);
+    board.markASign(8, Sign.NAUGHT);
+    board.markASign(15, Sign.CROSS);
+
+
+    //then
+    soft.assertTrue(boardChecker.isWinner(15, board));
+
+    soft.assertAll();
+  }
+
 }
