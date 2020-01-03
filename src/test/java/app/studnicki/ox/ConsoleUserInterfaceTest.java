@@ -1,5 +1,6 @@
 package app.studnicki.ox;
 
+import static app.studnicki.ox.Config.INSTANCE;
 import static app.studnicki.ox.MessageKey.*;
 import static org.testng.Assert.assertEquals;
 
@@ -103,5 +104,21 @@ public class ConsoleUserInterfaceTest {
 
     //then
     assertEquals(out.toString(), "Press ENTER to continue...\n");
+  }
+
+  public void shouldReturnProperMessageOnAnnounceAWinnerMethod() {
+    //given
+    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+    Player player = new Player("Aleksander", Sign.NAUGHT);
+
+    //when
+    consoleUserInterface.announceWinner(player);
+
+    //then
+    String expectedMessage = String.format(INSTANCE.getMessage(CONGRATULATIONS)
+    + " %s. " + INSTANCE.getMessage(YOU_WIN) + "%n"
+        + INSTANCE.getMessage(YOUR_SCORE) + "%n", player.name, player.score);
+
+    assertEquals(out.toString(), expectedMessage);
   }
 }
