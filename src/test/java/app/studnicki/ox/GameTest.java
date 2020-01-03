@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.io.ByteArrayInputStream;
+
 import static org.testng.Assert.assertEquals;
 
 @Test
@@ -50,6 +52,32 @@ public class GameTest {
     soft.assertEquals(game.player1, player1);
     soft.assertEquals(game.player2, player2);
     soft.assertEquals(game.dimension, 3);
+    soft.assertAll();
+  }
+
+  public void gameShouldEndedWithFirstPlayerHavingSixPoints() {
+    //given
+    String input = "0\n1\n2\n3\n4\n5\n6\n\n0\n1\n2\n"
+        + "3\n4\n5\n6\n\n0\n1\n2\n3\n4\n5\n6\n\n";
+    System.setIn(new ByteArrayInputStream(input.getBytes()));
+    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+    Player player1 = new Player("Aleksander", Sign.NAUGHT);
+    Player player2 = new Player("Czesio", Sign.CROSS);
+    Game game = new Game.Builder()
+        .player1(player1)
+        .player2(player2)
+        .winningRule(3)
+        .dimension(3)
+        .userInterface(consoleUserInterface)
+        .build();
+    SoftAssert soft = new SoftAssert();
+
+    //when
+    game.start();
+
+    //then
+    soft.assertEquals(player1.score.value, 6);
+    soft.assertEquals(player2.score.value, 3);
     soft.assertAll();
   }
 }
