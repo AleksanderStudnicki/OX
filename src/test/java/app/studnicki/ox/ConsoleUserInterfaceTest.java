@@ -121,4 +121,15 @@ public class ConsoleUserInterfaceTest {
 
     assertEquals(out.toString(), expectedMessage);
   }
+
+  public void shouldShowsProperMessageOnDraw() {
+    //given
+    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+
+    //when
+    consoleUserInterface.announceDraw();
+
+    //then
+    assertEquals(out.toString(), INSTANCE.getMessage(DRAW) + "\n");
+  }
 }

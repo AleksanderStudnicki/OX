@@ -4,7 +4,7 @@ enum MessageKey {
   WELCOME("welcome"), BACK("back"), WRONG_MENU_INPUT("wrongMenuInput"),
   FIELD_ID("fieldId"), NOT_IN_RANGE("notInRange"), PRESS_ENTER("pressEnter"),
   WRONG_WINNING_RULE("wrongWinningRule"), YOUR_SCORE("yourScore"),
-  YOU_WIN("youWin"), NOW_PLAYING("nowPlaying"), CONGRATULATIONS("congratulations");
+  YOU_WIN("youWin"), NOW_PLAYING("nowPlaying"), CONGRATULATIONS("congratulations"), DRAW("draw");
 
   private final String value;
 

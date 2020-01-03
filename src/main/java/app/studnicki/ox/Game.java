@@ -110,6 +110,8 @@ class Game implements PropertyChangeListener {
               this.reverseQueue();
               this.start();
             }
+            userInterface.announceDraw();
+            userInterface.waitForAnyAction();
           }
       );
     }

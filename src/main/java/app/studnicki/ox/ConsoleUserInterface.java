@@ -106,6 +106,11 @@ class ConsoleUserInterface implements UserInterface {
     System.out.println();
   }
 
+  @Override
+  public void announceDraw() {
+    System.out.println(INSTANCE.getMessage(DRAW));
+  }
+
   /**
    * Shows which player should mark a field.
    *

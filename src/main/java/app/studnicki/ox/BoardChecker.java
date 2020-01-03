@@ -5,6 +5,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.EnumSet;
 import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 
 import static app.studnicki.ox.TransitionRule.*;
 

@@ -28,6 +28,8 @@ public interface UserInterface extends PropertyChangeListener {
 
   void announceWinner(Player player);
 
+  void announceDraw();
+
   void nowPlaying(Player player);
 
   void waitForAnyAction();
