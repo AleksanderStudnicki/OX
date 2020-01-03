@@ -3,10 +3,6 @@ package app.studnicki.ox;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.beans.PropertyChangeSupport;
-
-import static org.testng.Assert.*;
-
 @Test
 public class BoardCheckerTest {
 
