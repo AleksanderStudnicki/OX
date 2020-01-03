@@ -20,31 +20,39 @@ class Main {
    *             [2] - name of the second player
    *             [3] - dimension as an interger
    *             [4] - winning rule as an integer
+   *             [5] - language tag (not required)
    */
   public static void main(String[] args) {
     ConsoleUserInterface ui = new ConsoleUserInterface(System.in);
 
+    changeLanguage(args);
     Optional<Game> argsGame = parseGame(args, ui);
 
     argsGame.ifPresentOrElse(g -> {
       ui.welcome();
       g.start();
     }, () -> {
-        ui.welcome();
+      ui.welcome();
 
-        Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
-        Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
+      Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
+      Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
 
-        Game game = new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .winningRule(3)
-            .dimension(3)
-            .userInterface(ui)
-            .build();
+      Game game = new Game.Builder()
+          .player1(player1)
+          .player2(player2)
+          .winningRule(3)
+          .dimension(3)
+          .userInterface(ui)
+          .build();
 
-        game.start();
-      });
+      game.start();
+    });
+  }
+
+  private static void changeLanguage(String[] args) {
+    if (args.length > 5) {
+      Config.INSTANCE.changeLanguage(args[5]);
+    }
   }
 
   private static Optional<Game> parseGame(String[] args, UserInterface ui) {
