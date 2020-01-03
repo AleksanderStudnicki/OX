@@ -38,10 +38,6 @@ class Player {
 
   @Override
   public String toString() {
-    return "Player{"
-        + "name='" + name + '\''
-        + ", score=" + score
-        + ", sign=" + sign
-        + '}';
+    return String.format("Player %s. Sign: %s. %s points.", name, sign, score);
   }
 }

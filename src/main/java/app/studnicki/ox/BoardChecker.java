@@ -3,7 +3,7 @@ package app.studnicki.ox;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.Set;
 
 import static app.studnicki.ox.TransitionRule.*;
@@ -18,34 +18,29 @@ class BoardChecker implements PropertyChangeListener {
 
   private final int winningRule;
   private final int checkingThreshold;
-  private final Set<TransitionRule> ruleSet = new HashSet<>(
-      Set.of(VERTICAL, HORIZONTAL, DIAGONAL_UP, DIAGONAL_DOWN));
+  private final Set<TransitionRule> ruleSet = EnumSet.of(
+      VERTICAL, HORIZONTAL, DIAGONAL_DOWN, DIAGONAL_UP);
   private int turn;
 
   private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
   /**
    * Adds observers for 2 type of events.
-   * Play - when there is possibility to play and no winner.
+   * Playable - when there is possibility to play and no winner.
    * Resolved - when there is a winner or no possibility to play (draw).
    * When resolved then flag is send to observer (true - winner, false - draw).
    *
    * @param listener Object which will be observing GameChecker
    *                 (must implements PropertyChangeListener)
    */
-  void addObserver(PropertyChangeListener listener) {
-    propertyChangeSupport.addPropertyChangeListener("play", listener);
+  void addListener(PropertyChangeListener listener) {
+    propertyChangeSupport.addPropertyChangeListener("playable", listener);
     propertyChangeSupport.addPropertyChangeListener("resolved", listener);
   }
 
-  /**
-   * One and only constructor of the class.
-   *
-   * @param winningRule How many fields must by filled by sign (one of them) to win the game.
-   */
   BoardChecker(int winningRule) {
     this.winningRule = winningRule;
-    checkingThreshold = winningRule * 2 - 1;
+    this.checkingThreshold = winningRule * 2 - 1;
   }
 
   boolean isWinner(int id, Board board) {
@@ -60,7 +55,7 @@ class BoardChecker implements PropertyChangeListener {
       turn = 0;
       propertyChangeSupport.firePropertyChange("resolved", null, false);
     }
-    propertyChangeSupport.firePropertyChange("play", null, 1);
+    propertyChangeSupport.firePropertyChange("playable", null, 1);
     return false;
   }
 
@@ -144,7 +139,7 @@ class BoardChecker implements PropertyChangeListener {
       int id = (Integer) evt.getNewValue();
       isWinner(id, board);
     } else {
-      propertyChangeSupport.firePropertyChange("play", null, 1);
+      propertyChangeSupport.firePropertyChange("playable", null, 1);
     }
   }
 

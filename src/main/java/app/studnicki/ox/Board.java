@@ -3,7 +3,13 @@ package app.studnicki.ox;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class Board {
+/**
+ * Representing game board as a class with map holding board state (signs in fields).
+ * Class also has dimension and limit (dimension^2 - cause board is a square).
+ *
+ * @author Aleksander Studnicki
+ */
+class Board {
   final int limit;
   final int dimension;
   private final HashMap<Integer, Sign> map = new HashMap<>();
@@ -13,10 +19,14 @@ public class Board {
     this.limit = dimension * dimension;
   }
 
+  /**
+   * Puts a sign (naught or cross) into a map with an integer id as a key.
+   * @param id Id of field as a an integer.
+   * @param sign Sign
+   * @throws ExistingFieldException Throws when there is already a field with passed id.
+   * @throws NotInBoardRangeException Throws when passed id is not in board range (0, limit - 1).
+   */
   void markASign(int id, Sign sign) throws ExistingFieldException, NotInBoardRangeException {
-    if (sign == null) {
-      throw new NullPointerException("Sign cannot be null!");
-    }
     if (id >= limit || id < 0) {
       throw new NotInBoardRangeException("Id of field does not belong to the board range!");
     }

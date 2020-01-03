@@ -102,7 +102,8 @@ class ConsoleUserInterface implements UserInterface {
   public void announceWinner(Player player) {
     System.out.println(INSTANCE.getMessage(CONGRATULATIONS)
         + " " + player.name + ". " + INSTANCE.getMessage(YOU_WIN));
-    System.out.println(INSTANCE.getMessage(YOUR_SCORE) + player.score);
+    System.out.printf(INSTANCE.getMessage(YOUR_SCORE), player.score);
+    System.out.println();
   }
 
   /**

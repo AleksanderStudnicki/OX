@@ -1,13 +1,17 @@
 package app.studnicki.ox;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import static org.testng.Assert.assertEquals;
 
 @Test
 public class GameTest {
 
-  @Test (expectedExceptions = IllegalArgumentException.class)
-  public void shouldThrowIllegalArgumentExceptionWhenWinningRuleIsGreaterThanDimension() {
+  public void shouldThrowOnDisallowedGameOptions() {
     //given
+    SoftAssert soft = new SoftAssert();
     Game.Builder builder = new Game.Builder();
 
     //when
@@ -18,6 +22,12 @@ public class GameTest {
         .userInterface(null);
 
     //then
-    builder.build();
+    try {
+      builder.build();
+    } catch (IllegalArgumentException ex) {
+      soft.assertEquals(ex.getClass(), IllegalArgumentException.class);
+      soft.assertEquals(ex.getMessage(),  Config.INSTANCE.getMessage(MessageKey.WRONG_WINNING_RULE));
+      soft.assertAll();
+    }
   }
 }

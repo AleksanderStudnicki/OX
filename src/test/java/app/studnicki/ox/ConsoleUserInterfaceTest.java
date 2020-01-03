@@ -62,7 +62,7 @@ public class ConsoleUserInterfaceTest {
     //given
     Round round = new Round(3);
     ConsoleUserInterface ui = new ConsoleUserInterface(System.in);
-    round.addObserverForBoardPrinting(ui);
+    round.addListenerForBoardPrinting(ui);
 
     //when
     round.markASign(0, Sign.NAUGHT);

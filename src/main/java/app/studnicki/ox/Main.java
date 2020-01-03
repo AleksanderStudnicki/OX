@@ -2,8 +2,7 @@ package app.studnicki.ox;
 
 class Main {
   /**
-   * Simple game: just filling the board with naught sign.
-   * Board dimension can be customized by args. Error handling is provided.
+   * Method to run the game.
    *
    * @param args simple main arguments
    *             (the first can be treated as a board dimension if is parsable to integer)

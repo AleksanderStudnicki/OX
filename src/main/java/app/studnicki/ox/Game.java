@@ -34,7 +34,7 @@ public class Game implements PropertyChangeListener {
     boardChecker = new BoardChecker(winningRule);
     this.dimension = dimension;
     this.userInterface = userInterface;
-    boardChecker.addObserver(this);
+    boardChecker.addListener(this);
   }
 
   /**
@@ -51,8 +51,8 @@ public class Game implements PropertyChangeListener {
   private Round initRound() {
     Round tail = new Round(dimension);
 
-    tail.addObserverForBoardPrinting(userInterface);
-    tail.addObserverForCheckingWinner(boardChecker);
+    tail.addListenerForBoardPrinting(userInterface);
+    tail.addListenerForCheckingWinner(boardChecker);
 
     return tail;
   }
@@ -89,7 +89,7 @@ public class Game implements PropertyChangeListener {
    */
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("play")) {
+    if (evt.getPropertyName().equals("playable")) {
       play();
     }
     if (evt.getPropertyName().equals("resolved")) {

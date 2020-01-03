@@ -22,11 +22,11 @@ class Round {
     board = new Board(dimension);
   }
 
-  void addObserverForBoardPrinting(PropertyChangeListener listener) {
+  void addListenerForBoardPrinting(PropertyChangeListener listener) {
     propertyChangeSupport.addPropertyChangeListener("markedAField", listener);
   }
 
-  void addObserverForCheckingWinner(PropertyChangeListener listener) {
+  void addListenerForCheckingWinner(PropertyChangeListener listener) {
     propertyChangeSupport.addPropertyChangeListener("filledField", listener);
   }
 

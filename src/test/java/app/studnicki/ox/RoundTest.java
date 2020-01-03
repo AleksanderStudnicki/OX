@@ -67,15 +67,4 @@ public class RoundTest {
     //exception above method declaration
   }
 
-  @Test(expectedExceptions = NullPointerException.class)
-  public void shouldThrowNullPointerExceptionWhenSignInSetFieldIsNull() {
-    //given
-    Round round = new Round(3);
-
-    //when
-    round.markASign(0, null);
-
-    //then
-    //exception above method declaration
-  }
 }
