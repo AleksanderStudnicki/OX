@@ -169,6 +169,10 @@ class Game implements PropertyChangeListener {
         throw new IllegalArgumentException(
             Config.INSTANCE.getMessage(MessageKey.WRONG_WINNING_RULE));
       }
+      if (dimension > Config.MAXIMUM_DIMENSION || dimension < Config.MINIMUM_DIMENSION) {
+        throw new IllegalArgumentException(
+            Config.INSTANCE.getMessage(MessageKey.WRONG_DIMENSIONS));
+      }
       return new Game(player1, player2, winningRule, dimension, userInterface);
     }
   }

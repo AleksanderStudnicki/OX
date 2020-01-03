@@ -13,6 +13,7 @@ enum Config {
   INSTANCE;
 
   static final int MINIMUM_DIMENSION = 3;
+  static final int MAXIMUM_DIMENSION = 30;
   private Locale locale = Locale.forLanguageTag("en");
 
   /**

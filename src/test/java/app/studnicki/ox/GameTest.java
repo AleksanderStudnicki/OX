@@ -1,9 +1,6 @@
 package app.studnicki.ox;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import java.io.ByteArrayInputStream;
@@ -16,6 +13,26 @@ public class GameTest {
   private final ByteArrayOutputStream err = new ByteArrayOutputStream();
   private final PrintStream originalOut = System.out;
   private final PrintStream originalErr = System.err;
+
+  @DataProvider
+  Object[][] illegalBuilders() {
+    return new Object[][]{
+        {new Game.Builder()
+            .player1(new Player("Aleksander", Sign.NAUGHT))
+            .player2(new Player("Czesio", Sign.CROSS))
+            .winningRule(4)
+            .dimension(3)
+            .userInterface(null),
+            Config.INSTANCE.getMessage(MessageKey.WRONG_WINNING_RULE)
+        },
+        {new Game.Builder()
+            .player1(new Player("Aleksander", Sign.NAUGHT))
+            .player2(new Player("Czesio", Sign.CROSS))
+            .winningRule(3)
+            .dimension(31)
+            .userInterface(null),
+            Config.INSTANCE.getMessage(MessageKey.WRONG_DIMENSIONS)}};
+  }
 
   @BeforeClass
   public void setStreams() {
@@ -35,24 +52,18 @@ public class GameTest {
     err.reset();
   }
 
-  public void shouldThrowOnDisallowedGameOptions() {
+  @Test(dataProvider = "illegalBuilders")
+  public void shouldThrowOnDisallowedGameOptions(Game.Builder builder, String message) {
     //given
     SoftAssert soft = new SoftAssert();
-    Game.Builder builder = new Game.Builder();
 
     //when
-    builder.player1(new Player("Aleksander", Sign.NAUGHT))
-        .player2(new Player("Czesio", Sign.CROSS))
-        .winningRule(4)
-        .dimension(3)
-        .userInterface(null);
-
-    //then
     try {
       builder.build();
     } catch (IllegalArgumentException ex) {
+      //then
       soft.assertEquals(ex.getClass(), IllegalArgumentException.class);
-      soft.assertEquals(ex.getMessage(), Config.INSTANCE.getMessage(MessageKey.WRONG_WINNING_RULE));
+      soft.assertEquals(ex.getMessage(), message);
       soft.assertAll();
     }
   }
