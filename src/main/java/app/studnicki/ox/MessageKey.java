@@ -11,7 +11,8 @@ enum MessageKey {
   SECOND_PLAYER_NAME("secondPlayerName"), SIGN_OF_THE_FIRST_PLAYER("signOfTheFirstPlayer"),
   BOARD_DIMENSIONS("boardDimensions"), WRONG_DIMENSIONS("wrongDimensions"),
   WINNING_RULE_QUESTION("winningRuleQuestion"), WRONG_RULE("wrongRule"),
-  STARTING_PLAYER_QUESTION("startingPlayerQuestion"), EXISTING_FIELD("existingField");
+  STARTING_PLAYER_QUESTION("startingPlayerQuestion"), EXISTING_FIELD("existingField"),
+  PLAYER1("player1"), PLAYER2("player2");
 
   private final String value;
 
