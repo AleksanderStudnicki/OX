@@ -15,7 +15,7 @@ import java.util.Queue;
  *
  * @author Aleksander Studnicki
  */
-public class Game implements PropertyChangeListener {
+class Game implements PropertyChangeListener {
   final Player player1;
   final Player player2;
   Queue<Player> playersQueue;

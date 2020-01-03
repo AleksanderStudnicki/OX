@@ -70,9 +70,7 @@ class BoardChecker implements PropertyChangeListener {
   }
 
   private void checkStandard(int id, TransitionRule rule, Board board, Counter counter) {
-    int nextId = id + (rule.row * board.dimension) + (rule.column);
-    if (rightRowDifference(id, nextId, rule, board)
-        && rightColumnDifference(id, nextId, rule, board)) {
+    rule.nextRight(id, board.dimension).ifPresent(nextId -> {
       board.getSignFromField(nextId).ifPresent(s -> {
         Sign sign = board.getSignFromField(id).get();
         if (sign.equals(s)) {
@@ -82,13 +80,11 @@ class BoardChecker implements PropertyChangeListener {
           }
         }
       });
-    }
+    });
   }
 
   private void checkReversed(int id, TransitionRule rule, Board board, Counter counter) {
-    int nextId = id - (rule.row * board.dimension) - (rule.column);
-    if (rightRowDifference(id, nextId, rule, board)
-        && rightColumnDifference(id, nextId, rule, board)) {
+    rule.nextLeft(id, board.dimension).ifPresent(nextId -> {
       board.getSignFromField(nextId).ifPresent(s -> {
         Sign sign = board.getSignFromField(id).get();
         if (sign.equals(s)) {
@@ -98,31 +94,7 @@ class BoardChecker implements PropertyChangeListener {
           }
         }
       });
-    }
-  }
-
-  private boolean rightRowDifference(int id, int nextId, TransitionRule rule, Board board) {
-    if (rule.row == 0) {
-      return true;
-    }
-    return Math.abs(row(id, board.dimension) - row(nextId, board.dimension))
-        == Math.abs(rule.row);
-  }
-
-  private boolean rightColumnDifference(int id, int nextId, TransitionRule rule, Board board) {
-    if (rule.column == 0) {
-      return true;
-    }
-    return Math.abs(column(id, board.dimension) - column(nextId, board.dimension))
-        == Math.abs(rule.column);
-  }
-
-  private int row(int id, int dimension) {
-    return id / dimension;
-  }
-
-  private int column(int id, int dimension) {
-    return id % dimension;
+    });
   }
 
   @Override

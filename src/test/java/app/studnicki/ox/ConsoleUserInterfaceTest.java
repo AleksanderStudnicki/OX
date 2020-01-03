@@ -5,7 +5,9 @@ import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 
@@ -89,5 +91,17 @@ public class ConsoleUserInterfaceTest {
 
     //then
     assertEquals(err.toString(), "Error\n");
+  }
+
+  public void shouldShowsProperMessageOnWaitOnAction() {
+    //given
+    System.setIn(new ByteArrayInputStream("\n".getBytes()));
+    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+
+    //when
+    consoleUserInterface.waitForAnyAction();
+
+    //then
+    assertEquals(out.toString(), "Press ENTER to continue...\n");
   }
 }
