@@ -105,9 +105,8 @@ def generateDrawString(draw_set, dimension):
         if len(diff_set) > 0:
             diff_field = random.choice(diff_set)
             diff_set.remove(diff_field)
-        if i + 1 != len(draw_set):
-            output_str += (str(diff_field))
-            output_str += "\n"
+        output_str += (str(diff_field))
+        output_str += "\n"
     output_str += "\n"
     output.append(output_str)
     return output
