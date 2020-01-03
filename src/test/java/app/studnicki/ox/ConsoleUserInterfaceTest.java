@@ -72,14 +72,14 @@ public class ConsoleUserInterfaceTest {
     round.markASign(0, Sign.NAUGHT);
 
     //then
-    String expected = clearCommand +
-        "  -------------\n" +
-        "0 | O |   |   |\n" +
-        "  -------------\n" +
-        "1 |   |   |   |\n" +
-        "  -------------\n" +
-        "2 |   |   |   |\n" +
-        "  -------------\n";
+    String expected = clearCommand
+        + "  -------------\n"
+        + "0 | O |   |   |\n"
+        + "  -------------\n"
+        + "1 |   |   |   |\n"
+        + "  -------------\n"
+        + "2 |   |   |   |\n"
+        + "  -------------\n";
 
     assertEquals(out.toString(), expected);
   }
@@ -97,8 +97,8 @@ public class ConsoleUserInterfaceTest {
 
   public void shouldShowsProperMessageOnWaitOnAction() {
     //given
-    System.setIn(new ByteArrayInputStream("\n".getBytes()));
-    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream("\n".getBytes()));
 
     //when
     consoleUserInterface.waitForAnyAction();
@@ -117,7 +117,7 @@ public class ConsoleUserInterfaceTest {
 
     //then
     String expectedMessage = String.format(INSTANCE.getMessage(CONGRATULATIONS)
-    + " %s. " + INSTANCE.getMessage(YOU_WIN) + "%n"
+        + " %s. " + INSTANCE.getMessage(YOU_WIN) + "%n"
         + INSTANCE.getMessage(YOUR_SCORE) + "%n", player.name, player.score);
 
     assertEquals(out.toString(), expectedMessage);

@@ -1,12 +1,9 @@
 package app.studnicki.ox;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.io.ByteArrayInputStream;
-
-import static org.testng.Assert.assertEquals;
 
 @Test
 public class GameTest {
@@ -59,8 +56,8 @@ public class GameTest {
     //given
     String input = "0\n1\n2\n3\n4\n5\n6\n\n0\n1\n2\n"
         + "3\n4\n5\n6\n\n0\n1\n2\n3\n4\n5\n6\n\n";
-    System.setIn(new ByteArrayInputStream(input.getBytes()));
-    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream(input.getBytes()));
     Player player1 = new Player("Aleksander", Sign.NAUGHT);
     Player player2 = new Player("Czesio", Sign.CROSS);
     Game game = new Game.Builder()
@@ -86,8 +83,8 @@ public class GameTest {
     String input = "0\n1\n2\n3\n4\n5\n6\n\n"
         + "0\n1\n2\n3\n4\n5\n6\n\n"
         + "0\n1\n2\n4\n3\n6\n5\n8\n7\n\n";
-    System.setIn(new ByteArrayInputStream(input.getBytes()));
-    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream(input.getBytes()));
     Player player1 = new Player("Aleksander", Sign.NAUGHT);
     Player player2 = new Player("Czesio", Sign.CROSS);
     Game game = new Game.Builder()
