@@ -2,6 +2,14 @@ package app.studnicki.ox;
 
 import java.beans.PropertyChangeListener;
 
+/**
+ * Interface for showing the states of the whole application.
+ * This interface also extends PropertyChangeListener to be able to react to
+ * other classes actions like marking a field. Also there is a set of methods
+ * to showing informations from outside and to get input from user.
+ *
+ * @author Aleksander Studnicki
+ */
 public interface UserInterface extends PropertyChangeListener {
   /**
    * Should print/show welcome message, based on implementation.
