@@ -31,3 +31,8 @@ Command for playing as Aleksander (naught) and Czesio (cross), board will be 5x5
 
 == Python script for automated end-to-end tests
 
+To run this script you need to have Python 3
+
+How to run:
+- in project directory run `python3[.version]  automatedTests.py [dimension] [winningRule]`
+where dimension and winnin rule are the same things as in ox game (same requirements for them must be provided).
