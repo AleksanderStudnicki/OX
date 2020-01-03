@@ -165,33 +165,23 @@ if len(args) == 3:
     filename = "automated-report-" + dt_string + ".txt"
     filename = filename.replace(" ", "-").replace("/", "-")
     report_filename = "summary-" + filename
-    error_report = "error-" + filename
     f = open(filename, "w")
     rf = open(report_filename, "w")
-    ef = open(error_report, "w")
 
     full_out = None
-    full_err = None
 
     for full_round in all_set:
         values = full_round + full_round + full_round
         print(values.replace("\n", ";"))
-        p = run(['java', '-jar', 'target/ox-0.2.1.jar', 'first', 'O', 'second', args[1], args[2]],
+        p = run(['java', '-jar', 'target/ox-0.2.1.jar', '#1', 'O', '#2', args[1], args[2]],
                 stdout=PIPE, encoding='utf-8', input=values, stderr=PIPE)
 
         out = p.stdout
-        err = p.stderr
-        print(err)
 
         if full_out is None:
             full_out = out
         else:
             full_out += out
-
-        if full_err is None:
-            full_err = err
-        else:
-            full_err += err
 
         f.write(out)
 
@@ -204,5 +194,4 @@ if len(args) == 3:
     rf.write("Result should be: " + str(dimension * (dimension - winning_rule + 1) * 2) + " for Player #1, 0 for Player #2, 1 for draw")
 
     rf.close()
-    ef.close()
 
