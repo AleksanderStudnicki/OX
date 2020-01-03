@@ -13,13 +13,6 @@ def generate_draw(dimension):
         default_set.append(i)
 
 
-def generate_all_possibilities_of_win(dimension, winning_rule):
-    n = dimension * 2 + 2
-    checks_in_line = (dimension - winning_rule) + 1
-
-    sets_for_win = []
-
-
 def generateHorizontal(dimension, winning_rule):
     checks_in_line = (dimension - winning_rule) + 1
     set = []

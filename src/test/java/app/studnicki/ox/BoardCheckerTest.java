@@ -143,7 +143,7 @@ public class BoardCheckerTest {
     soft.assertAll();
   }
 
-  public void shouldReturnTrueOnThat5() {
+  public void shouldReturnTrueOnThatCrossesInTheLastLineFromSecondWhenWinningRuleIsLesserThanDimension() {
     //given
     SoftAssert soft = new SoftAssert();
     BoardChecker boardChecker = new BoardChecker(3);

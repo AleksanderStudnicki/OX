@@ -9,6 +9,17 @@ import java.util.Optional;
  * Because of that there is ability to play after args being passed.
  */
 class Main {
+
+  private static final int FIRST_PLAYER_NAME_FIELD = 0;
+  private static final int FIRST_PLAYER_SIGN_FIELD = 1;
+  private static final int SECOND_PLAYER_NAME_FIELD = 2;
+  private static final int DIMENSION_FIELD = 3;
+  private static final int WINNING_RULE_FIELD = 4;
+  private static final int LANGUAGE_TAG_FIELD = 5;
+  private static final int MINIMUM_ARGS = 5;
+  private static final int MINIMUM_ARGS_TO_CHANGE_LANGUAGE = 6;
+
+
   /**
    * Method to run the game.
    * Able to run a game from passed argument
@@ -50,48 +61,46 @@ class Main {
   }
 
   private static void changeLanguage(String[] args) {
-    if (args.length > 5) {
-      Config.INSTANCE.changeLanguage(args[5]);
+    if (args.length > MINIMUM_ARGS_TO_CHANGE_LANGUAGE) {
+      Config.INSTANCE.changeLanguage(args[LANGUAGE_TAG_FIELD]);
     }
   }
 
   private static Optional<Game> parseGame(String[] args, UserInterface ui) {
-    if (args.length >= 5) {
+    if (args.length >= MINIMUM_ARGS) {
       Player player1;
       Player player2;
       int dimension;
       int winningRule;
 
       if (args[1].equals("O") || args[1].equals("o")) {
-        player1 = new Player(args[0], Sign.NAUGHT);
-      } else if (args[1].equals("X") || args[1].equals("x")) {
-        player1 = new Player(args[0], Sign.CROSS);
+        player1 = new Player(args[FIRST_PLAYER_NAME_FIELD], Sign.NAUGHT);
+      } else if (args[1].equals("X") || args[FIRST_PLAYER_SIGN_FIELD].equals("x")) {
+        player1 = new Player(args[FIRST_PLAYER_NAME_FIELD], Sign.CROSS);
       } else {
         ui.error("Not proper sign of first player");
         return Optional.ofNullable(null);
       }
 
       if (player1.sign == Sign.NAUGHT) {
-        player2 = new Player(args[2], Sign.CROSS);
+        player2 = new Player(args[SECOND_PLAYER_NAME_FIELD], Sign.CROSS);
       } else {
-        player2 = new Player(args[2], Sign.NAUGHT);
+        player2 = new Player(args[SECOND_PLAYER_NAME_FIELD], Sign.NAUGHT);
       }
 
       try {
-        dimension = Integer.parseInt(args[3]);
+        dimension = Integer.parseInt(args[DIMENSION_FIELD]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
         return Optional.ofNullable(null);
       }
 
       try {
-        winningRule = Integer.parseInt(args[4]);
+        winningRule = Integer.parseInt(args[WINNING_RULE_FIELD]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
         return Optional.ofNullable(null);
       }
-
-      System.out.println(dimension + " |  " + winningRule);
 
       return Optional.of(new Game.Builder()
           .player1(player1)
