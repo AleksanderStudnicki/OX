@@ -9,6 +9,25 @@ Project requirements:
 
 Project should be build by Maven and run from jar.
 
-All of the estimated tasks are stored in estimated.adoc file.
+To run:
+
+- build project by Maven (`mvn verify` on project directory)
+- after the build run `java -jar target/ox-0.5.jar` for default game (3x3)
+- to play non-default game you should pass 5 arguments by command line (or 6 when you want to change language).
+List of arguments below.
+
+== Command line arguments:
+
+- [0] - name of the first player
+- [1] - sign of the first player ("O" or "o" for Naught and "X" or "x" for Cross - second player will get remaining sign)
+- [2] - name of the second player
+- [3] - dimension of board (in range from 3 to 30)
+- [4] - winning rule - how many field must filled with one type of sign to win (range from 3 to board dimension - 1 (if greater than 3))
+- [5] - language tag: "en" for english (default language), "pl" - polish, "ja" - japanese (not complete by now)
+
+Example of command:
+`java -jar Aleksander O Czesio 5 3 pl`
+Command for playing as Aleksander (naught) and Czesio (cross), board will be 5x5, winning rule 3 and language will be set to polish.
+
 
 image::crc.png[]

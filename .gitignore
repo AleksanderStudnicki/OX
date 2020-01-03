@@ -143,3 +143,7 @@ buildNumber.properties
 *.iml
 .idea/
 stale_outputs_checked
+
+#Reports from python script
+automated-report-*
+summary-automated-report-*

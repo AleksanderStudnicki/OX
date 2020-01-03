@@ -72,4 +72,17 @@ public class ScoreTest {
     //then
     //exception above method declaration
   }
+
+  public void shouldReturnStringFiveOnToStringOfScoreWithValueFive() {
+    //given
+    Score score = new Score();
+
+    //when
+    score.addDraw();
+    score.addDraw();
+    score.addWin();
+
+    //then
+    assertEquals(score.toString(), "5");
+  }
 }

@@ -2,6 +2,7 @@ package app.studnicki.ox;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * Configuration class for the whole application. It is implemented as a singleton (enum property).
@@ -12,7 +13,9 @@ import java.util.ResourceBundle;
 enum Config {
   INSTANCE;
 
+  private static Set<String> tags = Set.of("pl", "en", "ja");
   static final int MINIMUM_DIMENSION = 3;
+  static final int MAXIMUM_DIMENSION = 30;
   private Locale locale = Locale.forLanguageTag("en");
 
   /**
@@ -21,18 +24,20 @@ enum Config {
    * @param tag Language tag as a string
    */
   void changeLanguage(String tag) {
-    locale = Locale.forLanguageTag(tag);
+    if (tags.contains(tag)) {
+      locale = Locale.forLanguageTag(tag);
+    }
   }
 
   /**
    * Return value for key from properties file.
    *
-   * @param key Key from properties file as a String
-   * @return Value of key from properties file for specified language
+   * @param messageKey Key from properties file as a MessageKey enum
+   * @return Value of key from properties file for the specified language
    *        (previously set by changeLanguage method or default in English).
    */
-  String getString(String key) {
+  String getMessage(MessageKey messageKey) {
     ResourceBundle resourceBundle = ResourceBundle.getBundle("Message", locale);
-    return resourceBundle.getString(key);
+    return resourceBundle.getString(messageKey.toString());
   }
 }

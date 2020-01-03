@@ -14,16 +14,17 @@ public class RoundTest {
     round = new Round(3);
 
     //then
-    assertEquals(round.dimension, 3);
+    assertEquals(round.board.dimension, 3);
   }
 
   @Test(expectedExceptions = NotInBoardRangeException.class)
-  public void shouldThrowNotInBoardRangeExceptionWhenFieldIdIsGreaterThanLimit() {
+  public void shouldThrowNotInBoardRangeExceptionWhenFieldIdIsGreaterThanLimit()
+      throws ExistingFieldException, NotInBoardRangeException {
     //given
     Round round = new Round(3);
 
     //when
-    round.setField(9, Sign.NAUGHT);
+    round.markASign(9, Sign.NAUGHT);
 
     //then
     //exception above method declaration
@@ -35,7 +36,7 @@ public class RoundTest {
     Round round = new Round(3);
 
     //when
-    round.setField(-1, Sign.NAUGHT);
+    round.markASign(-1, Sign.NAUGHT);
 
     //then
     //exception above method declaration
@@ -47,8 +48,8 @@ public class RoundTest {
     Round round = new Round(3);
 
     //when
-    round.setField(0, Sign.NAUGHT);
-    round.setField(0, Sign.CROSS);
+    round.markASign(0, Sign.NAUGHT);
+    round.markASign(0, Sign.CROSS);
 
     //then
     //exception above method declaration
@@ -66,15 +67,4 @@ public class RoundTest {
     //exception above method declaration
   }
 
-  @Test(expectedExceptions = NullPointerException.class)
-  public void shouldThrowNullPointerExceptionWhenSignInSetFieldIsNull() {
-    //given
-    Round round = new Round(3);
-
-    //when
-    round.setField(0, null);
-
-    //then
-    //exception above method declaration
-  }
 }

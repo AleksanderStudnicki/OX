@@ -29,7 +29,6 @@
         <version.plugin.maven.compiler>3.8.0</version.plugin.maven.compiler>
         <version.plugin.maven.resources>3.1.0</version.plugin.maven.resources>
         <version.plugin.maven.jacoco>0.8.5</version.plugin.maven.jacoco>
-        <version.plugin.maven.testng>7.0.0</version.plugin.maven.testng>
         <version.plugin.maven.site>3.8.2</version.plugin.maven.site>
         <version.plugin.maven.project-info-reports>3.0.0</version.plugin.maven.project-info-reports>
         <!-- plugins for reporting section -->
@@ -37,6 +36,9 @@
         <version.plugin.maven.pmd>3.12.0</version.plugin.maven.pmd>
         <version.plugin.maven.findbugs>3.0.5</version.plugin.maven.findbugs>
         <version.plugin.maven.jxr>3.0.0</version.plugin.maven.jxr>
+        <version.plugin.maven.spotbugs>3.1.12.2</version.plugin.maven.spotbugs>
+        <!-- dependencies -->
+        <version.testng>7.1.0</version.testng>
     </properties>
 
     <reporting>
@@ -85,7 +87,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.12.2</version>
+                <version>${version.plugin.maven.spotbugs}</version>
             </plugin>
         </plugins>
     </reporting>
@@ -95,7 +97,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>${version.plugin.maven.testng}</version>
+            <version>${version.testng}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

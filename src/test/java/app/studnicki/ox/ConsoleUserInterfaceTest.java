@@ -1,11 +1,14 @@
 package app.studnicki.ox;
 
+import static app.studnicki.ox.Config.INSTANCE;
+import static app.studnicki.ox.MessageKey.*;
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.*;
 
+import java.beans.PropertyChangeSupport;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 
 
@@ -43,7 +46,7 @@ public class ConsoleUserInterfaceTest {
     ui.welcome();
 
     //then
-    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getString("welcome") + "\n");
+    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getMessage(WELCOME) + "\n");
   }
 
   public void shouldPrintWelcomeMessageInPolish() {
@@ -55,27 +58,28 @@ public class ConsoleUserInterfaceTest {
     ui.welcome();
 
     //then
-    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getString("welcome") + "\n");
+    assertEquals(out.toString(), clearCommand + Config.INSTANCE.getMessage(WELCOME) + "\n");
+    INSTANCE.changeLanguage("en");
   }
 
   public void shouldPrintBoardWithNaughtAtTheFirstField() {
     //given
     Round round = new Round(3);
     ConsoleUserInterface ui = new ConsoleUserInterface(System.in);
-    round.addObserver(ui);
+    round.addListenerForBoardPrinting(ui);
 
     //when
-    round.setField(0, Sign.NAUGHT);
+    round.markASign(0, Sign.NAUGHT);
 
     //then
-    String expected = clearCommand +
-        "  -------------\n" +
-        "0 | O |   |   |\n" +
-        "  -------------\n" +
-        "1 |   |   |   |\n" +
-        "  -------------\n" +
-        "2 |   |   |   |\n" +
-        "  -------------\n";
+    String expected = clearCommand
+        + "-------------\n"
+        + "| O | 1 | 2 |\n"
+        + "-------------\n"
+        + "| 3 | 4 | 5 |\n"
+        + "-------------\n"
+        + "| 6 | 7 | 8 |\n"
+        + "-------------\n";
 
     assertEquals(out.toString(), expected);
   }
@@ -89,5 +93,96 @@ public class ConsoleUserInterfaceTest {
 
     //then
     assertEquals(err.toString(), "Error\n");
+  }
+
+  public void shouldShowsProperMessageOnWaitOnAction() {
+    //given
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream("\n".getBytes()));
+
+    //when
+    consoleUserInterface.waitForAnyAction();
+
+    //then
+    assertEquals(out.toString(), "Press ENTER to continue...\n");
+  }
+
+  public void shouldReturnProperMessageOnAnnounceAWinnerMethod() {
+    //given
+    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+    Player player = new Player("Aleksander", Sign.NAUGHT);
+
+    //when
+    consoleUserInterface.announceWinner(player);
+
+    //then
+    String expectedMessage = String.format(INSTANCE.getMessage(CONGRATULATIONS)
+        + " %s. " + INSTANCE.getMessage(YOU_WIN) + "%n"
+        + INSTANCE.getMessage(YOUR_SCORE) + "%n", player.name, player.score);
+
+    assertEquals(out.toString(), expectedMessage);
+  }
+
+  public void shouldShowsProperMessageOnDraw() {
+    //given
+    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+
+    //when
+    consoleUserInterface.announceDraw();
+
+    //then
+    assertEquals(out.toString(), INSTANCE.getMessage(DRAW) + "\n");
+  }
+
+  public void shouldShowNotInRangeMessageOnInputGreaterThanLimit() {
+    //given
+    String input = "10\n\n3\n";
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream(input.getBytes()));
+
+    //when
+    consoleUserInterface.fieldId(9);
+
+    //then
+    assertEquals(err.toString(), INSTANCE.getMessage(NOT_IN_RANGE) + "\n");
+  }
+
+  public void shouldShowNotInRangeMessageOnInputLesserThanZero() {
+    //given
+    String input = "-2\n\n3\n";
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream(input.getBytes()));
+
+    //when
+    consoleUserInterface.fieldId(9);
+
+    //then
+    assertEquals(err.toString(), INSTANCE.getMessage(NOT_IN_RANGE) + "\n");
+  }
+
+  public void shouldShowWrongMenuInputMessageOnNotProperInput() {
+    //given
+    String input = "asdadasd\n\n3\n";
+    ConsoleUserInterface consoleUserInterface
+        = new ConsoleUserInterface(new ByteArrayInputStream(input.getBytes()));
+
+    //when
+    consoleUserInterface.fieldId(9);
+
+    //then
+    assertEquals(err.toString(), INSTANCE.getMessage(WRONG_MENU_INPUT) + "\n");
+  }
+
+  public void shouldNotActOnNotProperPropertyEventChange() {
+    //given
+    ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(System.in);
+    PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    pcs.addPropertyChangeListener(consoleUserInterface);
+
+    //when
+    pcs.firePropertyChange("notMarkedAField", 0, 1);
+
+    //then
+    assertEquals(out.toString().length(), 0);
   }
 }
