@@ -30,8 +30,8 @@ class Main {
     }, () -> {
       ui.welcome();
 
-      Player player1 = new Player(Config.INSTANCE.getMessage(PLAYER1), Sign.NAUGHT);
-      Player player2 = new Player(Config.INSTANCE.getMessage(PLAYER2), Sign.CROSS);
+      Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
+      Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
 
       Game game = new Game.Builder()
           .player1(player1)
