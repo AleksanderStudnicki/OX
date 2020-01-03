@@ -47,29 +47,57 @@ def generateVertical(dimension, winning_rule):
 
 
 def generateDiagonalUp(dimension, winning_rule):
-    checks_in_line = (dimension - winning_rule) + 1
-    set = []
+    winning_set = []
 
-    for i in range(0, dimension):
-        for check in range(0, checks_in_line):
-            indexes_set = []
-            for index in range(0, winning_rule):
-                indexes_set.append(i * dimension - (dimension - i))
-            set.append(indexes_set)
-    return set
+    checking_set = []
+
+    for i in range(0, dimension * dimension):
+        set_for_checking = [i]
+        for j in range(1, winning_rule):
+            nextId = i - (dimension - 1) * j
+            if 0 <= nextId < dimension * dimension:
+                set_for_checking.append(nextId)
+        if len(set_for_checking) == winning_rule:
+            checking_set.append(set_for_checking)
+
+    for to_check in checking_set:
+        check_set = set()
+        for field in to_check:
+            rowId = row(field, dimension)
+            if check_set.__contains__(rowId):
+                break
+            check_set.add(rowId)
+        if len(check_set) == winning_rule:
+            winning_set.append(to_check)
+
+    return winning_set
 
 
 def generateDiagonalDown(dimension, winning_rule):
-    checks_in_line = (dimension - winning_rule) + 1
-    set = []
+    winning_set = []
 
-    for i in range(0, dimension):
-        for check in range(0, checks_in_line):
-            indexes_set = []
-            for index in range(0, winning_rule):
-                indexes_set.append(i * dimension + (dimension + i))
-            set.append(indexes_set)
-    return set
+    checking_set = []
+
+    for i in range(0, dimension * dimension):
+        set_for_checking = [i]
+        for j in range(1, winning_rule):
+            nextId = i + (dimension + 1) * j
+            if 0 <= nextId < dimension * dimension:
+                set_for_checking.append(nextId)
+        if len(set_for_checking) == winning_rule:
+            checking_set.append(set_for_checking)
+
+    for to_check in checking_set:
+        check_set = set()
+        for field in to_check:
+            rowId = row(field, dimension)
+            if check_set.__contains__(rowId):
+                break
+            check_set.add(rowId)
+        if len(check_set) == winning_rule:
+            winning_set.append(to_check)
+
+    return winning_set
 
 
 def automated_tests(args):
@@ -93,6 +121,7 @@ def generateRoundString(winning_set, dimension):
         output_str += "\n"
         output.append(output_str)
     return output
+
 
 def generateDrawString(draw_set, dimension):
     output = []
@@ -147,6 +176,21 @@ def diff(li1, li2):
     return li_dif
 
 
+def checksum(dimension, startId, up):
+    output = 0
+    if up == 1:
+        for i in reversed(range(0, row(startId, dimension) + 1)):
+            output += i
+    else:
+        for i in range(row(startId, dimension), dimension):
+            output += i
+    return output
+
+
+def row(field_id, dimension):
+    return int(field_id / dimension)
+
+
 args = sys.argv
 if len(args) == 3:
     dimension = int(args[1])
@@ -154,11 +198,11 @@ if len(args) == 3:
 
     verticalWins = generateRoundString(generateVertical(dimension, winning_rule), dimension)
     horizontalWins = generateRoundString(generateHorizontal(dimension, winning_rule), dimension)
+    diagonalUpWins = generateRoundString(generateDiagonalUp(dimension, winning_rule), dimension)
+    diagonalDownWins = generateRoundString(generateDiagonalDown(dimension, winning_rule), dimension)
     draw = generateDrawString(generateDraw(dimension), dimension)
 
-    all_set = verticalWins + horizontalWins + draw
-
-    print(all_set)
+    all_set = verticalWins + horizontalWins + diagonalDownWins + diagonalUpWins + draw
 
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -172,7 +216,6 @@ if len(args) == 3:
 
     for full_round in all_set:
         values = full_round + full_round + full_round
-        print(values.replace("\n", ";"))
         p = run(['java', '-jar', 'target/ox-0.2.1.jar', '#1', 'O', '#2', args[1], args[2]],
                 stdout=PIPE, encoding='utf-8', input=values, stderr=PIPE)
 
@@ -188,10 +231,15 @@ if len(args) == 3:
     f.close()
 
     rf.write("For automated test of dimension = " + str(dimension) + " and winning rule = " + str(winning_rule) + "\n")
-    rf.write("Win of first player: " + str(full_out.count("Congratulations first")) + "\n")
-    rf.write("Win of first player: " + str(full_out.count("Congratulations second")) + "\n")
+    rf.write("Win of first player: " + str(full_out.count("Congratulations #1")) + "\n")
+    rf.write("Win of first player: " + str(full_out.count("Congratulations #2")) + "\n")
     rf.write("Win of first player: " + str(full_out.count("Draw! No one won the game")) + "\n")
-    rf.write("Result should be: " + str(dimension * (dimension - winning_rule + 1) * 2) + " for Player #1, 0 for Player #2, 1 for draw")
+
+    additionalDiagonals = 0
+    for i in range(1, dimension - winning_rule + 1):
+        additionalDiagonals += 4 * i
+
+    rf.write("Result should be: " + str(
+        dimension * (dimension - winning_rule + 1) * 2 + 2 * (dimension - winning_rule + 1) + additionalDiagonals) + " for Player #1, 0 for Player #2, 1 for draw")
 
     rf.close()
-
