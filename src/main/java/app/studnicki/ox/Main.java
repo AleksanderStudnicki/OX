@@ -32,21 +32,21 @@ class Main {
       ui.welcome();
       g.start();
     }, () -> {
-      ui.welcome();
+        ui.welcome();
 
-      Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
-      Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
+        Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
+        Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
 
-      Game game = new Game.Builder()
-          .player1(player1)
-          .player2(player2)
-          .winningRule(3)
-          .dimension(3)
-          .userInterface(ui)
-          .build();
+        Game game = new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .winningRule(3)
+            .dimension(3)
+            .userInterface(ui)
+            .build();
 
-      game.start();
-    });
+        game.start();
+      });
   }
 
   private static void changeLanguage(String[] args) {

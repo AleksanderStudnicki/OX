@@ -34,7 +34,7 @@ enum Config {
    *
    * @param messageKey Key from properties file as a MessageKey enum
    * @return Value of key from properties file for the specified language
-   * (previously set by changeLanguage method or default in English).
+   *        (previously set by changeLanguage method or default in English).
    */
   String getMessage(MessageKey messageKey) {
     ResourceBundle resourceBundle = ResourceBundle.getBundle("Message", locale);
