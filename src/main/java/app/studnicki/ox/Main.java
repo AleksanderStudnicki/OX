@@ -1,7 +1,12 @@
 package app.studnicki.ox;
 
 import java.util.Optional;
-
+/**
+ * Main class of the application.
+ * Game running if available through the main method.
+ * Arguments passed to jar is supported by main method.
+ * Because of that there is ability to play after args being passed.
+ */
 class Main {
   /**
    * Method to run the game.
