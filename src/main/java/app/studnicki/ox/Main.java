@@ -32,21 +32,21 @@ class Main {
       ui.welcome();
       g.start();
     }, () -> {
-        ui.welcome();
+      ui.welcome();
 
-        Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
-        Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
+      Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
+      Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
 
-        Game game = new Game.Builder()
-            .player1(player1)
-            .player2(player2)
-            .winningRule(3)
-            .dimension(3)
-            .userInterface(ui)
-            .build();
+      Game game = new Game.Builder()
+          .player1(player1)
+          .player2(player2)
+          .winningRule(3)
+          .dimension(3)
+          .userInterface(ui)
+          .build();
 
-        game.start();
-      });
+      game.start();
+    });
   }
 
   private static void changeLanguage(String[] args) {
@@ -62,13 +62,16 @@ class Main {
       int dimension;
       int winningRule;
 
-      if (args[1].equals("O") || args[1].equals("o")) {
+      if (args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("O")
+          || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("o")) {
         player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.NAUGHT);
       } else if
-          (args[1].equals("X") || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("x")) {
+      (args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("X")
+              || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("x")) {
         player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.CROSS);
       } else {
         ui.error("Not proper sign of first player");
+        ui.waitForAnyAction();
         return Optional.ofNullable(null);
       }
 
@@ -82,6 +85,7 @@ class Main {
         dimension = Integer.parseInt(args[MainNavigation.DIMENSION_FIELD.value]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
+        ui.waitForAnyAction();
         return Optional.ofNullable(null);
       }
 
@@ -89,16 +93,22 @@ class Main {
         winningRule = Integer.parseInt(args[MainNavigation.WINNING_RULE_FIELD.value]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
+        ui.waitForAnyAction();
         return Optional.ofNullable(null);
       }
 
-      return Optional.of(new Game.Builder()
-          .player1(player1)
-          .player2(player2)
-          .dimension(dimension)
-          .winningRule(winningRule)
-          .userInterface(ui)
-          .build());
+      try {
+        return Optional.of(new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .dimension(dimension)
+            .winningRule(winningRule)
+            .userInterface(ui)
+            .build());
+      } catch (IllegalArgumentException ex) {
+        ui.error(ex.getMessage());
+        ui.waitForAnyAction();
+      }
     }
     return Optional.ofNullable(null);
   }

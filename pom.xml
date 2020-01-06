@@ -6,7 +6,7 @@
 
     <groupId>app.studnicki</groupId>
     <artifactId>ox</artifactId>
-    <version>0.2.1</version>
+    <version>0.5</version>
     <name>OX Game</name>
     <description>Project of simple tic-tac-toe game written in Java 11</description>
 
@@ -24,9 +24,9 @@
         <version.maven>3.6.2</version.maven>
         <!-- plugin versions should go here, so below they can be omitted -->
         <!-- plugins for build section -->
-        <version.plugin.maven.enforcer>3.0.0-M2</version.plugin.maven.enforcer>
-        <version.plugin.maven.jar>3.1.0</version.plugin.maven.jar>
-        <version.plugin.maven.compiler>3.8.0</version.plugin.maven.compiler>
+        <version.plugin.maven.enforcer>3.0.0-M3</version.plugin.maven.enforcer>
+        <version.plugin.maven.jar>3.2.0</version.plugin.maven.jar>
+        <version.plugin.maven.compiler>3.8.1</version.plugin.maven.compiler>
         <version.plugin.maven.resources>3.1.0</version.plugin.maven.resources>
         <version.plugin.maven.jacoco>0.8.5</version.plugin.maven.jacoco>
         <version.plugin.maven.site>3.8.2</version.plugin.maven.site>

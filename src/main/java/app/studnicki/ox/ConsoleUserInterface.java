@@ -151,8 +151,8 @@ class ConsoleUserInterface implements UserInterface {
   }
 
   private void showLine(int totalRow, int actualRow, Board board) {
-    int start = (actualRow * totalRow);
-    int end = (actualRow * totalRow) + totalRow;
+    int start = actualRow * totalRow;
+    int end = actualRow * totalRow + totalRow;
 
     System.out.print("|");
 
@@ -160,7 +160,9 @@ class ConsoleUserInterface implements UserInterface {
         .forEach(index -> board.getSignFromField(index).ifPresentOrElse(
             s -> System.out.printf(" %s |", s),
             () -> {
-              if (index > 9) {
+              if (index > 99) {
+                System.out.printf("%d|", index);
+              } else if (index > 9) {
                 System.out.printf(" %d|", index);
               } else {
                 System.out.printf(" %d |", index);
