@@ -11,13 +11,6 @@ DIAGONAL_UP = [1, -1]
 rules = [HORIZONTAL, VERTICAL, DIAGONAL_DOWN, DIAGONAL_UP]
 
 
-def generate_draw(dimension):
-    counter = 0
-    default_set = []
-    for i in range(0, dimension):
-        default_set.append(i)
-
-
 def generateHorizontal(dimension, winning_rule):
     checks_in_line = (dimension - winning_rule) + 1
     set = []
@@ -89,17 +82,14 @@ def generateDiagonalDown(dimension, winning_rule):
         check_set = set()
         for field in to_check:
             rowId = row(field, dimension)
-            if check_set.__contains__(rowId):
-                break
+            if len(check_set) > 0:
+                if not check_set.__contains__(rowId - 1):
+                    break
             check_set.add(rowId)
         if len(check_set) == winning_rule:
             winning_set.append(to_check)
 
     return winning_set
-
-
-def automated_tests(args):
-    possibilities = generate_all_possibilities_of_win(args[3])
 
 
 def generateRoundString(winning_set, dimension):
@@ -174,17 +164,6 @@ def diff(li1, li2):
     return li_dif
 
 
-def checksum(dimension, startId, up):
-    output = 0
-    if up == 1:
-        for i in reversed(range(0, row(startId, dimension) + 1)):
-            output += i
-    else:
-        for i in range(row(startId, dimension), dimension):
-            output += i
-    return output
-
-
 def row(field_id, dimension):
     return int(field_id / dimension)
 
@@ -196,13 +175,13 @@ if len(args) == 3:
 
     #verticalWins = generateRoundString(generateVertical(dimension, winning_rule), dimension)
     #horizontalWins = generateRoundString(generateHorizontal(dimension, winning_rule), dimension)
-    diagonalUpWins = generateRoundString(generateDiagonalUp(dimension, winning_rule), dimension)
-    diagonalDownWins = generateRoundString(generateDiagonalDown(dimension, winning_rule), dimension)
-    #draw = generateDrawString(generateDraw(dimension), dimension)
+    #diagonalUpWins = generateRoundString(generateDiagonalUp(dimension, winning_rule), dimension)
+    #diagonalDownWins = generateRoundString(generateDiagonalDown(dimension, winning_rule), dimension)
+    draw = generateDrawString(generateDraw(dimension), dimension)
 
     #all_set = verticalWins + horizontalWins + diagonalDownWins + diagonalUpWins + draw
 
-    all_set = diagonalDownWins + diagonalUpWins
+    all_set = draw
 
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -213,9 +192,19 @@ if len(args) == 3:
     rf = open(report_filename, "w")
     full_out = None
 
+    additionalDiagonals = 0
+    for i in range(1, dimension - winning_rule + 1):
+        additionalDiagonals += 4 * i
+
+    overall = dimension * (dimension - winning_rule + 1) * 2 + 2 * (
+            dimension - winning_rule + 1) + additionalDiagonals + 1
+
+    counter = 0
+
+
     for full_round in all_set:
         values = full_round + full_round + full_round
-        p = run(['java', '-jar', 'target/ox-0.2.1.jar', '#1', 'O', '#2', args[1], args[2]],
+        p = run(['java', '-jar', 'target/ox-0.5.jar', '#1', 'O', '#2', args[1], args[2]],
                 stdout=PIPE, encoding='utf-8', input=values, stderr=PIPE)
 
         out = p.stdout
@@ -228,17 +217,19 @@ if len(args) == 3:
         full_out += values
 
         f.write(out)
-        f.write(values)
+        print(out)
+        #counter += 1
+        #print(str(counter) + " of " + str(overall))
+
+    print(all_set)
+
 
     f.close()
-    rf.write("For automated test of dimension = " + str(dimension) + " and winning rule = " + str(winning_rule) + "\n")
-    rf.write("Win of first player: " + str(full_out.count("Congratulations #1")) + "\n")
-    rf.write("Win of second player: " + str(full_out.count("Congratulations #2")) + "\n")
+    rf.write("For automated test of dimension = " + str(dimension)
+             + " and winning rule = " + str(winning_rule) + "\n")
+    rf.write("Wins of first player: " + str(full_out.count("Congratulations #1")) + "\n")
+    rf.write("Wins of second player: " + str(full_out.count("Congratulations #2")) + "\n")
     rf.write("Draws: " + str(full_out.count("Draw! No one won the game")) + "\n")
-    additionalDiagonals = 0
-    for i in range(1, dimension - winning_rule + 1):
-        additionalDiagonals += 4 * i
-    rf.write("Result should be: " + str(
-        dimension * (dimension - winning_rule + 1) * 2 + 2 * (
-                dimension - winning_rule + 1) + additionalDiagonals) + " for Player #1, 0 for Player #2, 1 for draw")
+
+    rf.write("Result should be: " + str(overall) + " for Player #1, 0 for Player #2, 1 for draw")
     rf.close()

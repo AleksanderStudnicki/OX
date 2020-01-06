@@ -18,7 +18,7 @@ class Main {
    *             [0] - name of the first player
    *             [1] - sign of the first player
    *             [2] - name of the second player
-   *             [3] - dimension as an interger
+   *             [3] - dimension as an integer
    *             [4] - winning rule as an integer
    *             [5] - language tag (not required)
    */
@@ -32,21 +32,21 @@ class Main {
       ui.welcome();
       g.start();
     }, () -> {
-      ui.welcome();
+        ui.welcome();
 
-      Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
-      Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
+        Player player1 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER1), Sign.NAUGHT);
+        Player player2 = new Player(Config.INSTANCE.getMessage(MessageKey.PLAYER2), Sign.CROSS);
 
-      Game game = new Game.Builder()
-          .player1(player1)
-          .player2(player2)
-          .winningRule(3)
-          .dimension(3)
-          .userInterface(ui)
-          .build();
+        Game game = new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .winningRule(3)
+            .dimension(3)
+            .userInterface(ui)
+            .build();
 
-      game.start();
-    });
+        game.start();
+      });
   }
 
   private static void changeLanguage(String[] args) {
@@ -65,8 +65,7 @@ class Main {
       if (args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("O")
           || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("o")) {
         player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.NAUGHT);
-      } else if
-      (args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("X")
+      } else if (args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("X")
               || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("x")) {
         player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.CROSS);
       } else {
