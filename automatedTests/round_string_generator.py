@@ -3,6 +3,8 @@ from automatedTests.settings import Settings
 
 
 class RoundStringGenerator:
+    """Class for generating all possibilities of wins (and one draw) based on Settings
+    class instance"""
 
     def __init__(self, settings: Settings):
         self.settings = settings
@@ -89,12 +91,12 @@ class RoundStringGenerator:
         for single_set in winning_set:
             diff_set = self.__diff(all_set, single_set)
             output_str = ""
-            for i in range(len(single_set)):
-                output_str += (str(single_set[i]))
+            for index, item in enumerate(single_set):
+                output_str += (str(item))
                 output_str += "\n"
                 diff_field = random.choice(diff_set)
                 diff_set.remove(diff_field)
-                if i + 1 != len(single_set):
+                if index + 1 != len(single_set):
                     output_str += (str(diff_field))
                     output_str += "\n"
             output_str += "\n"
@@ -106,8 +108,8 @@ class RoundStringGenerator:
         all_set = list(range(0, self.settings.dimension * self.settings.dimension))
         diff_set = self.__diff(all_set, draw_set)
         output_str = ""
-        for i in range(len(draw_set)):
-            output_str += (str(draw_set[i]))
+        for index, item in enumerate(draw_set):
+            output_str += (str(item))
             output_str += "\n"
             if len(diff_set) > 0:
                 diff_field = random.choice(diff_set)
