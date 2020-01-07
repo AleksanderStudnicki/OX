@@ -1,14 +1,5 @@
-from subprocess import run, PIPE
-import sys
-from datetime import datetime
 import random
-
-
-class Settings:
-
-    def __init__(self, dimension, winning_rule):
-        self.dimension = dimension
-        self.winning_rule = winning_rule
+from automatedTests import Settings
 
 
 class RoundStringGenerator:
@@ -171,76 +162,3 @@ class RoundStringGenerator:
 
         all_possibilities = vertical_wins + horizontal_wins + diagonal_down_wins + diagonal_up_wins + draw
         return all_possibilities
-
-
-def generate_summary_report(report_file_name: str, report_content, overall_wins: int, settings: Settings):
-    file_name = "summary-" + report_file_name
-    rf = open(file_name, "w")
-    rf.write("For automated test of dimension = " + str(settings.dimension)
-             + " and winning rule = " + str(settings.winning_rule) + "\n")
-    rf.write("Wins of first player: " + str(report_content.count("Congratulations #1")) + "\n")
-    rf.write("Wins of second player: " + str(report_content.count("Congratulations #2")) + "\n")
-    rf.write("Draws: " + str(report_content.count("Draw! No one won the game")) + "\n")
-    rf.write("Result should be: " + str(overall_wins)
-             + " for Player #1, 0 for Player #2, 1 for draw")
-
-    rf.close()
-
-
-def calculate_overall_wins_to_summary(settings: Settings):
-    additional_diagonals = 0
-    for i in range(1, settings.dimension - settings.winning_rule + 1):
-        additional_diagonals += 4 * i
-    overall = settings.dimension * (settings.dimension - settings.winning_rule + 1) * 2 + 2 * (
-            settings.dimension - settings.winning_rule + 1) + additional_diagonals
-    return overall
-
-
-def parse_settings(args):
-    dimension = int(args[1])
-    winning_rule = int(args[2])
-    settings = Settings(dimension, winning_rule)
-    return settings
-
-
-def generate_report_file_name():
-    now = datetime.now()
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    filename = "automated-report-" + dt_string + ".txt"
-    filename = filename.replace(" ", "-").replace("/", "-")
-    return filename
-
-
-args = sys.argv
-if len(args) > 2:
-    settings_from_args = parse_settings(args)
-    possibilities = RoundStringGenerator(settings_from_args).generate_all_possibilities()
-    overall_wins = calculate_overall_wins_to_summary(settings_from_args)
-
-    report_file_name = generate_report_file_name()
-    f = open(report_file_name, "w")
-
-    full_out = None
-    counter = 0
-
-    for full_round in possibilities:
-        values = full_round + full_round + full_round
-        p = run(['java', '-jar', 'target/ox-0.5.jar', '#1', 'O', '#2', args[1], args[2]],
-                stdout=PIPE, encoding='utf-8', input=values, stderr=PIPE)
-
-        out = p.stdout
-
-        if full_out is None:
-            full_out = out
-        else:
-            full_out += out
-
-        full_out += values
-
-        f.write(out)
-        f.write(p.stderr)
-        counter += 1
-        print(str(counter) + " of " + str(overall_wins + 1))
-
-    f.close()
-    generate_summary_report(report_file_name, full_out, overall_wins, settings_from_args)
