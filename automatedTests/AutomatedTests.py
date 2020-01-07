@@ -5,7 +5,6 @@ from automatedTests import RoundStringGenerator
 
 
 class AutomatedTests:
-    overall_wins: int
 
     def __init__(self, settings: Settings.Settings):
         self.settings = settings
