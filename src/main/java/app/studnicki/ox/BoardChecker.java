@@ -1,8 +1,5 @@
 package app.studnicki.ox;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -14,49 +11,35 @@ import static app.studnicki.ox.TransitionRule.*;
  *
  * @author Aleksander Studnicki
  */
-class BoardChecker implements PropertyChangeListener {
+class BoardChecker {
 
   private final int winningRule;
-  private final int checkingThreshold;
   private final Set<TransitionRule> ruleSet = EnumSet.of(
       VERTICAL, HORIZONTAL, DIAGONAL_DOWN, DIAGONAL_UP);
   private int turn;
+  private Board board;
+  private boolean ableToCheck = true;
 
-  private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-
-  /**
-   * Adds observers for 2 type of events.
-   * Playable - when there is possibility to play and no winner.
-   * Resolved - when there is a winner or no possibility to play (draw).
-   * When resolved then flag is send to observer (true - winner, false - draw).
-   *
-   * @param listener Object which will be observing GameChecker
-   *                 (must implements PropertyChangeListener)
-   */
-  void addListener(PropertyChangeListener listener) {
-    propertyChangeSupport.addPropertyChangeListener("playable", listener);
-    propertyChangeSupport.addPropertyChangeListener("resolved", listener);
-  }
-
-  BoardChecker(int winningRule) {
+  BoardChecker(int winningRule, Board board) {
     this.winningRule = winningRule;
-    this.checkingThreshold = winningRule * 2 - 1;
+    this.board = board;
   }
 
-  boolean isWinner(int id, Board board) {
+  boolean isWinner(int id) {
+    turn++;
+    return isWinner(id, board);
+  }
+
+  private boolean isWinner(int id, Board board) {
     for (TransitionRule rule : ruleSet) {
       if (isWinner(id, board, rule)) {
-        turn = 0;
-        propertyChangeSupport.firePropertyChange("resolved", null, true);
         return true;
       }
     }
     if (turn == board.limit) {
-      turn = 0;
-      propertyChangeSupport.firePropertyChange("resolved", null, false);
+      ableToCheck = false;
       return false;
     }
-    propertyChangeSupport.firePropertyChange("playable", null, 1);
     return false;
   }
 
@@ -98,30 +81,16 @@ class BoardChecker implements PropertyChangeListener {
     });
   }
 
-  @Override
-  public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("filledField")) {
-      checkWinnerIfItIsProperTurn(evt);
-    }
-  }
-
-  private void checkWinnerIfItIsProperTurn(PropertyChangeEvent evt) {
-    turn++;
-    if (turn >= checkingThreshold) {
-      Board board = (Board) evt.getSource();
-      int id = (Integer) evt.getNewValue();
-      isWinner(id, board);
-    } else {
-      propertyChangeSupport.firePropertyChange("playable", null, 1);
-    }
-  }
-
   private static class Counter {
     int value = 1;
 
     void increment() {
       value++;
     }
+  }
+
+  boolean isAbleToCheck() {
+    return ableToCheck;
   }
 
 }
