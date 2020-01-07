@@ -108,7 +108,7 @@ class RoundStringGenerator:
         all_set = list(range(0, self.settings.dimension * self.settings.dimension))
         diff_set = self.__diff(all_set, draw_set)
         output_str = ""
-        for index, item in enumerate(draw_set):
+        for item in draw_set:
             output_str += (str(item))
             output_str += "\n"
             if len(diff_set) > 0:
