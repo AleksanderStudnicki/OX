@@ -204,7 +204,7 @@ if len(args) == 3:
 
     for full_round in all_set:
         values = full_round + full_round + full_round
-        p = run(['java', '-Xss8192k', '-jar', 'target/ox-0.5.jar', '#1', 'O', '#2', args[1], args[2]],
+        p = run(['java', '-jar', 'target/ox-0.5.jar', '#1', 'O', '#2', args[1], args[2]],
                 stdout=PIPE, encoding='utf-8', input=values, stderr=PIPE)
 
         out = p.stdout
@@ -220,6 +220,7 @@ if len(args) == 3:
         f.write(p.stderr)
         counter += 1
         print(str(counter) + " of " + str(overall))
+        print(str(p.stderr.count("at")))
 
     f.close()
     rf.write("For automated test of dimension = " + str(dimension)
