@@ -25,6 +25,12 @@ class BoardChecker {
     this.board = board;
   }
 
+  /**
+   * Checks if there is a winner after last field marking.
+   *
+   * @param id id of recent marked field
+   * @return true if is winner and false otherwise
+   */
   boolean isWinner(int id) {
     turn++;
     return isWinner(id, board);
@@ -89,6 +95,10 @@ class BoardChecker {
     }
   }
 
+  /**
+   * Returns if amount of turns passed to checker is lesser than board limit.
+   * @return return ableToCheck flag
+   */
   boolean isAbleToCheck() {
     return ableToCheck;
   }
