@@ -9,6 +9,7 @@
     <version>0.5</version>
     <name>OX Game</name>
     <description>Project of simple tic-tac-toe game written in Java 11</description>
+    <url>https://github.com/AleksanderStudnicki/OX</url>
 
     <properties>
         <!-- https://maven.apache.org/general.html#encoding-warning -->

@@ -173,15 +173,15 @@ if len(args) == 3:
     dimension = int(args[1])
     winning_rule = int(args[2])
 
-    #verticalWins = generateRoundString(generateVertical(dimension, winning_rule), dimension)
-    #horizontalWins = generateRoundString(generateHorizontal(dimension, winning_rule), dimension)
-    #diagonalUpWins = generateRoundString(generateDiagonalUp(dimension, winning_rule), dimension)
-    #diagonalDownWins = generateRoundString(generateDiagonalDown(dimension, winning_rule), dimension)
+    verticalWins = generateRoundString(generateVertical(dimension, winning_rule), dimension)
+    horizontalWins = generateRoundString(generateHorizontal(dimension, winning_rule), dimension)
+    diagonalUpWins = generateRoundString(generateDiagonalUp(dimension, winning_rule), dimension)
+    diagonalDownWins = generateRoundString(generateDiagonalDown(dimension, winning_rule), dimension)
     draw = generateDrawString(generateDraw(dimension), dimension)
 
-    #all_set = verticalWins + horizontalWins + diagonalDownWins + diagonalUpWins + draw
+    all_set = verticalWins + horizontalWins + diagonalDownWins + diagonalUpWins + draw
 
-    all_set = draw
+    #all_set = draw
 
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -220,7 +220,7 @@ if len(args) == 3:
         f.write(p.stderr)
         counter += 1
         print(str(counter) + " of " + str(overall))
-        print(str(p.stderr.count("at")))
+        #print(str(p.stderr.count("at")))
 
     f.close()
     rf.write("For automated test of dimension = " + str(dimension)
@@ -229,5 +229,5 @@ if len(args) == 3:
     rf.write("Wins of second player: " + str(full_out.count("Congratulations #2")) + "\n")
     rf.write("Draws: " + str(full_out.count("Draw! No one won the game")) + "\n")
 
-    rf.write("Result should be: " + str(overall) + " for Player #1, 0 for Player #2, 1 for draw")
+    rf.write("Result should be: " + str(overall - 1) + " for Player #1, 0 for Player #2, 1 for draw")
     rf.close()
