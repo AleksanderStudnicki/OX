@@ -71,7 +71,7 @@ class Main {
       } else {
         ui.error("Not proper sign of first player");
         ui.waitForAnyAction();
-        return Optional.ofNullable(null);
+        return Optional.empty();
       }
 
       if (player1.sign == Sign.NAUGHT) {
@@ -85,7 +85,7 @@ class Main {
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
         ui.waitForAnyAction();
-        return Optional.ofNullable(null);
+        return Optional.empty();
       }
 
       try {
@@ -93,7 +93,7 @@ class Main {
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
         ui.waitForAnyAction();
-        return Optional.ofNullable(null);
+        return Optional.empty();
       }
 
       try {
@@ -109,7 +109,7 @@ class Main {
         ui.waitForAnyAction();
       }
     }
-    return Optional.ofNullable(null);
+    return Optional.empty();
   }
 
   private enum MainNavigation {

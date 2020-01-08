@@ -1,4 +1,4 @@
-import random
+from random import choice
 from automatedTests.settings import Settings
 
 
@@ -13,7 +13,7 @@ class RoundStringGenerator:
         checks_in_line = (self.__settings.dimension - self.__settings.winning_rule) + 1
         horizontal_wins = []
         for i in range(0, self.__settings.dimension):
-            for check in range(0, checks_in_line):
+            for check in range(checks_in_line):
                 wins_possibillities = self.__generate_horizontal_possibility(i, check)
                 horizontal_wins.append(wins_possibillities)
         return horizontal_wins
@@ -27,22 +27,22 @@ class RoundStringGenerator:
     def __generate_vertical(self):
         checks_in_line = (self.__settings.dimension - self.__settings.winning_rule) + 1
         vertical_wins = []
-        for i in range(0, self.__settings.dimension):
-            for check in range(0, checks_in_line):
+        for i in range(self.__settings.dimension):
+            for check in range(checks_in_line):
                 indexes_set = self.__generate_vertical_possibility(i, check)
                 vertical_wins.append(indexes_set)
         return vertical_wins
 
     def __generate_vertical_possibility(self, column, check):
         indexes_set = []
-        for index in range(0, self.__settings.winning_rule):
+        for index in range(self.__settings.winning_rule):
             indexes_set.append(column + (check * self.__settings.dimension)
                                + (index * self.__settings.dimension))
         return indexes_set
 
     def __generate_diagonal_up(self):
         checking_set = []
-        for i in range(0, self.__settings.dimension * self.__settings.dimension):
+        for i in range(self.__settings.dimension * self.__settings.dimension):
             set_for_checking = [i]
             for j in range(1, self.__settings.winning_rule):
                 next_id = i - (self.__settings.dimension - 1) * j
@@ -58,7 +58,7 @@ class RoundStringGenerator:
             check_set = set()
             for field in to_check:
                 row_id = self.__row(field)
-                if check_set.__contains__(row_id):
+                if row_id in check_set:
                     break
                 check_set.add(row_id)
             if len(check_set) == self.__settings.winning_rule:
@@ -67,7 +67,7 @@ class RoundStringGenerator:
 
     def __generate_diagonal_down(self):
         checking_set = []
-        for i in range(0, self.__settings.dimension * self.__settings.dimension):
+        for i in range(self.__settings.dimension * self.__settings.dimension):
             set_for_checking = [i]
             for j in range(1, self.__settings.winning_rule):
                 next_id = i + (self.__settings.dimension + 1) * j
@@ -83,9 +83,8 @@ class RoundStringGenerator:
             check_set = set()
             for field in to_check:
                 row_id = self.__row(field)
-                if len(check_set) > 0:
-                    if not check_set.__contains__(row_id - 1):
-                        break
+                if len(check_set) > 0 and (row_id - 1) not in check_set:
+                    break
                 check_set.add(row_id)
             if len(check_set) == self.__settings.winning_rule:
                 diagonal_down_output.append(to_check)
@@ -93,7 +92,7 @@ class RoundStringGenerator:
 
     def __generate_round_string(self, winning_set):
         output = []
-        all_set = list(range(0, self.__settings.dimension * self.__settings.dimension))
+        all_set = list(range(self.__settings.dimension * self.__settings.dimension))
         for single_set in winning_set:
             diff_set = self.__diff(all_set, single_set)
             output_str = self.__build_round_string(single_set, diff_set)
@@ -104,19 +103,17 @@ class RoundStringGenerator:
     def __build_round_string(single_set, diff_set):
         output_str = ""
         for index, item in enumerate(single_set):
-            output_str += (str(item))
-            output_str += "\n"
-            diff_field = random.choice(diff_set)
+            output_str += "%d\n" % item
+            diff_field = choice(diff_set)
             diff_set.remove(diff_field)
             if index + 1 != len(single_set):
-                output_str += (str(diff_field))
-                output_str += "\n"
+                output_str += "%d\n" % diff_field
             output_str += "\n"
         return output_str
 
     def __generate_draw_string(self, draw_set):
         output = []
-        all_set = list(range(0, self.__settings.dimension * self.__settings.dimension))
+        all_set = list(range(self.__settings.dimension * self.__settings.dimension))
         diff_set = self.__diff(all_set, draw_set)
         output_str = self.__build_draw_string(draw_set, diff_set)
         output.append(output_str)
@@ -126,13 +123,11 @@ class RoundStringGenerator:
     def __build_draw_string(draw_set, diff_set):
         output_str = ""
         for item in draw_set:
-            output_str += (str(item))
-            output_str += "\n"
+            output_str += "%d\n" % item
             if len(diff_set) > 0:
-                diff_field = random.choice(diff_set)
+                diff_field = choice(diff_set)
                 diff_set.remove(diff_field)
-                output_str += (str(diff_field))
-                output_str += "\n"
+                output_str += "%d\n" % diff_field
         output_str += "\n"
         return output_str
 

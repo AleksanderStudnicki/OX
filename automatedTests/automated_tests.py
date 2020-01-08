@@ -12,7 +12,7 @@ class AutomatedTests:
         self.overall_wins = self.__calculate_overall_wins_to_summary()
 
     def __generate_summary_report(self, report_file_name: str, report_content):
-        file_name = "summary-" + report_file_name
+        file_name = "summary-%s" % report_file_name
         summary_file = open(file_name, "w")
         summary_file.write("For automated test of dimension = " + str(self.settings.dimension)
                            + " and winning rule = " + str(self.settings.winning_rule) + "\n")
@@ -32,7 +32,7 @@ class AutomatedTests:
             additional_diagonals += 4 * i
         overall = self.settings.dimension * \
                   (self.settings.dimension - self.settings.winning_rule + 1) * 2 + 2 \
-                  * (self.settings.dimension - self.settings.winning_rule + 1) \
+                    * (self.settings.dimension - self.settings.winning_rule + 1) \
                   + additional_diagonals
         return overall
 
@@ -40,7 +40,7 @@ class AutomatedTests:
     def __generate_report_file_name():
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        filename = "automated-report-" + dt_string + ".txt"
+        filename = "automated-report-%s.txt" % dt_string
         filename = filename.replace(" ", "-").replace("/", "-")
         return filename
 
@@ -57,18 +57,18 @@ class AutomatedTests:
         counter = 0
 
         for full_round in possibilities:
-            values = full_round + full_round + full_round
+            values = full_round * 3
             process = run(['java', '-jar', 'target/ox-0.5.jar', '#1', 'O', '#2',
                            str(self.settings.dimension), str(self.settings.winning_rule)],
                           stdout=PIPE, encoding='utf-8', input=values, stderr=PIPE, check=True)
-            if full_out is None:
+            if not full_out:
                 full_out = process.stdout
             else:
                 full_out += process.stdout
             report_file.write(process.stdout)
             report_file.write(process.stderr)
             counter += 1
-            print(str(counter) + " of " + str(self.overall_wins + 1))
+            print("%d of %d" % (counter, self.overall_wins + 1))
 
         report_file.close()
         self.__generate_summary_report(report_file_name, full_out)

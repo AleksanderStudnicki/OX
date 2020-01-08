@@ -26,17 +26,13 @@ class BoardChecker {
   }
 
   /**
-   * Checks if there is a winner after last field marking.
+   * Checks if there is a winner after the lastest field marking.
    *
    * @param id id of recent marked field
    * @return true if is winner and false otherwise
    */
   boolean isWinner(int id) {
     turn++;
-    return isWinner(id, board);
-  }
-
-  private boolean isWinner(int id, Board board) {
     for (TransitionRule rule : ruleSet) {
       if (isWinner(id, board, rule)) {
         return true;
