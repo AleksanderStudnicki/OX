@@ -34,7 +34,7 @@ Command for playing as Aleksander (naught) and Czesio (cross), board will be 5x5
 To run this script you need to have Python 3
 
 How to run:
-- in project directory run `python3[.version]  TestStarter.py [dimension] [winningRule]`
+- in project directory run `python3[.version]  test_starter.py [dimension] [winningRule]`
 where dimension and winnin rule are the same things as in ox game (same requirements for them must be provided).
 
 Script will generate 2 text files as a reports. One with recorded games and one with summary where we can check that app works right.
