@@ -12,27 +12,33 @@ class RoundStringGenerator:
     def __generate_horizontal(self):
         checks_in_line = (self.settings.dimension - self.settings.winning_rule) + 1
         horizontal_wins = []
-
         for i in range(0, self.settings.dimension):
             for check in range(0, checks_in_line):
-                indexes_set = []
-                for index in range(0, self.settings.winning_rule):
-                    indexes_set.append(i * self.settings.dimension + check + index)
-                horizontal_wins.append(indexes_set)
+                wins_possibillities = self.__generate_horizontal_possibility(i, check)
+                horizontal_wins.append(wins_possibillities)
         return horizontal_wins
+
+    def __generate_horizontal_possibility(self, row, check):
+        indexes_set = []
+        for index in range(0, self.settings.winning_rule):
+            indexes_set.append(row * self.settings.dimension + check + index)
+        return indexes_set
 
     def __generate_vertical(self):
         checks_in_line = (self.settings.dimension - self.settings.winning_rule) + 1
         vertical_wins = []
-
         for i in range(0, self.settings.dimension):
             for check in range(0, checks_in_line):
-                indexes_set = []
-                for index in range(0, self.settings.winning_rule):
-                    indexes_set.append(i + (check * self.settings.dimension)
-                                       + (index * self.settings.dimension))
+                indexes_set = self.__generate_vertical_possibility(i, check)
                 vertical_wins.append(indexes_set)
         return vertical_wins
+
+    def __generate_vertical_possibility(self, column, check):
+        indexes_set = []
+        for index in range(0, self.settings.winning_rule):
+            indexes_set.append(column + (check * self.settings.dimension)
+                               + (index * self.settings.dimension))
+        return indexes_set
 
     def __generate_diagonal_up(self):
         checking_set = []
@@ -90,23 +96,34 @@ class RoundStringGenerator:
         all_set = list(range(0, self.settings.dimension * self.settings.dimension))
         for single_set in winning_set:
             diff_set = self.__diff(all_set, single_set)
-            output_str = ""
-            for index, item in enumerate(single_set):
-                output_str += (str(item))
-                output_str += "\n"
-                diff_field = random.choice(diff_set)
-                diff_set.remove(diff_field)
-                if index + 1 != len(single_set):
-                    output_str += (str(diff_field))
-                    output_str += "\n"
-            output_str += "\n"
+            output_str = self.__build_round_string(single_set, diff_set)
             output.append(output_str)
         return output
+
+    @staticmethod
+    def __build_round_string(single_set, diff_set):
+        output_str = ""
+        for index, item in enumerate(single_set):
+            output_str += (str(item))
+            output_str += "\n"
+            diff_field = random.choice(diff_set)
+            diff_set.remove(diff_field)
+            if index + 1 != len(single_set):
+                output_str += (str(diff_field))
+                output_str += "\n"
+            output_str += "\n"
+        return output_str
 
     def __generate_draw_string(self, draw_set):
         output = []
         all_set = list(range(0, self.settings.dimension * self.settings.dimension))
         diff_set = self.__diff(all_set, draw_set)
+        output_str = self.__build_draw_string(draw_set, diff_set)
+        output.append(output_str)
+        return output
+
+    @staticmethod
+    def __build_draw_string(draw_set, diff_set):
         output_str = ""
         for item in draw_set:
             output_str += (str(item))
@@ -117,15 +134,12 @@ class RoundStringGenerator:
                 output_str += (str(diff_field))
                 output_str += "\n"
         output_str += "\n"
-        output.append(output_str)
-        return output
+        return output_str
 
     def __generate_draw(self):
         first_pattern = []
         second_pattern = []
-
         draw_pattern = []
-
         counter = 0
 
         for i in range(1, self.settings.dimension + 1):
