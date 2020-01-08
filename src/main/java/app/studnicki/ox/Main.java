@@ -18,7 +18,7 @@ class Main {
    *             [0] - name of the first player
    *             [1] - sign of the first player
    *             [2] - name of the second player
-   *             [3] - dimension as an interger
+   *             [3] - dimension as an integer
    *             [4] - winning rule as an integer
    *             [5] - language tag (not required)
    */
@@ -62,14 +62,16 @@ class Main {
       int dimension;
       int winningRule;
 
-      if (args[1].equals("O") || args[1].equals("o")) {
+      if (args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("O")
+          || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("o")) {
         player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.NAUGHT);
-      } else if
-          (args[1].equals("X") || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("x")) {
+      } else if (args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("X")
+              || args[MainNavigation.FIRST_PLAYER_SIGN_FIELD.value].equals("x")) {
         player1 = new Player(args[MainNavigation.FIRST_PLAYER_NAME_FIELD.value], Sign.CROSS);
       } else {
         ui.error("Not proper sign of first player");
-        return Optional.ofNullable(null);
+        ui.waitForAnyAction();
+        return Optional.empty();
       }
 
       if (player1.sign == Sign.NAUGHT) {
@@ -82,25 +84,32 @@ class Main {
         dimension = Integer.parseInt(args[MainNavigation.DIMENSION_FIELD.value]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
-        return Optional.ofNullable(null);
+        ui.waitForAnyAction();
+        return Optional.empty();
       }
 
       try {
         winningRule = Integer.parseInt(args[MainNavigation.WINNING_RULE_FIELD.value]);
       } catch (NumberFormatException ex) {
         ui.error(ex.getMessage());
-        return Optional.ofNullable(null);
+        ui.waitForAnyAction();
+        return Optional.empty();
       }
 
-      return Optional.of(new Game.Builder()
-          .player1(player1)
-          .player2(player2)
-          .dimension(dimension)
-          .winningRule(winningRule)
-          .userInterface(ui)
-          .build());
+      try {
+        return Optional.of(new Game.Builder()
+            .player1(player1)
+            .player2(player2)
+            .dimension(dimension)
+            .winningRule(winningRule)
+            .userInterface(ui)
+            .build());
+      } catch (IllegalArgumentException ex) {
+        ui.error(ex.getMessage());
+        ui.waitForAnyAction();
+      }
     }
-    return Optional.ofNullable(null);
+    return Optional.empty();
   }
 
   private enum MainNavigation {
